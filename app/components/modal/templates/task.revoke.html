@@ -1,0 +1,102 @@
+<div class="modal-header"
+	style="background-color: #337ab7; color: white; padding: 5px;">
+	<h3 class="modal-title">Revoke Consent</h3>
+</div>
+<div class="modal-body">
+
+	<form name="taskForm"  class="form-horizontal" novalidate>
+
+		<div class="form-group"
+			ng-if="!item.consannexid.bpid.profileType || item.consannexid.bpid.profileType === 'HCP'">
+			<label for="hcp0name" class="col-sm-3 control-label">HCP/O
+				Name:</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="hcp0name"
+					value="{{item.consannexid.bpid.lastName}} {{item.consannexid.bpid.firstName}} "
+					ng-readonly="true">
+			</div>
+		</div>
+
+		<div class="form-group"
+			ng-if="!item.consannexid.bpid.profileType || item.consannexid.bpid.profileType === 'HCO'">
+			<label for="hcp0name" class="col-sm-3 control-label">HCP/O
+				Name:</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="hcp0name"
+					ng-model="item.consannexid.bpid.organisationName"
+					ng-readonly="true">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="eventName" class="col-sm-3 control-label">Event
+				Name:</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="eventName"
+					ng-model="item.consannexid.eventname" ng-readonly="true">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="consentStatus" class="col-sm-3 control-label">Consent
+				Status:</label>
+
+			<div class="col-sm-9">
+				<gcms-lov list="consentType"
+					value="item.consannexid.consentstatus.id" ng-disabled="true"></gcms-lov>
+			</div>
+			
+		</div>
+
+
+		 <div class="form-group" >
+    <label for="consannexid.consentstartdate" class="col-sm-3 control-label">Consent Start Date:</label>
+       <div class="col-sm-9">       
+    	<!-- <input type="date" class="form-control" ng-model="item.consannexid.consentstartdate" value="{{item.consannexid.consentstartdate}}" min="{{item.consannexid.consentstartdate}}" /> --> 
+    	<input type="text" style="width: 138px;" class="form-control" datepicker-popup="dd-MM-yyyy" ng-model="item.consannexid.consentstartdate" ng-readonly="true" />                             
+    </div>
+  </div>
+		<div class="form-group" >
+    <label for="consannexid.consentenddate" class="col-sm-3 control-label">Consent End Date:</label>
+    <div class="col-sm-9">
+       <!-- <input type="date"  class="form-control" ng-model="item.consannexid.consentenddate"  value={{item.consannexid.consentenddate}} min="{{item.consannexid.consentenddate}}" /> -->
+       <input type="text" style="width: 138px;" class="form-control" datepicker-popup="dd-MM-yyyy" ng-model="item.consannexid.consentenddate" ng-readonly="true" />                           
+             
+    </div> 
+  </div>
+		<div class="form-group">
+			<label for="revocationReason" class="col-sm-3 control-label" style="padding-left: 9px;">Reason
+				for Revocation:</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="revocationReason"
+					ng-model="item.consannexid.revocationReason">
+			</div>
+		</div>
+		
+		<div ng-controller ="FileManagerController" >
+		
+		  <label class="radio">{{"files_will_uploaded_to" | translate}} <b>/{{fileNavigator.currentPath.join('/')}}</b></label>
+          <input type="file" class="form-control" ng-file="uploadFileList" autofocus="autofocus" accept=".pdf"  style="padding-top: 3px;"/> 
+          
+           <div ng-show="!apiMiddleware.inprocess">
+          <button  ng-click="uploadFilesR()" class="btn btn-primary" ng-disabled="!uploadFileList.length || apiMiddleware.inprocess" style="margin-top: 8px;">{{'upload' | translate}}</button>
+          </div>
+          <div ng-show="apiMiddleware.inprocess">
+            <span class="label label-warning">{{"uploading" | translate}} ...</span>
+          </div>
+         <span style="color:green;">{{success}}</span>
+         <span style="color:red;">{{error}}</span>
+        
+        </div>
+		<!-- <gcms-modal template="recipient.upload.html"
+			controller="ModalDefaultCtrl" ok="upload" content="uploader"
+			alt="Upload images"> <span class="btn btn-default"
+			role="button">Upload Proof of Revocation</span> </gcms-modal> -->
+
+
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="ok()">Revoke</button>
+	<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

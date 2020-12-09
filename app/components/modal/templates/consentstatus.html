@@ -1,0 +1,161 @@
+<!-- Consent History view page -->
+<div class="modal-content" style="width: 869px; margin-left: -158px;" >
+
+	<div class="modal-header"
+		style="background-color: #337ab7; color: white; padding: 5px;">
+		<h3 class="modal-title" style="font-size: medium;">Consent
+			History :  {{item.hisFirstName}} {{item.hisLastName}}</h3>
+
+	</div>
+	<div class="modal-body" ng-controller="ProfileListCtrl">
+		<div ng-if="item.length!=0">
+		<table st-table="itemCopy" st-safe-src="item" st-reset=""
+				 class="table table-bordered table-striped table-highlight"
+			 >
+			<thead>
+				<tr style="color: white; background-color: #337ab7;">
+					<th st-sort="eventname" style="width: 14%;">Event
+						Name</th>
+					<th st-sort="consentstatus.consentName" style="width: 12%;">Consent
+						Status</th>
+					<th st-sort="consentstartdate" style="width: 8%;">
+						Start Date</th>
+					<th st-sort="consentenddate" style="width: 8%;">
+						End Date</th>
+					<th st-sort="updatedDate" style="width: 10%;">Consent Updated</th>
+						<th st-sort="consentenddate" style="width: 8%;">Event End Date</th>
+					<th style="width: 5%;">Document</th>
+				</tr>
+				<tr>
+                        
+                                    <th><input st-search="eventname" placeholder=""
+                                                class="form-control" type="search" /></th>
+                                          <th><input st-search="consentstatus.consentName" placeholder=""
+                                                class="form-control" type="search" /></th>
+                                          <th><input st-search="consentstartdate" placeholder=""
+                                                class="form-control" type="search" /></th>
+                                          <th><input st-search="consentenddate" placeholder=""
+                                                class="form-control" type="search" /></th>
+                                          <th><input st-search="updatedDate" placeholder=""
+                                                class="form-control" type="search" /></th>
+                                                <th><input st-search="consentenddate" placeholder=""
+                                                class="form-control" type="search" /></th>
+                                          <th></th>
+                        </tr>
+			
+			</thead>
+
+			<tbody data-ng-repeat="field  in itemCopy">
+			
+				<tr>
+					<td class="tasktd">{{field.eventname}}</td>
+					<td>{{field.consentstatus.consentName}}</td>
+					<td>{{field.consentstartdate | date:'dd-MM-yyyy'}}</td>
+					<td>{{field.consentenddate | date:'dd-MM-yyyy'}}</td>
+					<td>{{field.updatedDate | date:'dd-MM-yyyy' }}</td>
+					<td></td>
+					<td>
+						<div ng-if="field.annnexlocation==undefined">
+							<span style="color: red;"></span>
+						</div>
+						<div ng-if="field.annnexlocation!=undefined">
+							<div ng-show="true" ng-controller="FileManagerController">
+								<a href="" ng-click="downloadCH(field)" style="margin-left: 29%;"> View </a>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+                                    <tr>
+                                          <td ng-hide="itemCopy.length <'20'"  colspan="7" class="text-center">
+                                                <div st-items-by-page="20" st-pagination=""
+                                                      st-template="app/profile/list/pagination.custom.html"></div>
+                                          </td>
+                                    </tr>
+                              </tfoot>
+		</table>
+
+	</div>
+	 <div ng-if="item.length==0">
+		<span >There is no Completed task </span>
+	</div> 
+
+	</div>
+	
+	
+	<div class="modal-footer">
+		<button class="btn btn-warning" ng-click="cancel()">Close</button>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="panel panel-primary">
+		 <div class="panel-heading"></div> 
+		  <div class="panel-body">
+		  
+		  
+		  
+<table class="table table-hover ">
+
+	<thead style="color:white;background-color:#337ab7;">
+			 <tr>
+			 
+			 	<th>HCP/O Name</th>
+			 	<th>Consent Updated Date</th>
+                 <th>Consent Code</th>
+                 <th>Consent Status</th>
+                 <th>Consent Start Date</th>
+                 <th>Consent End Date</th>
+                 <th>Consent Event Name</th>
+                 <th>Initiated By</th>
+                 <th>Document</th>
+			</tr>  
+ 	</thead>
+		 <tbody data-ng-repeat="field in ConsentAttributes">
+		  
+					 <tr data-ng-if="field.bpid.id==id">  
+					 
+              									<td>{{field.bpid.firstName}} {{field.bpid.lastName}}</td>
+                                                <td>{{field.consentstatus.updatedDate}}</td>
+                                                <td>{{field.consentstatus.consentStatusCode}}</td>
+          										<td>{{field.consentstatus.consentName}}</td>
+          										<td>{{field.consentstartdate}}</td>
+          										<td>{{field.consentenddate}}</td>
+          										<td>{{field.eventname}}</td>
+         										<td>{{field.createdBy}}</td>
+                                                <td><a href="">View</a></td>
+                             
+
+                           </tr>
+    
+                 </tbody>
+
+              </table>
+              </div>
+              </div>
+                            -->

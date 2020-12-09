@@ -1,0 +1,201 @@
+<div class=".container-search-panel" style="width:100%;">
+<div class="panel panel-primary">
+<div class="panel-heading ">Profile Details</div>
+
+<div class="panel-body">
+
+<div class="row">
+<div class="col-sm-4"></div>
+<div class="col-sm-4">
+<label class="control-label"> Party Type</label> &nbsp; &nbsp;
+			<label class="control-label">
+			<input type="radio" id="hcp" name="profile" value="hcp" ng-model="profile_val.item"> 
+			Individual</label>  &nbsp; &nbsp;
+			<label class="control-label">
+			<input type="radio" id="hco" name="profile" value="hco" ng-model="profile_val.item"> 
+			Organization</label>
+</div>
+</div>
+
+<hr>
+
+<div ng-hide="profile_val.item=='hcp'" class="row">
+<div class="col-sm-3">
+<label class="control-label">Organization </label>
+</div>
+</div>
+
+<div ng-hide="profile_val.item=='hcp'" class="row">
+<div class="col-sm-3">
+<!-- <label class="control-label">Name</label> -->
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="Name">
+</div>
+
+<div class="col-sm-3">
+<!-- <label class="control-label">Name</label> --> <!-- ng-options="item.id as item.name for item in items | unique:'name'" -->
+<select class="form-control" >
+<option value ng-show="true" class="ng-binding">Select Organization Type</option>
+</select>
+</div>
+
+</div>
+
+
+<div ng-hide="profile_val.item=='hco'" class="row">
+<div class="col-sm-3">
+<label class="control-label">Person </label>
+</div>
+</div>
+
+<div ng-hide="profile_val.item=='hco'" class="row">
+<div class="col-sm-3">
+<!-- <label class="control-label">First Name</label> -->
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="First Name">
+</div>
+
+<div class="col-sm-3">
+<!-- <label class="control-label">Middle Name</label> -->
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="Middle Name">
+</div>
+
+
+<div class="col-sm-3">
+<!-- <label class="control-label">Last Name</label> -->
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="Last Name">
+</div>
+
+<div class="col-sm-3">
+<!-- <label class="control-label">Suffix</label> -->
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="Suffix">
+</div>
+
+</div>
+
+<div ng-hide="profile_val.item=='hco'" class="row">
+<div class="col-sm-3">
+<!-- <label class="control-label">Title</label> -->
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="Title">
+</div>
+
+<div class="col-sm-3">
+<!-- <label class="control-label">Credential</label> -->
+<select class="form-control" > <!-- ng-options="item.id as item.name for item in items | unique:'name'" -->
+<option value ng-show="true" class="ng-binding">Select Credential</option>
+</select>
+</div>
+
+
+<div class="col-sm-3">
+<!-- <label class="control-label">Specialty</label> -->
+<!-- ng-options="item.id as item.name for item in items | unique:'name'" -->
+<select class="form-control" >
+<option value ng-show="true" class="ng-binding">Select Specialty</option>
+</select>
+</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+<div class="col-sm-3">
+<label class="control-label" >Location </label>
+</div>
+</div>
+
+<!-- style="font-weight:700;font-size:15px;!importent;margin-top:5px;font-family:"sans-serif" -->
+
+<div class="row">
+<div class="col-sm-3">
+<!-- <label class="control-label">Address Line 1</label> -->
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="Address Line 1">
+</div>
+
+<div class="col-sm-3">
+<!-- <label class="control-label">Address Line 2</label> -->
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="Address Line 2">
+</div>
+
+
+<div class="col-sm-3">
+<!-- <label class="control-label">Address Line 3</label> -->
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="Address Line 3">
+</div>
+
+<div class="col-sm-3">
+<!-- <label class="control-label">City</label> -->
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="City">
+</div>
+
+<div class="col-sm-3">
+<!-- <label class="control-label">County/Province/Region/State</label> -->
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="County/State">
+<!-- <select style="margin-" class="form-control" ng-options="item.id as item.name for item in items | unique:'name'">
+<option value ng-show="true" class="ng-binding">Select State</option> -->
+</select>
+</div>
+
+<div class="col-sm-3">
+<!-- <label class="control-label">Zip/Postal Code</label> -->
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="Province/Region">
+</div>
+
+<div class="col-sm-3">
+<!-- <label class="control-label">Zip/Postal Code</label> -->
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="Zip/Postal Code">
+</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+<div class="col-sm-3">
+<label class="control-label">Market Specific Field [France] </label>
+</div>
+</div>
+
+<div class="row">
+
+
+
+<div class="col-sm-3">
+<label class="control-label">BENEF_CATEGORIE</label>
+<div><span>ETA</span></div>
+<!-- <input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="BENEF_CATEGORIE"> -->
+</div>
+
+<div class="col-sm-3">
+<label >BENEF_QUALITE</label>
+<div><span>10</span></div>
+<!-- <input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="BENEF_QUALITE"> -->
+</div>
+
+<div class="col-sm-3">
+<label>BENEF_SPECIALITE</label>
+<div><span>SM16</span></div>
+<!-- <input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="BENEF_SPECIALITE"> -->
+</div>
+
+<div class="col-sm-3">
+<label class="control-label">BENEF_TITRE</label>
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="BENEF_TITRE">
+</div>
+
+<div ng-hide="profile_val.item=='hcp'" class="col-sm-3">
+<label class="control-label">BENEF_OBJECTSOCIAL</label>
+<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="BENEF_OBJECTSOCIAL">
+</div>
+</div>
+
+<br>
+<div class="row pull-right">
+			<button type="submit" class="btn btn-primary btn-sm td-search-panel-text" ng-click="submit(request)" ng-disabled="requestSearchForm.$invalid">Save</button>
+	&nbsp;&nbsp;<button type="submit" class="btn  btn-sm td-search-panel-text" ng-click="submit(request)" ng-disabled="requestSearchForm.$invalid">Cancel</button>
+	&nbsp;&nbsp;<button type="submit" class="btn  btn-sm td-search-panel-text" ng-click="submit(request)" ng-disabled="requestSearchForm.$invalid">Submit</button>
+			&nbsp; &nbsp;</div>
+			
+</div>
+
+</div>
+</div>

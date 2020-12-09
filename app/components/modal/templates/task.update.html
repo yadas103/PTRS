@@ -1,0 +1,244 @@
+<div class="modal-header" style="background-color: #337ab7;
+    color: white; padding: 5px;">
+  <h3 class="modal-title" style="font-size: medium;">Edit Task : {{item.consannexid.bpid.firstName}} {{item.consannexid.bpid.lastName}} {{item.consannexid.bpid.organisationName}}
+                         
+  </h3>
+  
+</div>
+<div class="modal-body">
+  <form name="taskForm"  novalidate  class="form-horizontal">
+    
+    
+    <div class="form-group">
+    
+       <label for="consannexid.eventname" class="col-sm-4 control-label">Event Name :</label>
+    <div class="col-sm-8">
+      <input  type="text" class="form-control form-popup"  id="eventname" name="eventname" ng-model="item.consannexid.eventname" placeholder="" ng-readonly="loggedInUserRoleId !='5' && loggedInUserRole.userName !=item.assignedto.userName">
+    </div>
+  </div>
+  <div class="form-group" >
+    <label for="consannexid.pocode" class="col-sm-4 control-label">PO Code :</label>
+    <div class="col-sm-8">
+      <input ng-maxlength="30" type="text" class="form-control form-popup" id="pocode" name="pocode" ng-model="item.consannexid.pocode" placeholder="" ng-readonly="loggedInUserRoleId !='5' && loggedInUserRole.userName !=item.assignedto.userName">
+    </div>
+  </div>
+      <div class="form-group" >
+    <label for="consannexid.acmcode" class="col-sm-4 control-label">ACM Code :</label>
+    <div class="col-sm-8">
+      <input ng-maxlength="30" type="text" class="form-control form-popup" id="acmcode" name="acmcode" ng-model="item.consannexid.acmcode" placeholder="" ng-readonly="loggedInUserRoleId !='5' && loggedInUserRole.userName !=item.assignedto.userName" >
+    </div>    
+  </div>
+  <div class="form-group" >
+    <label for="middleName" class="col-sm-4 control-label">Consent Status :</label>
+    <div class="col-sm-8 form-popup1">
+       <gcms-lov list="consentType" value="item.consannexid.consentstatus.id"    ng-disabled="loggedInUserRoleId !='5' && loggedInUserRole.userName !=item.assignedto.userName"></gcms-lov> 
+    </div>
+  </div>
+  <!--<div class="form-group" ng-hide="item.consannexid.consentstatus.id =='63'"> -->
+  <div class="form-group" ng-hide="item.consannexid.consentstatus.id =='7004'">
+    <label for="middleName" class="col-sm-4 control-label" style="padding-left: 4px;">Consent Status Reason :</label>
+    <div class="col-sm-8">
+       <textarea style="resize: none" ng-model="item.consannexid.consentstatuschangeReason" rows="2" cols="66" class="form-popup form-control" ng-disabled="loggedInUserRoleId !='5' && loggedInUserRole.userName !=item.assignedto.userName" ></textarea> 
+    </div>  
+  </div>
+  <div ng-if=" !(loggedInUserRoleId !='5' && loggedInUserRole.userName !=item.assignedto.userName)" >
+  <div ng-if="item.consannexid.tmpl_id.dates_rages=='Y'">
+  <div class="form-group" >
+    <label for="consannexid.consentstartdate" class="col-sm-4 control-label">Consent Start Date :</label>
+       <div class="col-sm-8">
+        <input    		 
+    		 class="form-control form-popup"
+    		 style="width: 138px;"
+             placeholder="Select a date..."
+             moment-picker="item.consannexid.consentstart"
+             locale="en"
+             format="DD-MM-YYYY"
+             ng-model="item.consannexid.startdate"
+             start-view="day"
+             ng-model-options="{updateOn: 'blur' }"              
+             ng-class={“require”: “vm.required”};>   
+  </div>
+  </div>
+  <div class="form-group" > 
+    <label  for="consannexid.consentenddate" class="col-sm-4 control-label">Consent End Date :</label>
+    <div class="col-sm-8">
+          <input    		 
+    		 class="form-control form-popup"
+    		 style="width: 138px;"
+             placeholder="Select a date..."
+             moment-picker="item.consannexid.consentend"
+             locale="en"
+             format="DD-MM-YYYY"
+             ng-model="item.consannexid.enddate"
+             start-view="day"
+             ng-model-options="{updateOn: 'blur' }"
+             
+              > 
+         </div> 
+  </div>
+ </div>
+ </div>
+  <div ng-if="loggedInUserRoleId !='5' && loggedInUserRole.userName !=item.assignedto.userName" >
+  <div ng-if="item.consannexid.tmpl_id.dates_rages=='Y'">
+  <div class="form-group" >
+    <label for="consannexid.consentstartdate" class="col-sm-4 control-label">Consent Start Date :</label>
+       <div class="col-sm-8">
+        <input    		 
+    		 class="form-control form-popup"
+    		 style="width: 138px;pointer-events: none;"
+             placeholder="Select a date..."
+             moment-picker="item.consannexid.consentstart"
+             locale="en"
+             format="DD-MM-YYYY"
+             ng-model="item.consannexid.startdate"
+             start-view="day"
+             ng-model-options="{updateOn: 'blur' }" 
+             ng-readonly="loggedInUserRoleId !='5' && loggedInUserRole.userName !=item.assignedto.userName"
+             ng-class={“require”: “vm.required”};>   
+  </div>
+  </div>
+  <div class="form-group" > 
+    <label  for="consannexid.consentenddate" class="col-sm-4 control-label">Consent End Date :</label>
+    <div class="col-sm-8">
+          <input    		 
+    		 class="form-control form-popup"
+    		 style="width: 138px;pointer-events: none;"
+             placeholder="Select a date..."
+             moment-picker="item.consannexid.consentend"
+             locale="en"
+             format="DD-MM-YYYY"
+             ng-model="item.consannexid.enddate"
+             start-view="day"
+             ng-model-options="{updateOn: 'blur' }"
+             ng-readonly="loggedInUserRoleId !='5' && loggedInUserRole.userName !=item.assignedto.userName"
+              > 
+         </div> 
+  </div>
+ </div>
+ </div>
+ 
+ 
+    
+    <!-- <div ng-hide="loggedInUserRoleId !='5' && loggedInUserRole.userName !=item.assignedto.userName">
+    <div class="form-group">
+    <label for="consannexid.eventname" class="col-sm-4 control-label">Event Name:</label>
+    <div class="col-sm-8">
+      <input  type="text" class="form-control form-popup"  id="eventname" name="eventname" ng-model="item.consannexid.eventname" placeholder="">
+    </div>
+  </div>
+  <div class="form-group" >
+    <label for="consannexid.pocode" class="col-sm-4 control-label">PO Code:</label>
+    <div class="col-sm-8">
+      <input ng-maxlength="60" type="text" class="form-control form-popup" id="pocode" name="pocode" ng-model="item.consannexid.pocode" placeholder="">
+    </div>
+  </div>
+      <div class="form-group" >
+    <label for="consannexid.acmcode" class="col-sm-4 control-label">ACM Code:</label>
+    <div class="col-sm-8">
+      <input ng-maxlength="60" type="text" class="form-control form-popup" id="acmcode" name="acmcode" ng-model="item.consannexid.acmcode" placeholder="" >
+    </div>    
+  </div>
+  <div class="form-group" >
+    <label for="middleName" class="col-sm-4 control-label">Consent Status:</label>
+    <div class="col-sm-8 form-popup1">
+       <gcms-lov list="consentType" value="item.consannexid.consentstatus.id"></gcms-lov> 
+    </div>
+  </div>
+  <div class="form-group" ng-hide="item.consannexid.consentstatus.id =='63'">
+    <label for="middleName" class="col-sm-4 control-label">Consent Status Reason :</label>
+    <div class="col-sm-8">
+       <textarea style="resize: none" ng-model="item.consannexid.consentstatuschangeReason" rows="2" cols="66" class="form-popup"></textarea> 
+    </div>  
+  </div>
+  
+  <div ng-if="item.consannexid.tmpl_id.dates_rages=='Y'">
+  <div class="form-group" >
+    <label for="consannexid.consentstartdate" class="col-sm-4 control-label">Consent Start Date:</label>
+       <div class="col-sm-8">
+         <input    		 
+    		 class="form-control form-popup"
+    		 style="width: 138px;"
+             placeholder="Select a date..."
+             moment-picker="item.consannexid.consentstart"
+             locale="en"
+             format="DD-MM-YYYY"
+             ng-model="item.consannexid.startdate"
+             start-view="day"
+             ng-model-options="{updateOn: 'blur' }" >
+           </div>
+  </div>
+  <div class="form-group" > 
+    <label  for="consannexid.consentenddate" class="col-sm-4 control-label">Consent End Date:</label>
+    <div class="col-sm-8">
+         <input    		 
+    		 class="form-control form-popup"
+    		 style="width: 138px;"
+             placeholder="Select a date..."
+             moment-picker="item.consannexid.consentend"
+             locale="en"
+             format="DD-MM-YYYY"
+             ng-model="item.consannexid.enddate"
+             start-view="day"
+             ng-model-options="{updateOn: 'blur' }" > 
+         </div> 
+  </div>
+ </div>
+</div> -->
+
+<a href="" ng-if="!item.click" ng-click="item.click=true" style="float:right;">Show Additional Details</a>											
+<div ng-show="item.click">
+		<div class="form-group">
+			<label for="profileid" class="col-sm-4 control-label">HCP/O ID :</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control form-popup" id="bpid" name="bpid"
+					ng-model="item.consannexid.bpid.id" placeholder=""
+					ng-readonly="true">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="taskid" class="col-sm-4 control-label">Task ID :</label>
+			<div class="col-sm-8">
+				<input ng-maxlength="60" type="text" class="form-control form-popup" id="taskid" name="taskid" ng-model="item.id" placeholder="" ng-readonly="true">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="taskid" class="col-sm-4 control-label">Task Created Date :</label>
+			<div class="col-sm-8">
+				<input ng-maxlength="60" type="text" class="form-control form-popup" id="taskid" name="taskid" ng-model="item.createdDate | date:'dd-MM-yyyy'" placeholder="" ng-readonly="true">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="tmpltcode" class="col-sm-4 control-label">Template Code :</label>
+			<div class="col-sm-8">
+				<input ng-maxlength="60" type="text" class="form-control form-popup" id="tmpltcode" name="tmpltcode" ng-model="item.consannexid.tmpl_id.tmpl_code" placeholder="" ng-readonly="true">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="tmplttype" class="col-sm-4 control-label">Template Type :</label>
+			<div class="col-sm-8">
+				<input ng-maxlength="60" type="text" class="form-control form-popup" id="tmplttype" name="tmplttype" ng-model="item.consannexid.tmpl_id.tmpl_type" placeholder="" ng-readonly="true">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="tmpl_name" class="col-sm-4 control-label">Template Name :</label>
+			<div class="col-sm-8">
+				<input ng-maxlength="60" type="text" class="form-control form-popup" id="tmpl_name" name="tmpl_name" ng-model="item.consannexid.tmpl_id.tmpl_name" placeholder="" ng-readonly="true">
+			</div>
+		</div>
+		
+</div>
+<a href="" ng-if="item.click" ng-click="item.click=false" style="float:right;">Hide Additional Details</a>
+	</form>
+</div>
+
+<div class="modal-footer">
+<div ng-hide="loggedInUserRoleId !='5' && loggedInUserRole.userName !=item.assignedto.userName">
+  <button class="btn btn-primary" ng-click="ok()" ng-disabled="taskForm.$invalid">Update</button>
+  <button class="btn btn-warning" ng-click="cancel()" >Cancel</button>
+  </div>
+  <div ng-show="loggedInUserRoleId !='5' && loggedInUserRole.userName !=item.assignedto.userName">
+  <button class="btn btn-primary" ng-click="ok()" ng-disabled="true">Update</button>
+  <button class="btn btn-warning" ng-click="cancel()" >Cancel</button>
+  </div>
+  
+</div>
