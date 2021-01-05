@@ -43,7 +43,7 @@
           }
         }],
 
-        url: '../gcms-service/' + $scope.locale + '/bulk-upload'
+        url: '../ptrs-reltio-service/' + $scope.locale + '/bulk-upload'
        
       });   
       $scope.closeAlert = function(index) {

@@ -129,7 +129,7 @@ gulp.task('war', ['install','build','usemin'],function () {
             welcome: 'index.html',
             displayName: 'gcms'            
         }))
-       .pipe(zip('gcms-portal.war'))
+       .pipe(zip('ptrs-reltio-tool.war'))
         .pipe(gulp.dest('./dist/'));
 
 });

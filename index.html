@@ -12,7 +12,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>GCMS</title>
+  <title>PTRS-Reltio MDM</title>
 
   <link rel="shortcut icon" href="assets/img/favicon.ico" />
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon-precomposed.png">
@@ -67,7 +67,7 @@
     <!-- BEGIN: Actual animated container. -->
     <div class="animated-container">
       <div class="messaging panel-heading">
-        <h3>GCMS is loading ...</h3>
+        <h3>PTRS Reltio Tool is loading ...</h3>
         <!-- <div class="panel-body"> -->
           <div class="spinner-icon">
             <span class="sr-only">Loading</span>
@@ -110,10 +110,9 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav"> 
                 <li  ng-class="{active:$state.includes('landing')}" gcms-secure section-name="Home" action-name="browse" ><a ui-sref="landing"><h6 class="nav-details"><b>Home</b></h6></a></li>
-                <li ng-class="{active:$state.includes('profilereview')}" gcms-secure section-name="Manage Consent" action-name="browse"><a ui-sref="profilereview"><h6 class="nav-details"><b>Profile Request</b></h6></a></li>
-                <li ng-class="{active:$state.includes('task')}" ng-show = "profileReviewTabShow" gcms-secure section-name="Profile Review" action-name="browse"><a ui-sref="task"><h6 class="nav-details"><b>Bulk Upload</b></h6></a></li>                
+                <li ng-class="{active:$state.includes('profilereview')}" gcms-secure section-name="Profile Review" action-name="browse"><a ui-sref="profilereview"><h6 class="nav-details"><b>Profile Request</b></h6></a></li>
+                <li ng-class="{active:$state.includes('task')}" gcms-secure section-name="Manage Consent"  action-name="browse"><a ui-sref="task"><h6 class="nav-details"><b>Bulk Upload</b></h6></a></li>                
                  <li ng-class="{active:$state.includes('admin')}" gcms-secure section-name="Administration" action-name="browse"><a ui-sref="admin"><h6 class="nav-details"><b>Report</b></h6></a></li>
-                  <!-- <li gcms-secure section-name="Help and Support" action-name="browse"><a href="http://btondemand.pfizer.com/" target="_blank"><h6 class="nav-details"><b>Help and Support</b></h6></a></li> -->
               </ul>
 
               <!-- This is the start of the Navigation Right -->
@@ -242,12 +241,20 @@
   <script src="app/components/data/components.data.service.profile.search.js"></script>
   <script src="app/components/data/components.data.service.identity.request.js"></script>
   <script src="app/components/data/components.data.service.identityRequest.js"></script>
+  <script src="app/components/data/components.data.service.specialty.js"></script>
+  <script src="app/components/data/components.data.service.credential.js"></script>
+  <script src="app/components/data/components.data.service.customField.js"></script>
+  <script src="app/components/data/components.data.service.customDetails.js"></script>
+  <script src="app/components/data/components.data.service.benefsubtype.js"></script>
+  <script src="app/components/data/components.data.service.benefspec.js"></script>
+  <script src="app/components/data/components.data.service.organizationType.js"></script>
+  <script src="app/components/data/components.data.service.uniqueType.js"></script>
+  <script src="app/components/data/components.data.service.state.js"></script>
   <script src="app/components/data/components.data.service.annexprofiles.js"></script> 
 
   <script src="app/components/data/components.data.service.business.profile.js"></script>
   <script src="app/components/data/components.data.service.email.generation.js"></script>
   <script src="app/components/data/components.data.service.consent.annex.pdf.js"></script>
-  <script src="app/components/data/components.data.service.consent-annex-view-history.js"></script><!-- Changes for View Link of Pending Task -->
   <script src="app/components/data/components.data.service.consent-annex-history.js"></script>
 
 
@@ -326,10 +333,10 @@
   <script src="app/task/bulk.upload.controller.js"></script>
   <!-- admin  khans129 -->
 
-  <script src="app/components/data/components.data.service.review.js"></script>
+  <!-- <script src="app/components/data/components.data.service.review.js"></script> -->
   <script src="app/administration/administration.module.js"></script>
   <script src="app/administration/administration.controller.js"></script>
-  <script src="app/administration/administration.reviewer.controller.js"></script>
+  <!-- <script src="app/administration/administration.reviewer.controller.js"></script> -->
   <script src="app/administration/administration.details.controller.js"></script>
   <script src="app/administration/administration.box.directive.js"></script>
   

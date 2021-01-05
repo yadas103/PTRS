@@ -37,13 +37,23 @@
         		country:'@country',
           	  	profileType:'@profileType',
           	  	lastName:'@lastName',
+          	  	middleName:'@middleName',
           	  	city:'@city',
+          	  	credential:'@credential',
+          	  	organizationName:'@organizationName',
+          	  	organizationType:'@organizationType',
+          	  	state:'@state',
           	  	firstName:'@firstName',
-          	  	address:'@address',
-          	  	speciality:'@speciality'
-        		}, isArray:true },
-            query:  { method:'GET', isArray:true },
-            update: { method:'PUT' }
+          	  	uniqueType:'@uniqueType',
+          	  	poCode:'@poCode',
+          	  	identificationNumber:'@identificationNumber',
+          	  	speciality:'@speciality',
+          	  	max:'@max',
+          	  	offset:'@offset',
+          	  	territory : '@territory'
+        		}},
+            query:  { method:'GET'},
+            
           }
     );
 

@@ -48,7 +48,7 @@
     .module('gcms.components.session')
     .directive('gcmsSession', Session);
 
-    Session.$inject = ['$log', '$rootScope','$state','$interval','Review'];
+    Session.$inject = ['$log', '$rootScope','$state','$interval'];
 
     /**
      * @ngdoc method
@@ -57,7 +57,7 @@
      * @description Constructor for the session directive
      * @returns {object} Session directive
      */
-    function Session($log, $rootScope, $state, $interval,Review) {
+    function Session($log, $rootScope, $state, $interval) {
       return {
         restrict: 'E',
         scope: {
@@ -114,7 +114,7 @@
             $rootScope.loggedInUserRole=$scope.currentProfile;
             $rootScope.loggedInUserRoleId=$scope.currentProfile.roleId;
             
-            $scope.getReviewersData(currentProfile);
+            //$scope.getReviewersData(currentProfile);
             user.setProfile(currentProfile);
           });
 
@@ -131,42 +131,9 @@
                 $rootScope.profileReviewTabShow = false;
                 $scope.currentProfile = profile;
                 $rootScope.loggedInUserRoleId=$scope.currentProfile.roleId;
-                if($scope.currentProfile.roleId == 5){
-		    			$rootScope.profileReviewTabShow = true;	
-		    		}
-                for(var i in $rootScope.reviewers){								
-      		    	if($rootScope.reviewers[i].cntryReviewer != null){							
-      		    		if (angular.lowercase($scope.ReviewAttributes[i].cntryReviewer).includes(angular.lowercase($scope.currentProfile.userName))){						
-        	   					$rootScope.profileReviewTabShow = true;	
-      	   					}
-      		    		if($scope.currentProfile.roleId == 5){
-      		    			$rootScope.profileReviewTabShow = true;	
-      		    		}
-      	   				}							
-   			}	
                 user.setProfile(profile);
               });
             };
-
-            $scope.getReviewersData = function(currentProfile){		  								
-        		   Review.query().$promise.then(function(review){		    	 					
-        		       $scope.ReviewAttributes = review;
-        		       
-        		       $rootScope.reviewers = review;
-        		       if(currentProfile.roleId == 5){
-     		    			$rootScope.profileReviewTabShow = true;	
-     		    		}
-        		    for(var i in $scope.ReviewAttributes){								
-        		    	if($scope.ReviewAttributes[i].cntryReviewer != null){							
-        	   				if ( angular.lowercase($scope.ReviewAttributes[i].cntryReviewer).includes(angular.lowercase(currentProfile.userName))){						
-        	   					$rootScope.profileReviewTabShow = true;	
-        	   					}	
-        	   			
-        	   				}							
-     			}							    		       								
-        		       });	    		   
-        		  };								
-
           
           $interval(user.getCurrentProfile(),1000*60*10); //call get profile every 10 minutes to keep the session alive
 

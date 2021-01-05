@@ -2,88 +2,68 @@
 	<div class="panel-heading">Profile Submission Report</div>
 
 	<div class="panel-body">
-		<table st-table="displayedCollection" st-safe-src="ReviewAttributes"
+		<table st-table="displayedCollection" st-safe-src="identityRequestView"
 			class="table table-bordered table-hover table-condensed">
-			<thead style="background-color: #337ab7; color: white">
-				<tr style="height:6%;">
-					
-					<th style="width:7%;" st-sort="partyType">Party Type</th>
-					<th style="width: 8%;" st-sort="identifier" >Identifier</th>
-					<th style="width: 10%;" st-sort="organization">Organization</th>
-					<th style="width: 15%;" st-sort="firstName" >First Name</th>
-					<th style="width: 15%;" st-sort="lastName">Last Name</th>
-					<th style="width: 10%;" st-sort="city" >City</th>
-					<th style="width: 10%;" st-sort="specialty" >Specialty</th>
-					<th style="width: 10%;" st-sort="submittedBy" >Submitted By</th>
-					<th style="width: 10%;" st-sort="submittedOn" >Submitted On</th>
-					<th style="width: 15%;" st-sort="status" >Status</th>
+			<thead>
+				<tr style="color: white; background-color: #337ab7;">
+					<th class="pro-rev"> </th>					
+					<th class="pro-rev" style="width:7%;" st-sort="partyType">Party Type</th>
+					<th class="pro-rev" style="width: 8%;" st-sort="identifier" >Identifier</th>
+					<th class="pro-rev" style="width: 10%;" st-sort="organization">Organization</th>
+					<th class="pro-rev" style="width: 15%;" st-sort="firstName" >First Name</th>
+					<th class="pro-rev" style="width: 15%;" st-sort="lastName">Last Name</th>
+					<th class="pro-rev" style="width: 10%;" st-sort="city" >City</th>
+					<th class="pro-rev" style="width: 10%;" st-sort="specialty" >Specialty</th>
+					<th class="pro-rev" style="width: 10%;" st-sort="submittedBy" >Submitted By</th>
+					<th class="pro-rev" style="width: 10%;" st-sort="submittedOn" >Submitted On</th>
+					<th class="pro-rev" style="width: 15%;" st-sort="status" >Status</th>
+					<th class="pro-rev" style="width: 15%;" st-sort="message" >Message</th>
+				</tr>
+			 	<tr>
+				<!-- <td> </td> -->
+				<th style="width: 4%;"></th>
+				<th><input st-search="partyType" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="identifier" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="organization" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="firstName" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="lastName" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="city" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="specialty" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="submittedBy" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="submittedOn" placeholder=" " class="form-control" type="search" /></th>				
+				<!-- <th><input st-search="status" placeholder=" " class="form-control" type="search" /></th>	 -->
+				 <th><select st-input-event="change keydown" st-search="status"  ng-model="request.downchk" ng-change="onCategoryChange(request)" type="search">
+						            <option value="Successful">Successful</option>
+									 <option value="Failed">Failed</option> 
+					</select></th>			
+				<th><input st-search="message" placeholder=" " class="form-control" type="search" /></th>
 				</tr>
 			</thead>
 			<tbody>
-			 <tr>
-				<!-- <td> </td> -->
-				<td><input st-search="partyType" placeholder=" " class="form-control" type="search" /></td>
-				<td><input st-search="identifier" placeholder=" " class="form-control" type="search" /></td>
-				<td><input st-search="organization" placeholder=" " class="form-control" type="search" /></td>
-				<td><input st-search="firstName" placeholder=" " class="form-control" type="search" /></td>
-				<td><input st-search="lastName" placeholder=" " class="form-control" type="search" /></td>
-				<td><input st-search="city" placeholder=" " class="form-control" type="search" /></td>
-				<td><input st-search="specialty" placeholder=" " class="form-control" type="search" /></td>
-				<td><input st-search="submittedBy" placeholder=" " class="form-control" type="search" /></td>
-				<td><input st-search="submittedOn" placeholder=" " class="form-control" type="search" /></td>
-				<td><input st-search="status" placeholder=" " class="form-control" type="search" /></td>
-				</tr>   <!-- | filter:ReviewerFilter -->
-				
-				<tr>
-				<td>ORGANIZATION</td>
-				<td>900135396532</td>
-				<td>Paris Cancer Society</td>
-				<td></td>
-				<td></td>
-				<td>Paris</td>
-				<td></td>
-				<td>Archana Phadtare</td>
-				<td>04/12/2020</td>
-				<td><a ng-disabled='true'>Successful</a></td>
-				</tr>
-				
-				<tr>
-				<td>PERSON</td>
-				<td>900135396543</td>
-				<td></td>
-				<td>Austin
-				</td>
-				<td>John
-				</td>
-				<td>Paris</td>
-				<td>Endocrinologie et métabolisme</td>
-				<td>Archana Phadtare</td>
-				<td>04/12/2020</td>
-				<td><a>Failed</a></td>
-				</tr>
-				
-				<tr>
-				<td>PERSON</td>
-				<td></td>
-				<td></td>
-				<td>Issac</td>
-				<td>Scott</td>
-				<td>Guadeloupe</td>
-				<td>Gastro-entérologie et hépatologie</td>
-				<td>Archana Phadtare</td>
-				<td>04/12/2020</td>
-				<td><a>Open</a></td>
-				</tr>
-
-
-							</tbody>
-						</table>
-					</td>
-			</tr>
+					<tr
+						data-ng-repeat="identity in identityRequestView">
+						<td><gcms-modal template="identity.view.html"
+										controller="ModalDefaultCtrl" content="identity" ok="update"
+										alt="Edit Task {{identity.id}}"> <span
+										style="color: #337ab7;margin-left: 3px;" title="Identity View"> View</span> </gcms-modal></td>
+						<td class="tasktd" >{{ identity.profileTypeId }}</td>
+						<td class="tasktd" >{{ identity.uniqueIdentifier}}</td>
+						<td  class="tasktd">{{ identity.organizationName}}</td>
+						<td class="tasktd" >{{ identity.firstName }}</td>
+						<td class="tasktd" >{{ identity.lastName }}</td> 
+						<td class="tasktd">{{ identity.city}}</td>
+						<td class="tasktd">{{ identity.speciality}}</td>
+						<td class="tasktd">{{ identity.createdBy }}</td>
+						<td class="tasktd">{{ identity.createdDate }}</td>
+						<td class="tasktd">{{ identity.reltioMsg }}</td>
+						<td class="tasktd">{{ identity.reltioCode }}</td>
+					</tr>
+			</tbody>
+		</table>
 			<br>
 						<div class="row pull-right">
 			<!-- <button type="submit" class="btn btn-sm td-search-panel-text" ng-click="submit(request)" ng-disabled="requestSearchForm.$invalid">Clear</button> -->
-			<button type="submit" class="btn btn-primary btn-sm td-search-panel-text" ng-click="submit(request)" ng-disabled="requestSearchForm.$invalid">Download</button>
+			<button type="submit" class="btn btn-primary btn-sm td-search-panel-text" ng-click="loadDataDLUAll()">Download</button>
 			&nbsp;
 			</div>
 			

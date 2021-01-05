@@ -371,7 +371,7 @@
      * @returns {object} A promise resolving to a specialties array
      */
     var getSpecialties = function() {
-      return getLocalizedLov('specialty');
+      return getLocalizedLov('specialty');    
     };
 
     /**

@@ -1,135 +1,147 @@
-<div class=".container-search-panel" style="width:100%;">
-        <div class="panel panel-primary">
-            <div class="panel-heading td-search-panel-text">Search Criteria</div>
-            <div class="panel-body">
-			<form name="requestSearchForm">
-			
-			
-			
-			<div class="row">
-			<div class="col-sm-4"></div>
-			<div class="col-sm-4"> 
-			<label class="control-label"> Search For  </label> &nbsp;
-			<label class="control-label">
-			<input type="radio" id="hcp" name="profile" value="hcp" ng-model="profile_val.name"> 
-			Individual </label>  &nbsp; &nbsp;
-			<label class="control-label">
-				<input type="radio" id="hco" name="profile" value="hco" ng-model="profile_val.name"> 
-			Organization </label>
-			</div> 
-			<div class="col-sm-2"></div>
-			</div>
-			<br>
-<!-- 		 -->
-		
-			<div class="row">
-			<div class="col-lg-1"></div>
-			<div class="col-lg-11">
-			<div class="col-lg-3">
-			<div ng-hide="profile_val.name=='hco' "  class="form-group row">
-				<label class="control-label">Person Name</label>
-				<div class="input-group">
-				<!-- <span >First</span> -->
-					<input type="text" class="form-control" placeholder="First Name">
+<!-- Home page -->
+<div class=".container-search-panel" style="width: 100%;">
+	<div class="panel panel-primary">
+		<div class="panel-heading td-search-panel-text">Search Criteria</div>
+		<div class="panel-body">
+			<form name="itemSearchForm" novalidate>
+				<div class="row">
+					<div class="col-sm-4"></div>
+					<div class="col-sm-4">
+						<label class="control-label"> Search For
+							&nbsp; &nbsp;<input type="radio" id="PERSON" name="PERSON" value="PERSON" ng-model="profile_val.item" ng-change="getCred()"/> Individual
+							&nbsp; &nbsp;<input type="radio" id="HCO" name="HCO" value="HCO" ng-model="profile_val.item" ng-change="getCred()"/> Organization
+						</label>
+					</div>
+					<div class="col-sm-2"></div>
 				</div>
-				<div class="input-group">
-				<!-- <span class="input-group-addon">Middle</span> -->
-					<input type="text" class="form-control" placeholder="Middle Name">
+				<br>
+
+				<div class="row">
+					<div class="col-lg-1"></div>
+					<div class="col-lg-11">
+						<div class="col-lg-3">
+							<div ng-hide="profile_val.item=='HCO' " class="form-group row">
+								<label class="control-label">Person Name</label>
+								<div class="input-group">
+									<!-- <span >First</span> -->
+									<input type="text" class="form-control"
+										placeholder="First Name" ng-model="itemDetails.firstName">
+								</div>
+								<div class="input-group">
+									<!-- <span class="input-group-addon">Middle</span> -->
+									<input type="text" class="form-control"
+										placeholder="Middle Name" ng-model="itemDetails.middleName">
+								</div>
+								<div class="input-group">
+									<!-- <span class="input-group-addon">Last</span> -->
+									<input type="text" class="form-control" placeholder="Last Name" ng-model="itemDetails.lastName">
+								</div>
+							</div>
+
+							<div ng-hide="profile_val.item=='PERSON'" class="form-group row">
+								<label class="control-label">Organization</label>
+								<div class="input-group">
+									<input type="text" class="form-control"
+										placeholder="Organization Name" ng-model="itemDetails.organizationName">
+								</div>
+
+								<div class="input-group">
+									<select class="form-control input-sm td-search-panel-text"
+										ng-model="itemDetails.organizationType">
+										<option value="">Select Organization Type</option>
+										<option ng-repeat="rep in orgType">{{rep.subDesc}}</option>
+									</select>
+								</div>
+
+							</div>
+
+
+							<div ng-hide="profile_val.item=='HCO'" class="form-group row">
+								<label class="control-label">Specialty and Credential</label>
+								<div class="input-group">
+									<select class="form-control input-sm td-search-panel-text" ng-model="itemDetails.speciality">
+										<option value="">Select Specialty</option>
+										<option ng-repeat="rep in specialty" value="{{rep.spclCode}}">{{rep.spclDesc}}</option>
+									</select>
+								</div>
+								<div class="input-group">
+									<select class="form-control input-sm td-search-panel-text" ng-model="itemDetails.credential">
+										<option value="">Select Credential</option>
+										<option ng-repeat="rep in credential" value="{{rep.credentialCode}}">{{rep.credentialDesc}}</option>
+									</select>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="col-lg-1"></div>
+
+						<div class="col-lg-3">
+							<div class="form-group row">
+								<label class="control-label">Location</label>
+								<div class="input-group">
+									<input type="text" class="form-control search-criteria"
+										placeholder="City" ng-model="itemDetails.city">
+								</div>
+								<div class="input-group">
+									<select class="form-control input-sm td-search-panel-text" placeholder="State" ng-model="itemDetails.state">
+										<option value="">Select State</option>
+										<option ng-repeat="rep in state" value="{{rep.stateCode}}">{{rep.stateDesc}}</option>
+									</select>
+								</div>
+								<!-- <div class="input-group">
+									<input type="text" class="form-control search-criteria"
+										placeholder="Province/Region">
+								</div> -->
+								<div class="input-group">
+									<input type="text" class="form-control search-criteria"
+										placeholder="Postal Code" ng-model="itemDetails.poCode">
+								</div>
+								<div class="input-group">
+									<input type="text" class="form-control search-criteria"
+										placeholder="Territory" ng-model="itemDetails.territory">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-1"></div>
+
+						<div class="col-lg-3">
+							<div class="form-group row">
+								<label class="control-label">Unique ID</label>
+								<div class="input-group">
+									<select class="form-control input-sm td-search-panel-text"
+										ng-model="itemDetails.uniqueType">
+										<option value="">Select Unique ID Type</option>
+										<option ng-repeat="rep in uniqueType">{{rep.unqDesc}}</option>
+									</select>
+									<!-- <trs-lov class="search-criteria" placeholdervalue="Select Unique ID Type"> -->
+									<!-- <select class="form-control ><option value = "">Select Unique ID Type</option></select> -->
+									<!-- </trs-lov> -->
+								</div>
+								<div class="input-group">
+									<input type="text" class="form-control search-criteria"
+										placeholder="Identification Number" ng-model="itemDetails.identificationNumber">
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- END col-lg 11 -->
 				</div>
-				<div class="input-group">
-				<!-- <span class="input-group-addon">Last</span> -->
-					<input type="text" class="form-control" placeholder="Last Name">
+				<!-- END Row -->
+
+				<div class="row">
+					<div class="pull-right search-clear"
+						style="padding-right: 152px !important;">
+						<button type="submit" class="btn btn-lg btn-default" style="color:#333" ng-click="submit(itemDetails)" ng-disabled="itemSearchForm.$invalid"> Search <i class="fa fa-search fa-1x"></i></button>
+						<button type="reset" class="btn btn-lg btn-default" ng-click="cancel()" style="color:#333" ng-disabled="itemSearchForm.$invalid"> Clear <i class="fa fa-times-circle fa-1x"></i></button>
+					</div>
 				</div>
-			</div>
-			
-			<div ng-hide="profile_val.name=='hcp'"  class="form-group row">
-			<label class="control-label">Organization</label>
-			<div class="input-group">
-			<input type="text" class="form-control" placeholder="Organization Name">
-			</div>
-			
-			<div class="input-group">
-			<select class="form-control input-sm td-search-panel-text" ng-model="request.country" ng-disabled="readOnlyPC" ng-change="compare()" >
-				<option value = "">Select Organization Type</option>
-							<option ng-repeat="rep in counties|filter : epiaFilter" >{{rep.name}}</option></select>
-			</div>			
-			
-			</div>
-				
-			
-			<div ng-hide="profile_val.name=='hco'"  class="form-group row">
-			<label class="control-label">Specialty and Credential</label>
-				<div class="input-group">
-					<select class="form-control input-sm td-search-panel-text" ng-model="request.country" ng-disabled="readOnlyPC" ng-change="compare()" >
-				<option value = "">Select Specialty</option>
-							<option ng-repeat="rep in counties|filter : epiaFilter" >{{rep.name}}</option></select>
-				</div>
-				<div class="input-group">
-					<select class="form-control input-sm td-search-panel-text" ng-model="request.country" ng-disabled="readOnlyPC" ng-change="compare()" >
-				<option value = "">Select Credential</option>
-							<option ng-repeat="rep in counties|filter : epiaFilter" >{{rep.name}}</option></select>
-				</div>
-			</div>
-			
-			</div> <!--END col-lg-3 -->
-			
-			<div class="col-lg-1"></div>
-			
-			<div class="col-lg-3">
-				<div class="form-group row">
-				<label class="control-label">Location</label>
-				<div class="input-group">
-					<input type="text" class="form-control search-criteria" placeholder="City">
-				</div>
-				<div class="input-group">
-					<input type="text" class="form-control search-criteria" placeholder="County/State">
-				</div>
-				<div class="input-group">
-					<input type="text" class="form-control search-criteria" placeholder="Province/Region">
-				</div>
-				<div class="input-group">
-					<input type="text" class="form-control search-criteria" placeholder="Zip/Postal Code">
-				</div>	
-				</div>
-			</div>
-			
-			<div class="col-lg-1"></div>
-			
-			<div class="col-lg-3">
-				<div class="form-group row">
-				<label class="control-label">Unique ID</label>
-				<div class="input-group">
-				<select class="form-control input-sm td-search-panel-text" ng-model="request.country" ng-disabled="readOnlyPC" ng-change="compare()" >
-				<option value = "">Select Unique ID Type</option>
-							<option ng-repeat="rep in counties|filter : epiaFilter" >{{rep.name}}</option></select>
-				<!-- <trs-lov class="search-criteria" placeholdervalue="Select Unique ID Type"> -->
-					<!-- <select class="form-control ><option value = "">Select Unique ID Type</option></select> -->
-				<!-- </trs-lov> -->
-				</div>
-				<div class="input-group">
-					<input type="text" class="form-control search-criteria" placeholder="Identification Number">
-				</div>			
-				</div>
-			</div>
-			
-			</div> <!-- END col-lg 11 -->
-			</div> <!-- END Row -->
-			
-			
-			<div class="row">
-			<div class="pull-right search-clear" style="padding-right: 152px !important;">
-				<button type="reset" class="btn btn-lg btn-default" style="color:#333"> Clear
-					<i class="fa fa-times-circle fa-1x"></i> 
-				</button>
-			
-				<button type="submit" class="btn btn-lg btn-default" style="color:#333"> Search
-					<i class="fa fa-search fa-1x"></i> 
-				</button>
-			</div>
-			</div>
-		
-<div class="panel panel-primary">
-	<table class="table table-hover ">
+			</form>
+		</div>
+	</div>
+	<div class="panel panel-primary">
 		<div class="table-responsive">
 			<table st-table="profileSearchCopy" st-safe-src="profileSearch"
 				st-reset="isReset"
@@ -137,36 +149,32 @@
 				class="table table-bordered table-striped table-highlight">
 				<thead>
 					<tr style="color: white; background-color: #337ab7;">
-						
-						<th 
-							></th>
-
 						<th 
 							ng-hide = "true"
 							ng-click="orderByField='profileType'; reverseSort = !reverseSort"
 							style="font-size: 13px; width: 86px;"
 							st-sort="profileType"class="td-search-panel-text">Party Type</th>
 						<th 
-							ng-hide="profile_val.name=='hco'"
+							ng-hide="profile_val.item=='HCO'"
 							ng-click="orderByField='lastName'; reverseSort = !reverseSort"
 							st-sort="lastName"
 							class="td-search-panel-text"
 							>Last Name</th>
 						<th
-							ng-hide = "profile_val.name=='hco'"
+							ng-hide = "profile_val.item=='HCO'"
 							ng-click="orderByField='firstName'; reverseSort = !reverseSort"
 							st-sort="firstName"
 							class="td-search-panel-text"
 							>First Name</th>
 						<th
-							ng-hide="profile_val.name=='hcp'"
+							ng-hide="profile_val.item=='PERSON'"
 							ng-click="orderByField='organisationName'; reverseSort = !reverseSort"
 							st-sort="organisationName"
 							class="td-search-panel-text"
 							>Organization Name</th>
 							
 						<th
-							ng-hide="profile_val.name=='hcp'"
+							ng-hide="profile_val.item=='PERSON'"
 							ng-click="orderByField='organisationType'; reverseSort = !reverseSort"
 							st-sort="organisationType"
 							class="td-search-panel-text"
@@ -187,7 +195,7 @@
 							class="td-search-panel-text"
 							>Identifier</th>
 						<th
-							ng-hide="profile_val.name=='hco'"
+							ng-hide="profile_val.item=='HCO'"
 							ng-click="orderByField='speciality'; reverseSort = !reverseSort"
 							st-sort="speciality"
 							class="td-search-panel-text"
@@ -195,68 +203,54 @@
 
 					</tr>
 					<tr>
-						<th></th>
-						<!-- <th><input ng-model="search.id" st-search="id"
-							placeholder=" " class="form-control td-search-panel-text" type="search" /></th> -->
 						<th ng-hide = "true"><input ng-model="search.profileType"
 							st-search="profileType" placeholder=" " class="form-control td-search-panel-text"
 							type="search" /></th>
-						<th ng-hide="profile_val.name=='hco'"><input ng-model="search.lastName" st-search="lastName"
+						<th ng-hide="profile_val.item=='HCO'"><input ng-model="search.lastName" st-search="lastName"
 							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>
-						<th ng-hide = "profile_val.name=='hco'"><input ng-model="search.firstName" st-search="firstName"
+						<th ng-hide = "profile_val.item=='HCO'"><input ng-model="search.firstName" st-search="firstName"
 							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>
-						<th ng-hide = "profile_val.name=='hcp'"><input ng-model="search.organisationName"
+						<th ng-hide = "profile_val.item=='PERSON'"><input ng-model="search.organisationName"
 							st-search="organisationName" placeholder=" " class="form-control td-search-panel-text"
 							type="search" /></th>
-						<th><input ng-model="search.city" st-search="city"
-							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>
+						<th ng-hide = "profile_val.item=='PERSON'"><input ng-model="search.organisationType"
+							st-search="organisationType" placeholder=" " class="form-control td-search-panel-text"
+							type="search" /></th>
 						<th><input ng-model="search.address" st-search="address"
+							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>							
+						<th><input ng-model="search.city" st-search="city"
+							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>	
+						<th><input ng-model="search.identifier" st-search="identifier"
+							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>						
+						<th ng-hide = "profile_val.item=='HCO'"><input ng-model="search.speciality" st-search="speciality"
 							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>
-							 <th><input ng-model="search.address" st-search="address"
-							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>
-							<!--<th><input ng-model="search.address" st-search="address"
-							placeholder=" " class="form-control td-search-panel-text" type="search" /></th> -->
-							
-						<th ng-hide = "profile_val.name=='hco'"><input ng-model="search.speciality" st-search="speciality"
-							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>
-						<th>
-						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr
 						data-ng-repeat="pro in profileSearchCopy track by $index | orderBy:orderByField:reverseSort">
-						<td style="text-align: center"><input type="checkbox"							
-							ng-model="checkboxes.items[pro.id]" class="recipient-checkbox"></td>
-						<td class="td-search-panel-text">{{pro.id}}</td>
+						<!-- <td class="td-search-panel-text">{{pro.id}}</td> -->
 						<td ng-hide = "true" class="td-search-panel-text">{{pro.profileType}}</td>
-						<td class="tasktd td-search-panel-text" title="{{pro.lastName}}" ng-hide = "hideHCP">{{pro.lastName}}</td>
-						<td class="tasktd td-search-panel-text" title="{{pro.firstName}}" ng-hide = "hideHCP">{{pro.firstName}}</td>
-						<td class="tasktd td-search-panel-text" ng-hide = "hideHCO" title="{{pro.organisationName}}">{{pro.organisationName}}</td>
-						<td class="tasktd td-search-panel-text" title="{{pro.city}}">{{pro.city}}</td>
-						<td class="tasktd td-search-panel-text" title="{{pro.address}}">{{pro.address}}</td>
-						<td class="tasktd td-search-panel-text" title="{{pro.speciality}}" ng-hide = "hideHCP">{{pro.speciality}}</td>						
-						<td style="text-align:center"><gcms-modal template="consentstatus.html"
-						controller="ModalDefaultCtrl" resolve="" content="consentAttributes">
-						<a href="" title="View consent history" title="View consent history" ng-click="view(pro.id,pro.firstName,pro.lastName)" class="tasktd td-search-panel-text">View</a></gcms-modal></td>					
+						<td class="tasktd td-search-panel-text" title="{{pro.lastName}}" ng-hide = "profile_val.item=='HCO'">{{pro.attributes.LastName[0].value}}</td>
+						<td class="tasktd td-search-panel-text" title="{{pro.firstName}}" ng-hide = "profile_val.item=='HCO'">{{pro.attributes.FirstName[0].value}}</td>
+						<td class="tasktd td-search-panel-text" title="{{pro.organisationName}}" ng-hide = "profile_val.item=='PERSON'">{{pro.attributes.Name[0].value}}</td>
+						<td class="tasktd td-search-panel-text" title="{{pro.organisationType}}" ng-hide = "profile_val.item=='PERSON'">{{pro.attributes.ActTypeCode[0].value}}</td>
+						
+						<td class="tasktd td-search-panel-text" title="{{pro.address}}">{{pro.attributes.Address[0].value.AddressLine1[0].value}} - {{pro.attributes.Address[0].value.StateProvince[0].value}}</td>
+						<td class="tasktd td-search-panel-text" title="{{pro.city}}">{{pro.attributes.Address[0].value.City[0].value}}</td>
+						<td class="tasktd td-search-panel-text" title="{{pro.identifier}}">{{pro.attributes.Identifiers[0].value.ID[0].value}}</td>
+						<td ng-hide = "profile_val.item=='HCO'" class="tasktd td-search-panel-text" title="{{pro.speciality}}">{{pro.attributes.Specialities[0].value.Specialty[0].value}}</td>
 					</tr>
 				</tbody>
-<!-- 				<tfoot>
-					<tr>
-						<td colspan="10" class="text-center">
-                     <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="5"></div>
-                     </td>
-						<td colspan="8" class="text-center">
-							<div st-items-by-page="20" st-pagination=""
-								st-template="app/profile/list/pagination.custom.html"></div>
-							<div>{{responseOnSearch}}</div>
-						</td>
-					</tr>
-				</tfoot> -->
 			</table>
 		</div>
-	</table>
+		
+		<div>
+			<button type="submit" class="btn btn-lg btn-default" style="color:#333" ng-click="setPreviousPage(itemDetails)" > Previous </button>
+			<button type="submit" class="btn btn-lg btn-default" style="color:#333" ng-click="setNextPage(itemDetails)" > Next </button>
+		</div>
 </div>
-<br />
-<br />
+	<br /> <br />
+	
+	
 </div>

@@ -61,9 +61,9 @@
 		})
 	.controller('ProfileListCtrl', ProfileSearch);
 
-	ProfileSearch.$inject = ['ProfileSearch','$scope','$http','myService','Templates','Country','IdentityRequest','Review','UIConfig','EmailGeneration','UserProfile','LoggedUserDetail','ConsentAnnex','ConsentAnnexView','ConsentAnnexPdf','$rootScope','toasty','ngDialog'];
+	ProfileSearch.$inject = ['ProfileSearch','$scope','$http','myService','Templates','Country','IdentityRequest','UIConfig','EmailGeneration','UserProfile','LoggedUserDetail','ConsentAnnex','ConsentAnnexPdf','$rootScope','toasty','ngDialog','Specialty','Credential','State','OrganizationType','UniqueType'];
 
-	function ProfileSearch(ProfileSearch,$scope,$http,myService,Templates,Country,IdentityRequest,Review,UIConfig,EmailGeneration,UserProfile,LoggedUserDetail,ConsentAnnex,ConsentAnnexView,ConsentAnnexPdf,$rootScope,toasty,ngDialog) {
+	function ProfileSearch(ProfileSearch,$scope,$http,myService,Templates,Country,IdentityRequest,UIConfig,EmailGeneration,UserProfile,LoggedUserDetail,ConsentAnnex,ConsentAnnexPdf,$rootScope,toasty,ngDialog,Specialty,Credential,State,OrganizationType,UniqueType) {
 
 		var params = {};
 		console.log("Inside Profile.list.controller");
@@ -92,7 +92,8 @@
 		$scope.profileTypeSelected = {};
 		$scope.templateTypeSelected = {};	
 		$scope.clearText = "";
-		$scope.sysAdmin = false;		
+		$scope.sysAdmin = false;	
+		$scope.profile_val ={item:'PERSON'};
 		$scope.profile_types = [{
 			name: 'HCP',
 			value: 'HCP'
@@ -100,7 +101,6 @@
 			name: 'HCO',
 			value: 'HCO'
 		}];
-		$scope.profile_val={name:'hcp'};
 		 var ctrl = this;
 		 var internalError = function(){
 		        toasty.error({
@@ -201,11 +201,12 @@
 					
 					$scope.loggedInUserCountry = currentprofile.countryId;
 					$scope.loggedInUserCountryName = currentprofile.countryName ;
+					$scope.loggedInUserCountryCode = currentprofile.isoCode ;
 					$scope.loggedInUserRole = currentprofile.roleId;
 					$scope.logged_In_User= currentprofile.userName;
 					$scope.fullName = currentprofile.firstName+" "+currentprofile.lastName;
 					
-					if($scope.loggedInUserRole == 5){
+					if($scope.loggedInUserRole == 6){
 						$scope.sysAdmin = true;
 					}
 						
@@ -216,7 +217,7 @@
 						 $scope.readOnlyCC = true;
 						 $scope.readOnlyPC = true;
 					}
-					else if ($scope.loggedInUserRole == 1 || $scope.loggedInUserRole == 4 || $scope.loggedInUserRole == 5)
+					else if ($scope.loggedInUserRole == 1 || $scope.loggedInUserRole == 4 || $scope.loggedInUserRole == 6)
 					{	
 						 $scope.request.collectingCountry = $scope.loggedInUserCountryName;
 						 //$scope.readOnlyCC = true;
@@ -273,7 +274,7 @@
 		};
 
 		loadCountry();
-
+		
 		$scope.$on('$localeChangeSuccess', loadCountry);
 		
 		$scope.clear = function()
@@ -287,67 +288,59 @@
 			$scope.setDownload = ($scope.selectedids.length == 0 || $scope.request.tmpl_id == undefined || $scope.request.tmpl_id == "" ) ? true : false;
 		};				
 		
-		//Function to search for requested profiles
-		$scope.submit = function(request) {
-			$scope.responseOnSearch = '';			
-			params =  request;
-			$scope.profile.country = request.country;        	
-			$scope.selectedids = [];
-			$scope.cntryValue = request.country;
-			var data = {"country":"","profileType":"","lastName":"","city":"","firstName":"","address":"","collectingCountry":"","speciality":""};
-			/*if($scope.request.profileType == 'HCP'){
-				$scope.hideHCO = true;
-				$scope.hideHCP = false;
-			}else if($scope.request.profileType == 'HCO'){
-				$scope.hideHCP = true;
-				$scope.hideHCO = false;
-			}*/
-
-			for(var i in $scope.counties){
-				if ($scope.counties[i].name == request.collectingCountry){
-					collecting_country_id = $scope.counties[i].id;              
-				}
-				if ($scope.counties[i].name == request.country){
-					profile_country_id = $scope.counties[i].id;              
-				}
-			} 
-			data.country = params.country;
-			data.profileType = params.profileType;
+		//Function to search for requested profiles			
+		
+		$scope.itemDetails = {};
+		$scope.submit = function(itemDetails) {
+			console.log("Inside Profile Search Tab");			
+			params =  itemDetails;
+			var data = {"country":"","profileType":"","lastName":"","city":"","firstName":"","middleName":"",
+					"speciality":"","organizationName":"","organisationType":"","credential":"","state":"","poCode":"","uniqueType":"","identificationNumber":"","territory":"",
+					"max":"","offset":""};
+			
+			data.country = $rootScope.currentProfile.countryISOCode;
+			data.profileType = $scope.profile_val.item;
 			data.lastName = (params.lastName !== undefined && params.lastName !== "" ) ? params.lastName : 'lastName';
+			data.middleName = (params.middleName !== undefined && params.middleName !== "" ) ? params.middleName : 'middleName';
 			data.city = (params.city !== undefined && params.city !== "") ? params.city : 'city';
 			data.firstName = (params.firstName !== undefined && params.firstName !== "") ? params.firstName : 'firstName';
-			data.address = (params.address !== undefined && params.address !== "" ) ? params.address : 'address';
 			data.speciality = (params.speciality !== undefined && params.speciality !== "") ? params.speciality : 'speciality';
-			data.collectingCountry = params.collectingCountry;
+			data.credential = (params.credential !== undefined && params.credential !== "") ? params.credential : 'credential';
+			data.organizationName = (params.organizationName !== undefined && params.organizationName !== "" ) ? params.organizationName : 'organizationName';
+			data.organisationType = (params.organisationType !== undefined && params.organisationType !== "" ) ? params.organisationType : 'organisationType';
+			data.state = (params.state !== undefined && params.state !== "") ? params.state : 'state';
+			data.poCode = (params.poCode !== undefined && params.poCode !== "") ? params.poCode : 'poCode';
+			data.uniqueType = (params.uniqueType !== undefined && params.uniqueType !== "") ? params.uniqueType : 'uniqueType';
+			data.territory = (params.territory !== undefined && params.territory !== "") ? params.territory : 'territory';
+			data.max = $scope.max;
+			data.offset = $scope.offset;
+			data.identificationNumber = (params.identificationNumber !== undefined && params.identificationNumber !== "") ? params.identificationNumber : 'identificationNumber';
+			
 			ProfileSearch.get({
 				country : data.country,
 				profileType : data.profileType,
 				lastName : data.lastName,
+				middleName : data.middleName,
 				city : data.city,
+				credential : data.credential,
+				organizationName : data.organizationName,
+				organisationType : data.organisationType,
+				state : data.state,
 				firstName : data.firstName,
-				address : data.address,
-				speciality : data.speciality
+				uniqueType : data.uniqueType,
+				speciality : data.speciality,
+				poCode : data.poCode,
+				identificationNumber : data.identificationNumber,
+				max : data.max,
+				offset : data.offset,
+				territory : data.territory
 			}).$promise
 			.then(function(profileSearch) {
-				$scope.profileSearch = profileSearch;				
-				/*if($scope.search !== undefined){
-					$scope.search = undefined;
-				}*/
-				$scope.isReset = true;
-				if($scope.request.profileType == 'HCP'){
-					$scope.hideHCO = true;
-					$scope.hideHCP = false;
-				}else if($scope.request.profileType == 'HCO'){
-					$scope.hideHCP = true;
-					$scope.hideHCO = false;
-				}
-
+				$scope.profileSearch= JSON.parse(profileSearch.string);
 			}).catch(function(){
-				$scope.responseOnSearch = "No records to show"
-				$scope.profileSearch.length = 0;
-				$scope.profileSearchCopy.length = 0;                               	
+				$scope.responseOnSearch = "No records to show";                              	
 			});                       
-		};       
+		};
 
 		$scope.profileSearchCopy = [].concat($scope.profileSearch);
 
@@ -641,12 +634,6 @@
 		$scope.change = function(){			
 			$scope.setDownload = ($scope.selectedids.length == 0 || $scope.request.tmpl_id == undefined || $scope.request.tmpl_id == "" ) ? true : false;
 		};
-		
-		//Filters templates based on Reporting Country				
-		$scope.efpiaFilter = function(countries){
-			return (countries.efpiaCntryFlag == 'Y');
-			
-		};
 
 		var loadTemplates = function(){
 			$scope.templates = [];
@@ -751,55 +738,153 @@
                      $scope.error = "No Records Found";
                      console.log($scope.error);
                }
-        };    
-      
-        //Start : Changes for View Link of Pending Task
-        $scope.viewTemplate = function(item){
-        	ConsentAnnexView.update({ id:item.id }, item).$promise.then(function(res){
-            	
-            	if(res.$promise.$$state.status==1){
-            		$http.get('./config.json').then(function (response) {
-    					var link = response.data["test-server"].ENVIRONMENT.SERVICE_URI+'consent-pdf/'+item.id;
-    					$http({method: 'GET',url: link,responseType: 'arraybuffer'}).then(function (response) {
-    						var bin = new Blob([response.data]);
-    						var docName='';
-    						if(item.bpid.profileType == "HCP"){
-    						docName = item.bpid.lastName+','+item.bpid.firstName+'.pdf'; 
-    						}else{
-    						docName = item.bpid.organisationName+'.pdf'; 
-    						}
-      
-    						saveAs(bin, docName); 
-    						toasty.success({
-    	            	        title: 'Success',
-    	            	        msg: 'PDF Downloaded Successfully!',
-    	            	        showClose: true,
-    	            	        clickToClose: true,
-    	            	        timeout: 5000,
-    	            	        sound: false,
-    	            	        html: false,
-    	            	        shake: false,
-    	            	        theme: 'bootstrap'
-    	            	      });
-    					}).catch(function(){
-    						internalError();
-    					});	
-    					
-    				});
-            	}else{
-            			unspecifiedError();	            		
-            		}
-            	    	            	
- 		      }).catch(function(){
-	 		    	// refresh();
-	 		    	 internalError();	
-	       		 });
-        };
-        //End
-        $scope.evaluateMail = function(item){
-        	console.log("item details : "+item.createdBy);
-        	var emailDetails = item.createdBy+"@pfizer.com";
-        	window.location.href = 'mailto:'+emailDetails;
-        };
-	}               
+        }; 
+		
+		//Loads all speciality 
+		var updateSpecialty = function(result){
+			$scope.specialty = result;             
+			$rootScope.specialty = $scope.specialty;
+
+		};
+		
+        var loadSpecialty = function(){		  
+  		  $scope.specialty = [];
+  		  Specialty.query({id : $scope.loggedInUserCountry}).$promise.then(updateSpecialty);
+  			
+  		};
+
+  	  loadSpecialty();
+  	
+  	  $scope.$on('$localeChangeSuccess', loadSpecialty);
+  	  
+  	//Loads all credential 
+  		var updateCredential = function(result){
+  			$scope.credential = result;             
+  			$rootScope.credential = $scope.credential;
+
+  		};
+
+  		
+  	  var loadCredential = function(){		  
+  		  $scope.credential = [];
+  		  Credential.query({id : $scope.loggedInUserCountry,partyType : $scope.profile_val.item}).$promise.then(updateCredential);
+  			
+  		};
+  		
+  		$scope.getCred = function(){
+  			$scope.profileSearchCopy = [];
+  			$scope.itemDetails = {};
+  			$scope.credential = [];
+  			  Credential.query({id : $scope.loggedInUserCountry,partyType : $scope.profile_val.item}).$promise.then(updateCredential);
+  		};
+
+  	  loadCredential();
+  	
+  	  $scope.$on('$localeChangeSuccess', loadCredential);
+  		
+  	//Loading Countries
+  		var updateCountry = function(result){
+  			$scope.counties = result;         
+  		};
+
+  		var loadCountry = function(){
+  			$scope.counties = [];
+  			$scope.counties = $rootScope.countries;
+  			/*Country.query().$promise.then(updateCountry);*/
+  		};
+
+  		loadCountry();
+  		
+  		$scope.$on('$localeChangeSuccess', loadCountry);
+  		
+  		//Loads all State dropdown
+  		var updateState = function(result){
+  			$scope.state = result;             
+  			$rootScope.state = $scope.state;
+
+  		};
+
+  		
+  	  var loadState = function(){		  
+  		  $scope.state = [];
+  		  State.query({id : $scope.loggedInUserCountry}).$promise.then(updateState);
+  			
+  		};
+
+  		loadState();
+  		$scope.$on('$localeChangeSuccess', loadState);
+  		
+  		//Loads all Organization Type
+  		var updateOrgType = function(result){
+  			$scope.orgType = result;             
+  			$rootScope.orgType = $scope.orgType;
+
+  		};
+
+  		
+  	  var loadOrgType = function(){		  
+  		  $scope.orgType = [];
+  		  OrganizationType.query({id : $scope.loggedInUserCountry}).$promise.then(updateOrgType);
+  			
+  		};
+
+  		loadOrgType();
+  		$scope.$on('$localeChangeSuccess', loadOrgType);
+  		
+  		//Loads all unique type 
+  		var updateUniqueType = function(result){
+  			$scope.uniqueType = result;             
+  			$rootScope.uniqueType = $scope.uniqueType;
+
+  		};
+
+  		
+  	  var loadUniqueType = function(){		  
+  		  $scope.uniqueType = [];
+  		  UniqueType.query({id : $scope.loggedInUserCountry}).$promise.then(updateUniqueType);
+  			
+  		};
+
+  		loadUniqueType();
+  	
+  	  $scope.$on('$localeChangeSuccess', loadUniqueType);
+  	  
+  	//Loads all State dropdown
+		var updateState = function(result){
+			$scope.state = result;             
+			$rootScope.state = $scope.state;
+
+		};
+
+		
+	  var loadState = function(){		  
+		  $scope.state = [];
+		  State.query({id : $scope.loggedInUserCountry}).$promise.then(updateState);
+			
+		};
+
+		loadState();
+		$scope.$on('$localeChangeSuccess', loadState);
+		
+		$scope.max = 5;
+		$scope.offset = 0;
+		
+		$scope.setNextPage = function(item){
+			$scope.offset = $scope.max + $scope.offset;
+			$scope.submit(item);
+		}
+		
+		$scope.setPreviousPage = function(item){
+			if($scope.offset > $scope.max){
+				$scope.offset = $scope.offset - $scope.max;
+			}
+			else{
+				$scope.buttondisable = true;
+			}
+			
+			$scope.submit(item);
+		}
+     
+	}
+	
 })();

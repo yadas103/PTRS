@@ -7,13 +7,13 @@
   },
   "local-server": {
     "ENVIRONMENT": {
-      "SERVICE_URI": "http://localhost:8080/gcms-service/",
+      "SERVICE_URI": "http://localhost:8082/ptrs-reltio-service/",
       "SERVICE_EXT": ""
     }
   },
   "test-server": {
     "ENVIRONMENT": {
-      "SERVICE_URI": "/gcms-service/",
+      "SERVICE_URI": "/ptrs-reltio-service/",
       "SERVICE_EXT": ""
     }
   }
