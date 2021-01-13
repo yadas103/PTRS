@@ -1,5 +1,5 @@
 <div class="panel panel-primary">
-	<div class="panel-heading">Upload your document for bulk profile creation</div>
+	<div class="panel-heading">Upload document for bulk profile creation</div>
 				<div class="panel-body" ng-controller="BulkCtrl">
 						
 						<div style="margin-top: 9px;padding:3px;">
@@ -23,16 +23,16 @@
                            <button type="button" class="btn btn-primary" style="margin-top:1px;" >Select File...</button>
                             <input type="file"
 							ngf-select="" ng-model="picFile" name="file"
-							ngf-pattern="'application/pdf'" nv-file-select ngf-max-size="20MB" ngf-min-height="100" 
-							uploader="uploader" multiple="" accept="application/pdf">
+							ngf-pattern="'application/pdf'" nv-file-select ngf-max-size="50MB" ngf-min-height="100" 
+							uploader="uploader" multiple="false" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
 							</label>
 						 	<a href="" ng-if="uploader.getNotUploadedItems().length"  ng-init="uploader.uploadAll()" ></a>						 							 
 						  	<a href="" ng-if="uploader.progress==100 && !uploader.isUploading"  ng-init="upload()"><span class="fa fa-spin fa-spinner "></span>
-						 	 Validating...</a>						  						  	
-							<gcms-modal template="bulk.upload.html"
+						 	 Validating...</a>			  						  	
+							<!--<gcms-modal template="bulk.upload.html"
 							controller="ModalDefaultCtrl" ok="" content="Result"
 							alt="Upload images"> 
-							<button ng-show="a == true" class="btn btn-default2" style="margin-top:1px;">View Upload Status</button></gcms-modal>
+							<button ng-show="a == true" class="btn btn-default2" style="margin-top:1px;">View Upload Status</button></gcms-modal>-->
 
 						   
                         </td>
@@ -42,7 +42,7 @@
                     
                 </table>
 
-                    <a class="pull-right" href="assets/spreadsheet/Profile_Creation_FR.xlsx" >Download Template</a>
+                    <a class="pull-right" href="assets/spreadsheet/Profile_Creation_fr.xlsx" >Download Template</a>
 				</div>
 			</div>
 

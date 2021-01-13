@@ -1,9 +1,9 @@
 /**
  * @ngdoc overview
- * @name gcms.task
+ * @name ptrs-reltio.bulkUpload
  *
  * @description
- * Represents a task controller.
+ * Represents a bulkUpload controller.
  */
 (function () {
   'use strict';
@@ -61,10 +61,10 @@
    		       $scope.a=result.$resolved
    		    toasty.success({
     	        title: 'Success',
-    	        msg: 'File Processed ! See results',
+    	        msg: 'File Processed ! See Report for more details',
     	        showClose: true,
     	        clickToClose: true,
-    	        timeout: 15000,
+    	        timeout: 20000,
     	        sound: false,
     	        html: false,
     	        shake: false,
@@ -80,7 +80,7 @@
    			          msg: 'Server not able to delete previous files ! Please reload page and try again',
    			          showClose: true,
    			          clickToClose: true,
-   			          timeout: 5000,
+   			          timeout: 20000,
    			          sound: false,
    			          html: false,
    			          shake: false,
