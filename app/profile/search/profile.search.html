@@ -86,7 +86,7 @@
 								<div class="input-group">
 									<select class="form-control input-sm td-search-panel-text" placeholder="State" ng-model="itemDetails.state">
 										<option value="">Select State</option>
-										<option ng-repeat="rep in state" value="{{rep.stateCode}}">{{rep.stateDesc}}</option>
+										<option ng-repeat="rep in state" value="{{rep.stateDesc}}">{{rep.stateDesc}}</option>
 									</select>
 								</div>
 								<!-- <div class="input-group">
@@ -113,7 +113,7 @@
 									<select class="form-control input-sm td-search-panel-text"
 										ng-model="itemDetails.uniqueType">
 										<option value="">Select Unique ID Type</option>
-										<option ng-repeat="rep in uniqueType">{{rep.unqDesc}}</option>
+										<option ng-repeat="rep in uniqueType" value="{{rep.unqCode}}">{{rep.unqDesc}}</option>
 									</select>
 									<!-- <trs-lov class="search-criteria" placeholdervalue="Select Unique ID Type"> -->
 									<!-- <select class="form-control ><option value = "">Select Unique ID Type</option></select> -->
@@ -121,7 +121,7 @@
 								</div>
 								<div class="input-group">
 									<input type="text" class="form-control search-criteria"
-										placeholder="Identification Number" ng-model="itemDetails.identificationNumber">
+										placeholder="Identifier" ng-model="itemDetails.identificationNumber">
 								</div>
 							</div>
 						</div>
@@ -131,13 +131,10 @@
 				</div>
 				<!-- END Row -->
 
-				<div class="row">
-					<div class="pull-right search-clear"
-						style="padding-right: 152px !important;">
+				<span style="float: right;margin-top: 18px;margin-right: 14px;">
 						<button type="submit" class="btn btn-lg btn-default" style="color:#333" ng-click="submit(itemDetails)" ng-disabled="itemSearchForm.$invalid"> Search <i class="fa fa-search fa-1x"></i></button>
 						<button type="reset" class="btn btn-lg btn-default" ng-click="cancel()" style="color:#333" ng-disabled="itemSearchForm.$invalid"> Clear <i class="fa fa-times-circle fa-1x"></i></button>
-					</div>
-				</div>
+				</span>
 			</form>
 		</div>
 	</div>
@@ -215,7 +212,7 @@
 							type="search" /></th>
 						<th ng-hide = "profile_val.item=='PERSON'"><input ng-model="search.organisationType"
 							st-search="organisationType" placeholder=" " class="form-control td-search-panel-text"
-							type="search" /></th>
+							type="search" disabled="disabled"/></th>
 						<th><input ng-model="search.address" st-search="address"
 							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>							
 						<th><input ng-model="search.city" st-search="city"
@@ -247,8 +244,9 @@
 		
 		<div style="margin: 10px;">
 			<div class="text-center">
-				<button type="submit" style="margin-right: 5px;" class="btn btn-lg btn-default" style="color:#333" ng-click="setPreviousPage(itemDetails)" > <i class="fa fa-angle-left fa-1x"></i> Prev </button>
-				<button type="submit" style="margin-left: 5px;" class="btn btn-lg btn-default" style="color:#333" ng-click="setNextPage(itemDetails)" > Next <i class="fa fa-angle-right fa-1x"></i></button>
+				<div>{{responseOnSearch}}</div>
+				<button type="submit" class="btn btn-lg btn-default" style="color:#333" ng-click="setPreviousPage(itemDetails)" ng-disabled="buttondisable == 'true'"> <i class="fa fa-angle-left fa-1x"></i> Prev </button>
+				<button type="submit" class="btn btn-lg btn-default" style="color:#333" ng-click="setNextPage(itemDetails)" ng-disabled="buttondisableNext == 'true'"> Next <i class="fa fa-angle-right fa-1x"></i></button>
 			</div>
 		</div>
 </div>

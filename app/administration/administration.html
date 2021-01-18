@@ -1,47 +1,48 @@
 <div class="panel panel-primary table-responsive">
 	<div class="panel-heading">Profile Submission Report</div>
-
+	<div ng-controller="identityCtrl">
 	<div class="panel-body">
+	<table class="table table-hover ">
+	<div class="table-responsive">
 		<table st-table="displayedCollection" st-safe-src="identityRequestView"
 			class="table table-bordered table-hover table-condensed">
 			<thead>
 				<tr style="color: white; background-color: #337ab7;">
 					<th class="pro-rev"> </th>					
-					<th class="pro-rev" style="width:7%;" st-sort="partyType">Party Type</th>
-					<th class="pro-rev" style="width: 8%;" st-sort="identifier" >Identifier</th>
-					<th class="pro-rev" style="width: 10%;" st-sort="organization">Organization</th>
+					<th class="pro-rev" style="width:7%;" st-sort="profileTypeId">Party Type</th>
+					<th class="pro-rev" style="width: 8%;" st-sort="uniqueIdentifier" >Identifier</th>
+					<th class="pro-rev" style="width: 10%;" st-sort="organizationName">Organization</th>
 					<th class="pro-rev" style="width: 15%;" st-sort="firstName" >First Name</th>
 					<th class="pro-rev" style="width: 15%;" st-sort="lastName">Last Name</th>
 					<th class="pro-rev" style="width: 10%;" st-sort="city" >City</th>
-					<th class="pro-rev" style="width: 10%;" st-sort="specialty" >Specialty</th>
-					<th class="pro-rev" style="width: 10%;" st-sort="submittedBy" >Submitted By</th>
-					<th class="pro-rev" style="width: 10%;" st-sort="submittedOn" >Submitted On</th>
-					<th class="pro-rev" style="width: 15%;" st-sort="status" >Status</th>
-					<th class="pro-rev" style="width: 15%;" st-sort="message" >Message</th>
+					<th class="pro-rev" style="width: 10%;" st-sort="speciality" >Specialty</th>
+					<th class="pro-rev" style="width: 10%;" st-sort="createdBy" >Submitted By</th>
+					<th class="pro-rev" style="width: 10%;" st-sort="createdDate" >Submitted On</th>
+					<th class="pro-rev" style="width: 15%;" st-sort="reltioMsg" >Status</th>
+					<th class="pro-rev" style="width: 15%;" st-sort="reltioCode" >Message</th>
 				</tr>
 			 	<tr>
 				<!-- <td> </td> -->
 				<th style="width: 4%;"></th>
-				<th><input st-search="partyType" placeholder=" " class="form-control" type="search" /></th>
-				<th><input st-search="identifier" placeholder=" " class="form-control" type="search" /></th>
-				<th><input st-search="organization" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="profileTypeId" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="uniqueIdentifier" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="organizationName" placeholder=" " class="form-control" type="search" /></th>
 				<th><input st-search="firstName" placeholder=" " class="form-control" type="search" /></th>
 				<th><input st-search="lastName" placeholder=" " class="form-control" type="search" /></th>
 				<th><input st-search="city" placeholder=" " class="form-control" type="search" /></th>
-				<th><input st-search="specialty" placeholder=" " class="form-control" type="search" /></th>
-				<th><input st-search="submittedBy" placeholder=" " class="form-control" type="search" /></th>
-				<th><input st-search="submittedOn" placeholder=" " class="form-control" type="search" /></th>				
+				<th><input st-search="speciality" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="createdBy" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="createdDate" placeholder=" " class="form-control" type="search" /></th>				
 				<!-- <th><input st-search="status" placeholder=" " class="form-control" type="search" /></th>	 -->
-				 <th><select st-input-event="change keydown" st-search="status"  ng-model="request.downchk" ng-change="onCategoryChange(request)" type="search">
+				 <th><select st-input-event="change keydown" st-search="reltioMsg"  ng-model="request.downchk" ng-change="onCategoryChange(request)" type="search">
 						            <option value="Successful">Successful</option>
 									 <option value="Failed">Failed</option> 
 					</select></th>			
-				<th><input st-search="message" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="reltioCode" placeholder=" " class="form-control" type="search" /></th>
 				</tr>
 			</thead>
 			<tbody>
-					<tr
-						data-ng-repeat="identity in identityRequestView">
+					<tr ng-repeat="identity in displayedCollection">
 						<td><gcms-modal template="identity.view.html"
 										controller="ModalDefaultCtrl" content="identity" ok="update"
 										alt="Edit Task {{identity.id}}"> <span
@@ -58,20 +59,21 @@
 						<td class="tasktd">{{ identity.reltioMsg }}</td>
 						<td class="tasktd">{{ identity.reltioCode }}</td>
 					</tr>
-			</tbody>
+			</tbody>			
+			<tfoot>
+					<tr>
+						<td colspan="30" class="text-right">
+							<div>
+								<button type="submit" class="btn btn-primary btn-sm td-search-panel-text" ng-click="loadDataDLUAll()">Download</button>
+							</div>
+							
+						</td>
+					</tr>
+				</tfoot>
+		</table>		
+		</div>
 		</table>
-			<br>
-						<div class="row pull-right">
-			<!-- <button type="submit" class="btn btn-sm td-search-panel-text" ng-click="submit(request)" ng-disabled="requestSearchForm.$invalid">Clear</button> -->
-			<button type="submit" class="btn btn-primary btn-sm td-search-panel-text" ng-click="loadDataDLUAll()">Download</button>
-			&nbsp;
-			</div>
-			
-			</tbody>
-
-		</table>
-
-
+		</div>
 	</div>
 </div>
 	

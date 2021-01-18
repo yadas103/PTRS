@@ -13,9 +13,10 @@
   function CustomDetails($resource,localeMapper,ENVIRONMENT) {
 
     return $resource(
-      ENVIRONMENT.SERVICE_URI + ':locale/custom-details/:id' + ENVIRONMENT.SERVICE_EXT,
+      ENVIRONMENT.SERVICE_URI + ':locale/custom-details/:id/:partyType' + ENVIRONMENT.SERVICE_EXT,
       {
     	  id: '@id',
+    	  partyType: '@partyType',
           locale: function(){ return localeMapper.getCurrentISOCode(); }   	     	  
       },
       {        

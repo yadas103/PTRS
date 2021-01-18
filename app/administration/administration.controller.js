@@ -43,8 +43,9 @@
           };
 
        loadIdentityRequestView();
+       $scope.displayedCollection = [].concat($scope.identityRequestView);
        
-       $scope.loadDataDLUAll = function() {       	   
+       $scope.loadDataDLUAll = function() { 
     	   IdentityRequestView.query().$promise
            .then(function(result) {
 		        	$scope.data = result.currentPageData;
@@ -64,6 +65,7 @@
 							'Identifier':($scope.data[i].uniqueIdentifier == null || $scope.data[i].uniqueIdentifier == undefined ) ? '' : $scope.data[i].uniqueIdentifier,
 							'City':($scope.data[i].city == null || $scope.data[i].city == undefined ) ? '' : $scope.data[i].city,
 							'Speciality':($scope.data[i].speciality == null || $scope.data[i].speciality == undefined ) ? '' : $scope.data[i].speciality,
+						    'Status':($scope.data[i].reltioMsg == null || $scope.data[i].reltioMsg == undefined ) ? '' : $scope.data[i].reltioMsg,
 							'Submitted By':($scope.data[i].createdBy == null || $scope.data[i].createdBy == undefined ) ? '' : $scope.data[i].createdBy,
 							'Submitted On':($scope.data[i].createdDate == null || $scope.data[i].createdDate == undefined ) ? '' : $scope.data[i].createdDate						
 							} ;	
@@ -91,7 +93,7 @@
        	IdentityRequestView.query(data).$promise
              .then(function(result){
             	 $scope.identityRequestView = result.currentPageData; 
-            	 
+            	 $scope.displayedCollection = [].concat($scope.identityRequestView);
                     	}).catch(function(){
          				//$scope.responseOnSearch = "No records to show"
          					$scope.status='True';

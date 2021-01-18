@@ -89,6 +89,7 @@
 	  $scope.cancel = function()
 		{
 			$scope.item = {};
+			$scope.customDetails = [];
 		};
 		
 		//Loads all speciality 
@@ -142,6 +143,7 @@
 		};
 		
 		$scope.getCred = function(){
+			$scope.item = {};
 			$scope.credential = [];
 			$scope.customDetails = [];
 			Credential.query({id : $scope.loggedInUserCountry,partyType : $scope.profile_val.item}).$promise.then(updateCredential);
@@ -221,7 +223,7 @@
 				}
 			}
 			//BenefSpec.query({id : $scope.specId}).$promise.then(updateBenefSpec);
-			CustomDetails.query({id : $scope.specId}).$promise.then(updateCustomDetails);
+			CustomDetails.query({id : $scope.specId,partyType : $scope.profile_val.item}).$promise.then(updateCustomDetails);
 		};
 		
 		$scope.compareSubType = function(item){	
@@ -231,7 +233,7 @@
 				}
 			}
 			//BenefSubType.query({id : $scope.subTypeId}).$promise.then(updateBenefSubType);
-			CustomDetails.query({id : $scope.subTypeId}).$promise.then(updateCustomDetails);
+			CustomDetails.query({id : $scope.subTypeId,partyType : $scope.profile_val.item}).$promise.then(updateCustomDetails);
 		};
 		
   }
