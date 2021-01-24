@@ -75,17 +75,7 @@
    		       $scope.uploader.clearQueue();       
    		      }).catch(function(){
      		    	$scope.uploader.clearQueue(); 
-     		    	toasty.error({
-   			          title: 'Error',
-   			          msg: 'Server not able to delete previous files ! Please reload page and try again',
-   			          showClose: true,
-   			          clickToClose: true,
-   			          timeout: 20000,
-   			          sound: false,
-   			          html: false,
-   			          shake: false,
-   			          theme: 'bootstrap'
-   			        });
+     		    	
        		    	//$scope.error="File(s) not able to process ";
        		      });
    		  };

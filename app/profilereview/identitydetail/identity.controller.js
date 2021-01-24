@@ -39,7 +39,7 @@
 	  var success = function(){ 
 		        toasty.success({
       	        title: 'Success',
-      	        msg: 'Profile has been created in PTRS !',
+      	        msg: 'Profile has been created in Reltio !',
       	        showClose: true,
       	        clickToClose: true,
       	        timeout: 5000,
@@ -51,6 +51,7 @@
 		   };
 	  $scope.submit = function(item){
 		  item.profileTypeId = $scope.profile_val.item;
+		  item.country = $scope.loggedInUserCountryName;
 		  item.countryCode = $scope.loggedInUserCountryCode;
 		  item.customDetails = $scope.customDetails;
 		  console.log("Inside submit function");
@@ -70,6 +71,8 @@
 					item.city = '';
 					item.country = '';
 					item.speciality = '';
+					item.gender = '';
+					item.state = '';
 					item.addr1 = '';
 					item.addr2 = '';
 					item.addr3 = '';
@@ -152,21 +155,6 @@
 	  loadCredential();
 	
 	  $scope.$on('$localeChangeSuccess', loadCredential);
-		
-	//Loading Countries
-		var updateCountry = function(result){
-			$scope.counties = result;         
-		};
-
-		var loadCountry = function(){
-			$scope.counties = [];
-			$scope.counties = $rootScope.countries;
-			/*Country.query().$promise.then(updateCountry);*/
-		};
-
-		loadCountry();
-		
-		$scope.$on('$localeChangeSuccess', loadCountry);
 		
 		//Loads all State dropdown
 		var updateState = function(result){

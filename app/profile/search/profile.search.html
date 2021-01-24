@@ -3,8 +3,7 @@
 	<div class="panel panel-primary">
 		<div class="panel-heading td-search-panel-text">Search Criteria</div>
 		<div class="panel-body">
-			<form name="itemSearchForm" novalidate>
-				<div class="row">
+			<div class="row">
 					<div class="col-sm-4"></div>
 					<div class="col-sm-4">
 						<label class="control-label"> Search For
@@ -13,9 +12,9 @@
 						</label>
 					</div>
 					<div class="col-sm-2"></div>
-				</div>
-				<br>
-
+			</div>
+			<br>
+			<form name="itemSearchForm" novalidate>
 				<div class="row">
 					<div class="col-lg-1"></div>
 					<div class="col-lg-11">
@@ -231,7 +230,7 @@
 						<td class="tasktd td-search-panel-text" title="{{pro.lastName}}" ng-hide = "profile_val.item=='HCO'">{{pro.attributes.LastName[0].value}}</td>
 						<td class="tasktd td-search-panel-text" title="{{pro.firstName}}" ng-hide = "profile_val.item=='HCO'">{{pro.attributes.FirstName[0].value}}</td>
 						<td class="tasktd td-search-panel-text" title="{{pro.organisationName}}" ng-hide = "profile_val.item=='PERSON'">{{pro.attributes.Name[0].value}}</td>
-						<td class="tasktd td-search-panel-text" title="{{pro.organisationType}}" ng-hide = "profile_val.item=='PERSON'">{{pro.attributes.ActTypeCode[0].value}}</td>
+						<td class="tasktd td-search-panel-text" title="{{pro.organisationType}}" ng-hide = "profile_val.item=='PERSON'">{{pro.attributes.Identifiers[0].value.Type[0].value}}</td>
 						
 						<td class="tasktd td-search-panel-text" title="{{pro.address}}">{{pro.attributes.Address[0].value.AddressLine1[0].value}} - {{pro.attributes.Address[0].value.StateProvince[0].value}}</td>
 						<td class="tasktd td-search-panel-text" title="{{pro.city}}">{{pro.attributes.Address[0].value.City[0].value}}</td>
@@ -246,6 +245,21 @@
 			<div class="text-center">
 				<div>{{responseOnSearch}}</div>
 				<button type="submit" class="btn btn-lg btn-default" style="color:#333" ng-click="setPreviousPage(itemDetails)" ng-disabled="buttondisable == 'true'"> <i class="fa fa-angle-left fa-1x"></i> Prev </button>
+			
+					<select class="btn btn-lg btn-default"
+						ng-model="max" ng-click="setPagination(itemDetails)">
+							<option value=10>10</option>
+							<option value=20>20</option>
+							<option value=30>30</option>
+							<option value=40>40</option>
+							<option value=50>50</option>
+							<option value=60>60</option>
+							<option value=70>70</option>
+							<option value=80>80</option>
+							<option value=90>90</option>
+							<option value=100>100</option>
+					</select>
+				
 				<button type="submit" class="btn btn-lg btn-default" style="color:#333" ng-click="setNextPage(itemDetails)" ng-disabled="buttondisableNext == 'true'"> Next <i class="fa fa-angle-right fa-1x"></i></button>
 			</div>
 		</div>

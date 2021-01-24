@@ -428,17 +428,6 @@
     var getAddressTypes = function() {
       return getLocalizedLov('address-type');
     };
-
-    /**
-     * @ngdoc method
-     * @name getConsentTypes
-     * @methodOf gcms.components.session.service:session
-     * @description Gets consent types
-     * @returns {object} A promise resolving to a consent types array
-     */
-    var getConsentTypes = function() {
-      return getLocalizedLov('consent');
-    };
    
 
     /**
@@ -602,7 +591,6 @@
             recipientTypeString: getRecipientTypesString,
             completionStatus: getCompletionStatuses,
             lockedStatus: getLockedStatuses,
-            consentType: getConsentTypes,
             suffix: getSuffixes,
             transactionStatus: getTransactionStatuses,
             sourceCode: getSourceCode,

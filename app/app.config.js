@@ -98,15 +98,6 @@
           action: 'browse'
         }
       })
-      .state('help', {
-        resolve: {},
-        url: '/help',        
-        templateUrl: 'app/help/help.html',
-        data: {
-          section: 'Help and Support',
-          action: 'browse'
-        }
-      })
       .state('timeout', {
     	resolve: {},
         url: '/',
@@ -121,22 +112,6 @@
           section: 'Administration',
           action: 'browse'
         }
-      })
-      .state('profile-detail-view', {
-			resolve: {},
-			url: '/profile-detail/:id',
-			templateUrl: 'app/profile/search/consentstatus.html',
-			controller: 'ConsentAnnexCtrl', 
-			data: {
-			section: 'Home',
-			action: 'browse'
-			}
-		})
-       .state('consent-mgmt', {
-              resolve: {},
-              url: '/consent-mgmt',       
-              controller: 'ConsentMgmtCtrl',
-              templateUrl: 'app/consent/consentmgmt.html'
       })
       .state('admin-details', {
         resolve: {},

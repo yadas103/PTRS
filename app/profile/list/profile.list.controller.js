@@ -186,7 +186,6 @@
 		//Loads all speciality 
 		var updateSpecialty = function(result){
 			$scope.specialty = result;             
-			$rootScope.specialty = $scope.specialty;
 
 		};
 		
@@ -203,7 +202,6 @@
   	//Loads all credential 
   		var updateCredential = function(result){
   			$scope.credential = result;             
-  			$rootScope.credential = $scope.credential;
 
   		};
 
@@ -215,7 +213,7 @@
   		};
   		
   		$scope.getCred = function(){
-  			$scope.max = 5;
+  			$scope.max = 20;
   			$scope.offset = 0;
   			$scope.buttondisable = "true";
   			$scope.buttondisableNext = "true";
@@ -229,42 +227,9 @@
   	
   	  $scope.$on('$localeChangeSuccess', loadCredential);
   		
-  	//Loading Countries
-  		var updateCountry = function(result){
-  			$scope.counties = result;         
-  		};
-
-  		var loadCountry = function(){
-  			$scope.counties = [];
-  			$scope.counties = $rootScope.countries;
-  			/*Country.query().$promise.then(updateCountry);*/
-  		};
-
-  		loadCountry();
-  		
-  		$scope.$on('$localeChangeSuccess', loadCountry);
-  		
-  		//Loads all State dropdown
-  		var updateState = function(result){
-  			$scope.state = result;             
-  			$rootScope.state = $scope.state;
-
-  		};
-
-  		
-  	  var loadState = function(){		  
-  		  $scope.state = [];
-  		  State.query({id : $scope.loggedInUserCountry}).$promise.then(updateState);
-  			
-  		};
-
-  		loadState();
-  		$scope.$on('$localeChangeSuccess', loadState);
-  		
   		//Loads all Organization Type
   		var updateOrgType = function(result){
   			$scope.orgType = result;             
-  			$rootScope.orgType = $scope.orgType;
 
   		};
 
@@ -281,7 +246,6 @@
   		//Loads all unique type 
   		var updateUniqueType = function(result){
   			$scope.uniqueType = result;             
-  			$rootScope.uniqueType = $scope.uniqueType;
 
   		};
 
@@ -299,7 +263,6 @@
   	//Loads all State dropdown
 		var updateState = function(result){
 			$scope.state = result;             
-			$rootScope.state = $scope.state;
 
 		};
 
@@ -313,12 +276,13 @@
 		loadState();
 		$scope.$on('$localeChangeSuccess', loadState);
 		
-		$scope.max = 5;
+		$scope.max = 20;
 		$scope.offset = 0;
 		
 		$scope.setNextPage = function(item){
-			$scope.offset = $scope.max + $scope.offset;
+			$scope.offset = Number($scope.max) + Number($scope.offset);
 			$scope.buttondisable = "false";
+			
 			$scope.submit(item);
 		};
 		
@@ -326,7 +290,7 @@
 		$scope.buttondisableNext = "true";
 		$scope.setPreviousPage = function(item){
 			if($scope.offset > $scope.max){
-				$scope.offset = $scope.offset - $scope.max;
+				$scope.offset = Number($scope.offset) - Number($scope.max);
 			}
 			else{
 				$scope.offset = 0;
@@ -339,6 +303,11 @@
 		$scope.cancel = function()
 		{
 			$scope.itemDetails = {};
+		};
+		
+		$scope.setPagination = function(item)
+		{
+			$scope.submit(item);
 		};
      
 	}

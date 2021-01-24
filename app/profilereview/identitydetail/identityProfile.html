@@ -156,7 +156,7 @@
 
 					<div class="col-sm-3">
 						<!-- <label class="control-label">County/Province/Region/State</label> -->
-								<select class="form-control" placeholder="State" ng-model="item.country" required>
+								<select class="form-control" placeholder="State" ng-model="item.state" required>
 										<option value="">Select State</option>
 										<option ng-repeat="rep in state">{{rep.stateDesc}}</option>
 								</select>
@@ -182,8 +182,7 @@
 
 				<div class="row">
 					<div class="col-sm-3">
-						<label class="control-label">Market Specific Field
-							[ {{loggedInUserCountryName}} ] </label>
+						<label class="control-label">Market Specific Fields</label>
 					</div>
 				</div>
 
@@ -219,7 +218,7 @@
 				
 				<span style="float: right;margin-top: 18px;margin-right: 14px;">
 					<button type="submit" class="btn btn-primary" ng-click="submit(item)" ng-disabled="requestProfileReviewForm.$invalid">Submit</button>
-					<button type="reset" class="btn btn-warning" ng-click="cancel()" ng-disabled="requestProfileReviewForm.$invalid">Cancel</button>				
+					<button type="reset" class="btn btn-warning" ng-click="cancel()" ng-disabled="requestProfileReviewForm.$invalid">Clear</button>				
 				</span>
 			  </form>
 			</div>
