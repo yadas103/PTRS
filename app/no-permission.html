@@ -1,5 +1,5 @@
 
-<h3>No Access</h3>
+<h3>Single Sign On</h3>
 
 <hr>
 
@@ -7,11 +7,20 @@
 
   <div class="panel panel-primary">
     <div class="panel-heading">
-      No Access
+      Sign In Required
     </div>
     <div class="panel-body">
-      You do not have access to this page with your current credentials or you might need to refresh this page if its your first login.  
-      <a href="https://devfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=https://ptrs-reltio-dev.pfizer.com/ptrs-reltio-tool" class="btn btn-default">Refresh</a> to restart the session.<br />
+      Please    
+      <button onclick="singleSignOn()" class="btn btn-default">Sign In</button> to start a secure session.<br />
+    </div>
+  </div>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      No Access?
+    </div>
+    <div class="panel-body">
+      If your are not able to sign in, you may not have access to PTRS-Reltio Tool.<br />
     </div>
   </div>
 

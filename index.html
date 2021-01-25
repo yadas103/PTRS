@@ -378,5 +378,28 @@
   <script src="app/filemanager/controllers/upload.controller.js"></script>
   <script src="app/filemanager/controllers/selector.controller.js"></script>
 
+  <script>
+    /**
+     * Determine if page loaded with code from OAuth and then redirect it to root 
+     **/
+    $(document).ready ( function(){
+      console.log("Retraction started.....");
+      const urlAndCode = window.location.href.split('/?code=');
+      if(urlAndCode.length === 2) location.href = urlAndCode[0];
+    });
+
+    // Handle Single Sign on action
+    const singleSignOn = () => {
+  	  	const OAUTH_URL = 'https://devfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+      
+        if(window.location.origin !== 'http://localhost:8082/') {
+          location.href = OAUTH_URL+window.location.origin+'/ptrs-reltio-tool';
+        } else {
+          location.href = OAUTH_URL+window.location.origin;
+        }
+  			
+    }
+  </script>
+
 </body>
 </html>
