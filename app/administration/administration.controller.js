@@ -20,6 +20,7 @@
 	  console.log("Inside Admin controller");
 	  $scope.excelSheetDLUAll = {} ;
       $scope.identityRequestView=[];
+      $scope.recordlength='';
 	  
       var loadIdentityRequestView = function(){	
     	  var data = {"id":"","status":""};
@@ -94,6 +95,7 @@
              .then(function(result){
             	 $scope.identityRequestView = result.currentPageData; 
             	 $scope.displayedCollection = [].concat($scope.identityRequestView);
+            	 $scope.recordlength=$scope.identityRequestView.length;
                     	}).catch(function(){
          				//$scope.responseOnSearch = "No records to show"
          					$scope.status='True';

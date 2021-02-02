@@ -11,15 +11,14 @@
 					<th class="pro-rev"> </th>					
 					<th class="pro-rev" style="width:7%;" st-sort="profileTypeId">Party Type</th>
 					<th class="pro-rev" style="width: 8%;" st-sort="uniqueIdentifier" >Identifier</th>
-					<th class="pro-rev" style="width: 10%;" st-sort="organizationName">Organization</th>
-					<th class="pro-rev" style="width: 15%;" st-sort="firstName" >First Name</th>
-					<th class="pro-rev" style="width: 15%;" st-sort="lastName">Last Name</th>
-					<th class="pro-rev" style="width: 10%;" st-sort="city" >City</th>
-					<th class="pro-rev" style="width: 10%;" st-sort="speciality" >Specialty</th>
-					<th class="pro-rev" style="width: 10%;" st-sort="createdBy" >Submitted By</th>
-					<th class="pro-rev" style="width: 10%;" st-sort="createdDate" >Submitted On</th>
-					<th class="pro-rev" style="width: 15%;" st-sort="reltioMsg" >Status</th>
-					<th class="pro-rev" style="width: 15%;" st-sort="reltioCode" >Message</th>
+					<th class="pro-rev" style="width: 9%;" st-sort="organizationName">Organization</th>
+					<th class="pro-rev" style="width: 6%;" st-sort="firstName" >First Name</th>
+					<th class="pro-rev" style="width: 6%;" st-sort="lastName">Last Name</th>
+					<th class="pro-rev" style="width: 8%;" st-sort="city" >City</th>
+					<th class="pro-rev" style="width: 8%;" st-sort="speciality" >Specialty</th>
+					<th class="pro-rev" style="width: 7%;" st-sort="createdBy" >Submitted By</th>
+					<th class="pro-rev" style="width: 7%;" st-sort="createdDate" >Submitted On</th>
+					<th class="pro-rev" style="width: 1%;" st-sort="reltioMsg" >Status</th>
 				</tr>
 			 	<tr>
 				<!-- <td> </td> -->
@@ -38,7 +37,6 @@
 						            <option value="Successful">Successful</option>
 									 <option value="Failed">Failed</option> 
 					</select></th>			
-				<th><input st-search="reltioCode" placeholder=" " class="form-control" type="search" /></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -57,7 +55,6 @@
 						<td class="tasktd">{{ identity.createdBy }}</td>
 						<td class="tasktd">{{ identity.createdDate }}</td>
 						<td class="tasktd">{{ identity.reltioMsg }}</td>
-						<td class="tasktd">{{ identity.reltioCode }}</td>
 					</tr>
 			</tbody>			
 			<tfoot>
@@ -67,6 +64,17 @@
 								<button type="submit" class="btn btn-primary btn-sm td-search-panel-text" ng-click="loadDataDLUAll()">Download</button>
 							</div>
 							
+						</td>
+					</tr>					
+					<tr>
+
+						<td colspan="10" class="text-center" ng-hide="recordlength <'10' " >
+							<div  st-items-by-page="10" st-pagination=""
+								st-template="app/profile/list/pagination.custom.html"></div>
+							
+						</td>
+						<td  colspan="10" class="text-center" ng-show="recordlength =='0'">
+						<div>{{records}}</div>
 						</td>
 					</tr>
 				</tfoot>

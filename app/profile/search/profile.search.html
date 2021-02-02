@@ -8,7 +8,7 @@
 					<div class="col-sm-4">
 						<label class="control-label"> Search For
 							&nbsp; &nbsp;<input type="radio" id="PERSON" name="PERSON" value="PERSON" ng-model="profile_val.item" ng-change="getCred()"/> Individual
-							&nbsp; &nbsp;<input type="radio" id="HCO" name="HCO" value="HCO" ng-model="profile_val.item" ng-change="getCred()"/> Organization
+							&nbsp; &nbsp;<input type="radio" id="ORGANIZATION" name="ORGANIZATION" value="ORGANIZATION" ng-model="profile_val.item" ng-change="getCred()"/> Organization
 						</label>
 					</div>
 					<div class="col-sm-2"></div>
@@ -19,7 +19,7 @@
 					<div class="col-lg-1"></div>
 					<div class="col-lg-11">
 						<div class="col-lg-3">
-							<div ng-hide="profile_val.item=='HCO' " class="form-group row">
+							<div ng-hide="profile_val.item=='ORGANIZATION' " class="form-group row">
 								<label class="control-label">Person Name</label>
 								<div class="input-group">
 									<!-- <span >First</span> -->
@@ -48,27 +48,26 @@
 									<select class="form-control input-sm td-search-panel-text"
 										ng-model="itemDetails.organizationType">
 										<option value="">Select Organization Type</option>
-										<option ng-repeat="rep in orgType">{{rep.subDesc}}</option>
+										<option ng-repeat="rep in orgType" value="{{rep.subCode}}">{{rep.subDesc}} - {{rep.subCode}}</option>
 									</select>
 								</div>
 
 							</div>
 
-
-							<div ng-hide="profile_val.item=='HCO'" class="form-group row">
-								<label class="control-label">Specialty and Credential</label>
+							<div ng-hide="profile_val.item=='ORGANIZATION'" class="form-group row">
+								<label class="control-label">Specialty</label>
 								<div class="input-group">
 									<select class="form-control input-sm td-search-panel-text" ng-model="itemDetails.speciality">
 										<option value="">Select Specialty</option>
-										<option ng-repeat="rep in specialty" value="{{rep.spclCode}}">{{rep.spclDesc}}</option>
+										<option ng-repeat="rep in specialty" value="{{rep.spclCode}}">{{rep.spclDesc}} - {{rep.spclCode}}</option>
 									</select>
 								</div>
-								<div class="input-group">
+								<!-- <div class="input-group">
 									<select class="form-control input-sm td-search-panel-text" ng-model="itemDetails.credential">
 										<option value="">Select Credential</option>
 										<option ng-repeat="rep in credential" value="{{rep.credentialCode}}">{{rep.credentialDesc}}</option>
 									</select>
-								</div>
+								</div> -->
 							</div>
 
 						</div>
@@ -151,13 +150,13 @@
 							style="font-size: 13px; width: 86px;"
 							st-sort="profileType"class="td-search-panel-text">Party Type</th>
 						<th 
-							ng-hide="profile_val.item=='HCO'"
+							ng-hide="profile_val.item=='ORGANIZATION'"
 							ng-click="orderByField='lastName'; reverseSort = !reverseSort"
 							st-sort="lastName"
 							class="td-search-panel-text"
 							>Last Name</th>
 						<th
-							ng-hide = "profile_val.item=='HCO'"
+							ng-hide = "profile_val.item=='ORGANIZATION'"
 							ng-click="orderByField='firstName'; reverseSort = !reverseSort"
 							st-sort="firstName"
 							class="td-search-panel-text"
@@ -186,12 +185,17 @@
 							class="td-search-panel-text"
 							>City Name</th>
 							
+						<th ng-click="orderByField='Zip'; reverseSort = !reverseSort"
+							st-sort="poCode"
+							class="td-search-panel-text"
+							>Zip Code</th>
+							
 						<th ng-click="orderByField='identifier'; reverseSort = !reverseSort"
 							st-sort="identifier"
 							class="td-search-panel-text"
 							>Identifier</th>
 						<th
-							ng-hide="profile_val.item=='HCO'"
+							ng-hide="profile_val.item=='ORGANIZATION'"
 							ng-click="orderByField='speciality'; reverseSort = !reverseSort"
 							st-sort="speciality"
 							class="td-search-panel-text"
@@ -202,9 +206,9 @@
 						<th ng-hide = "true"><input ng-model="search.profileType"
 							st-search="profileType" placeholder=" " class="form-control td-search-panel-text"
 							type="search" /></th>
-						<th ng-hide="profile_val.item=='HCO'"><input ng-model="search.lastName" st-search="lastName"
+						<th ng-hide="profile_val.item=='ORGANIZATION'"><input ng-model="search.lastName" st-search="lastName"
 							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>
-						<th ng-hide = "profile_val.item=='HCO'"><input ng-model="search.firstName" st-search="firstName"
+						<th ng-hide = "profile_val.item=='ORGANIZATION'"><input ng-model="search.firstName" st-search="firstName"
 							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>
 						<th ng-hide = "profile_val.item=='PERSON'"><input ng-model="search.organisationName"
 							st-search="organisationName" placeholder=" " class="form-control td-search-panel-text"
@@ -216,9 +220,11 @@
 							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>							
 						<th><input ng-model="search.city" st-search="city"
 							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>	
+						<th><input ng-model="search.zip" st-search="poCode"
+							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>
 						<th><input ng-model="search.identifier" st-search="identifier"
 							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>						
-						<th ng-hide = "profile_val.item=='HCO'"><input ng-model="search.speciality" st-search="speciality"
+						<th ng-hide = "profile_val.item=='ORGANIZATION'"><input ng-model="search.speciality" st-search="speciality"
 							placeholder=" " class="form-control td-search-panel-text" type="search" /></th>
 					</tr>
 				</thead>
@@ -227,15 +233,16 @@
 						data-ng-repeat="pro in profileSearchCopy track by $index | orderBy:orderByField:reverseSort">
 						<!-- <td class="td-search-panel-text">{{pro.id}}</td> -->
 						<td ng-hide = "true" class="td-search-panel-text">{{pro.profileType}}</td>
-						<td class="tasktd td-search-panel-text" title="{{pro.lastName}}" ng-hide = "profile_val.item=='HCO'">{{pro.attributes.LastName[0].value}}</td>
-						<td class="tasktd td-search-panel-text" title="{{pro.firstName}}" ng-hide = "profile_val.item=='HCO'">{{pro.attributes.FirstName[0].value}}</td>
+						<td class="tasktd td-search-panel-text" title="{{pro.lastName}}" ng-hide = "profile_val.item=='ORGANIZATION'">{{pro.attributes.LastName[0].value}}</td>
+						<td class="tasktd td-search-panel-text" title="{{pro.firstName}}" ng-hide = "profile_val.item=='ORGANIZATION'">{{pro.attributes.FirstName[0].value}}</td>
 						<td class="tasktd td-search-panel-text" title="{{pro.organisationName}}" ng-hide = "profile_val.item=='PERSON'">{{pro.attributes.Name[0].value}}</td>
 						<td class="tasktd td-search-panel-text" title="{{pro.organisationType}}" ng-hide = "profile_val.item=='PERSON'">{{pro.attributes.Identifiers[0].value.Type[0].value}}</td>
 						
-						<td class="tasktd td-search-panel-text" title="{{pro.address}}">{{pro.attributes.Address[0].value.AddressLine1[0].value}} - {{pro.attributes.Address[0].value.StateProvince[0].value}}</td>
+						<td class="tasktd td-search-panel-text" title="{{pro.address}}">{{pro.attributes.Address[0].value.AddressLine1[0].value}}</td>
 						<td class="tasktd td-search-panel-text" title="{{pro.city}}">{{pro.attributes.Address[0].value.City[0].value}}</td>
-						<td class="tasktd td-search-panel-text" title="{{pro.identifier}}">{{pro.attributes.Identifiers[0].value.ID[0].value}}</td>
-						<td ng-hide = "profile_val.item=='HCO'" class="tasktd td-search-panel-text" title="{{pro.speciality}}">{{pro.attributes.Specialities[0].value.Specialty[0].value}}</td>
+						<td class="tasktd td-search-panel-text" title="{{pro.poCode}}">{{pro.attributes.Address[0].value.Zip[0].value.Zip5[0].value}}</td>
+						<td class="tasktd td-search-panel-text" title="{{pro.identifier}}">{{pro.uri}}</td>
+						<td ng-hide = "profile_val.item=='ORGANIZATION'" class="tasktd td-search-panel-text" title="{{pro.speciality}}">{{pro.attributes.Specialities[0].value.Specialty[0].value}}</td>
 					</tr>
 				</tbody>
 			</table>

@@ -9,7 +9,7 @@
 					<div class="col-sm-4">
 						<label> Party Type
 							&nbsp; &nbsp;<input type="radio" id="PERSON" name="PERSON" value="PERSON" ng-model="profile_val.item" ng-change="getCred()"/> Individual 
-							&nbsp; &nbsp;<input type="radio" id="HCO" name="HCO" value="HCO" ng-model="profile_val.item" ng-change="getCred()"/> Organization
+							&nbsp; &nbsp;<input type="radio" id="ORGANIZATION" name="ORGANIZATION" value="ORGANIZATION" ng-model="profile_val.item" ng-change="getCred()"/> Organization
 						</label>
 					</div>
 				</div>
@@ -25,7 +25,7 @@
 				<div ng-hide="profile_val.item=='PERSON'" class="row">
 					<div class="col-sm-3">
 						<!-- <label class="control-label">Name</label> -->
-						<input type="text" ng-maxlength="100" class="form-control" id="organizationName" placeholder="Name" ng-model="item.organizationName" ng-required="profile_val.item == 'HCO'">
+						<input type="text" ng-maxlength="100" class="form-control" id="organizationName" placeholder="Name" ng-model="item.organizationName" ng-required="profile_val.item == 'ORGANIZATION'">
 					</div>
 
 					<div class="col-sm-3">
@@ -35,20 +35,20 @@
 							<option value ng-show="true" class="ng-binding">Select
 								Organization Type</option>								
 							<!-- <option value="WFR.REX.E0-OneKey Workplace ID" ng-show="true" class="ng-binding">WFR.REX.E0-OneKey Workplace ID</option> -->
-							<option ng-repeat="rep in orgType">{{rep.subDesc}}</option>
+							<option ng-repeat="rep in orgType" value="{{rep.subDesc}}">{{rep.subDesc}} - {{rep.subCode}}</option>
 						</select>
 					</div>
 
 				</div>
 
 
-				<div ng-hide="profile_val.item=='HCO'" class="row">
+				<div ng-hide="profile_val.item=='ORGANIZATION'" class="row">
 					<div class="col-sm-3">
 						<label class="control-label">Person </label>
 					</div>
 				</div>
 
-				<div ng-hide="profile_val.item=='HCO'" class="row">
+				<div ng-hide="profile_val.item=='ORGANIZATION'" class="row">
 					<div class="col-sm-3">
 						<!-- <label class="control-label">First Name</label> -->
 						<input type="text" ng-maxlength="100" class="form-control" placeholder="First Name" ng-model="item.firstName" ng-required="profile_val.item == 'PERSON'">
@@ -76,35 +76,35 @@
 				</div>
 
 				<div class="row">
-					<div class="col-sm-3" ng-hide="profile_val.item=='HCO'" >
+					<div class="col-sm-3" ng-hide="profile_val.item=='ORGANIZATION'" >
 						<!-- <label class="control-label">Title</label> -->
 						<input type="text"
 							class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched"
 							placeholder="Title" ng-model="item.title">
 					</div>
 
-					<div class="col-sm-3" ng-hide="profile_val.item=='PERSON'" >
-						<!-- <label class="control-label">Credential</label> -->
+					<!-- <div class="col-sm-3" ng-hide="profile_val.item=='PERSON'" >
+						<label class="control-label">Credential</label>
 						<select class="form-control" ng-model="item.credential">
-							<!-- ng-options="item.id as item.name for item in items | unique:'name'" -->
+							ng-options="item.id as item.name for item in items | unique:'name'"
 							<option value ng-show="true" class="ng-binding">Select
 								Credential</option>
 							<option ng-repeat="rep in credential">{{rep.credentialDesc}}</option>
 						</select>
-					</div>
+					</div> -->
 
 
-					<div class="col-sm-3" ng-hide="profile_val.item=='HCO'">
+					<div class="col-sm-3" ng-hide="profile_val.item=='ORGANIZATION'">
 						<!-- <label class="control-label">Specialty</label> -->
 						<!-- ng-options="item.id as item.name for item in items | unique:'name'" -->
 						<select class="form-control" ng-model="item.speciality" ng-change="compare(item)" ng-required="profile_val.item == 'PERSON'">
 							<option value ng-show="true" class="ng-binding">Select
 								Specialty</option>
-							<option ng-repeat="rep in specialty" value="{{rep.spclCode}}">{{rep.spclDesc}}</option>
+							<option ng-repeat="rep in specialty" value="{{rep.spclCode}}">{{rep.spclDesc}} - {{rep.spclCode}}</option>
 						</select>
 					</div>
 					
-					<div class="col-sm-3" ng-hide="profile_val.item=='HCO'">
+					<div class="col-sm-3" ng-hide="profile_val.item=='ORGANIZATION'">
 						<select class="form-control" ng-model="item.gender" ng-required="profile_val.item == 'PERSON'">
 							<option value ng-show="true" class="ng-binding">Select Gender</option>
 							<option value="M">Male</option>
@@ -187,7 +187,7 @@
 				</div>
 
 				<div class="column" data-ng-repeat="pro in customDetails">
-					<div class="col-sm-3" ng-hide="pro.partyType=='PERSON'">
+					<div class="col-sm-3" ng-hide="pro.partyType=='ORGANIZATION'">
 						<label class="control-label">{{pro.fieldName}}</label>
 						<div ng-if="pro.fieldValue!=null">
 						<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched"
@@ -200,16 +200,22 @@
 						</div>
 						<!-- <input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="BENEF_QUALITE"> -->
 					</div>
-					<div class="col-sm-3" ng-hide="pro.partyType=='ORGANIZATION'">
-						<label class="control-label">{{pro.fieldName}}</label>
-						<div ng-if="pro.fieldValue!=null">
-						<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched"
-						placeholder="{{pro.fieldValue}}" readonly>
+					<div class="col-sm-3" ng-hide="pro.partyType=='PERSON'">
+						<div ng-if="pro.fieldName!='BENEF_OBJECTSOCIAL'">
+							<label class="control-label">{{pro.fieldName}}</label>
+								<div ng-if="pro.fieldValue!=null">
+								<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched"
+								placeholder="{{pro.fieldValue}}" readonly>
+								</div>								
 						</div>
 						
-						<div ng-if="pro.fieldValue==null">
-						<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched"
-						placeholder="{{pro.fieldName}}" ng-model="item.data">
+						<!-- <br><br><br><br> -->
+						<div ng-if="pro.fieldName=='BENEF_OBJECTSOCIAL'">
+							<label class="control-label">{{pro.fieldName}}</label>
+								<div ng-if="pro.fieldValue==null">
+								<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched"
+								placeholder="{{pro.fieldName}}" ng-model="item.data">
+								</div>
 						</div>
 						<!-- <input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="BENEF_QUALITE"> -->
 					</div>

@@ -29,6 +29,7 @@
 		    	var patternaddress = (typeof predicate.address == "string") ? predicate.address.replace("%",".*") : predicate.address;
 		    	var patternspeciality = (typeof predicate.speciality == "string") ? predicate.speciality.replace("%",".*") : predicate.speciality;
 		    	var patternidentifier =  (typeof predicate.identifier == "string") ? predicate.identifier.replace("%",".*") : predicate.identifier;
+		    	var patternpoCode =  (typeof predicate.poCode == "string") ? predicate.poCode.replace("%",".*") : predicate.poCode;
 		    	
 		    	var lastName = new RegExp(patternlastName, 'gi');
 		    	var organisationName = new RegExp(patternorganisationName, 'gi');
@@ -38,24 +39,28 @@
 				var address = new RegExp(patternaddress, 'gi');
 				var speciality = new RegExp(patternspeciality, 'gi');
 				var identifier = new RegExp(patternidentifier, 'gi');
-				
-				
+				var poCode = new RegExp(patternpoCode, 'gi');			
 		    	
 		    	if(keys.length != 0){
 		    		
 		    		if(input[0].type=='configuration/entityTypes/HCP'){    			
-						for(var i in input){							
-							if (lastName.exec(input[i].attributes.LastName[0].value) != null && firstName.exec(input[i].attributes.FirstName[0].value) != null && 
-									city.exec(input[i].attributes.Address[0].value.City[0].value) != null && address.exec(input[i].attributes.Address[0].value.AddressLine1[0].value +"-"+ input[i].attributes.Address[0].value.StateProvince[0].value) != null 
-									&& speciality.exec(input[i].attributes.Specialities[0].value.Specialty[0].value) != null && identifier.exec(input[i].attributes.Identifiers[0].value.ID[0].value) != null){
-								lastName.lastIndex = 0;
-								firstName.lastIndex = 0;
-								city.lastIndex = 0;
-								address.lastIndex = 0;
-								speciality.lastIndex = 0;
-								identifier.lastIndex = 0;
-								fn.push(input[i]);																	
-							}
+						for(var i in input){								
+								if (lastName.exec(input[i].attributes.LastName[0].value) != null && firstName.exec(input[i].attributes.FirstName[0].value) != null &&
+										input[i].attributes.Address !== undefined && (
+										(input[i].attributes.Address !== '' && city.exec(input[i].attributes.Address[0].value.City[0].value) != null) &&
+										(input[i].attributes.Address !== '' && address.exec(input[i].attributes.Address[0].value.AddressLine1[0].value) != null) &&
+										(input[i].attributes.Address !== '' && poCode.exec(input[i].attributes.Address[0].value.Zip[0].value.Zip5[0].value) != null)) &&
+										(input[i].attributes.Identifiers !== null && input[i].attributes.Identifiers !== undefined && input[i].attributes.Identifiers !== '' && identifier.exec(input[i].attributes.Identifiers[0].value.ID[0].value) != null) &&
+										(input[i].attributes.Specialities !== null && input[i].attributes.Specialities !== undefined && input[i].attributes.Specialities !== '' && speciality.exec(input[i].attributes.Specialities[0].value.Specialty[0].value) != null)){
+									lastName.lastIndex = 0;
+									firstName.lastIndex = 0;
+									city.lastIndex = 0;
+									address.lastIndex = 0;
+									speciality.lastIndex = 0;
+									identifier.lastIndex = 0;
+									poCode.lastIndex = 0;
+									fn.push(input[i]);																	
+								}
 						}
 						
 						return fn;
@@ -64,11 +69,13 @@
 		    		if(input[0].type=='configuration/entityTypes/HCO'){			
 						for(var i in input){							
 							if (organisationName.exec(input[i].attributes.Name[0].value) != null && city.exec(input[i].attributes.Address[0].value.City[0].value) != null 
-									&& address.exec(input[i].attributes.Address[0].value.AddressLine1[0].value +"-"+ input[i].attributes.Address[0].value.StateProvince[0].value) != null 
+									&& poCode.exec(input[i].attributes.Address[0].value.Zip[0].value.Zip5[0].value) != null
+									&& address.exec(input[i].attributes.Address[0].value.AddressLine1[0].value) != null 
 									&& identifier.exec(input[i].attributes.Identifiers[0].value.ID[0].value) != null){
 								organisationName.lastIndex = 0;
 								//organisationType.lastIndex = 0;
 								city.lastIndex = 0;
+								poCode.lastIndex = 0;
 								address.lastIndex = 0;
 								identifier.lastIndex = 0;
 								fn.push(input[i]);																	
@@ -165,7 +172,19 @@
 				territory : data.territory
 			}).$promise
 			.then(function(profileSearch) {
-				$scope.profileSearch= JSON.parse(profileSearch.string);
+				$scope.profileSearch= JSON.parse(profileSearch.string);	
+
+				for(var i in $scope.profileSearch){
+					$scope.profileSearch[i].uri = $scope.profileSearch[i].uri.substring(9, $scope.profileSearch[i].uri.length);
+					if($scope.profileSearch[i].attributes.Specialities !== undefined){
+						var profileSpecialty = $scope.profileSearch[i].attributes.Specialities[0].value.Specialty[0].value;					
+						for(var j in $rootScope.specialty){
+							if(profileSpecialty == $rootScope.specialty[j].spclCode){
+								$scope.profileSearch[i].attributes.Specialities[0].value.Specialty[0].value = $rootScope.specialty[j].spclDesc;
+							}
+						}
+					}
+				}
 				if($scope.profileSearch.length == 0){
 					$scope.responseOnSearch = "No records to show";
 					$scope.buttondisableNext = "true";
@@ -185,7 +204,8 @@
 		
 		//Loads all speciality 
 		var updateSpecialty = function(result){
-			$scope.specialty = result;             
+			$scope.specialty = result; 
+			$rootScope.specialty = result;
 
 		};
 		

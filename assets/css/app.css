@@ -1289,3 +1289,15 @@ background-color:#ccc;
 .beneffields span {
     font-size:13px !important;
 }
+
+/*Pagination */
+.select-page {
+  width: 41px;
+  height: 20px;
+  font-size: 12px;
+  text-align: center;
+}
+.pagination li a input {
+  padding: 0;
+  margin: -5px 0;
+}

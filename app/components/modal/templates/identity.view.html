@@ -14,13 +14,13 @@
       <input ng-maxlength="60" type="text" class="form-control form-popup"  placeholder="{{item.profileTypeId }}" ng-disabled="true">
     </div>
   </div>
-  <div class="form-group" ng-hide="item.profileTypeId == 'HCO'" >
+  <div class="form-group" ng-hide="item.profileTypeId == 'ORGANIZATION'" >
     <label class="col-sm-3 control-label">FirstName :</label>
     <div class="col-sm-9">
       <input ng-maxlength="60" type="text" class="form-control form-popup" placeholder="{{item.firstName }}" ng-disabled="true">
     </div>
   </div>
-      <div class="form-group" ng-hide="item.profileTypeId == 'HCO'" >
+      <div class="form-group" ng-hide="item.profileTypeId == 'ORGANIZATION'" >
     <label class="col-sm-3 control-label">LastName :</label>
     <div class="col-sm-9">
       <input ng-maxlength="60" type="text" class="form-control form-popup" placeholder="{{item.lastName }}" ng-disabled="true" >
@@ -50,7 +50,7 @@
       <input ng-maxlength="60" type="text" class="form-control form-popup"  placeholder="{{item.addr1 }}" ng-disabled="true">
     </div>
   </div>
-  <div class="form-group" ng-hide="item.profileTypeId == 'HCO'">
+  <div class="form-group" ng-hide="item.profileTypeId == 'ORGANIZATION'">
     <label class="col-sm-3 control-label">Speciality :</label>
     <div class="col-sm-9">
       <input ng-maxlength="60" type="text" class="form-control form-popup" placeholder="{{item.speciality }}" ng-disabled="true" >
@@ -74,6 +74,19 @@
       <input ng-maxlength="60" type="text" class="form-control form-popup" placeholder="{{item.uniqueIdentifier }}" ng-disabled="true" >
     </div>
   </div>
+   <div class="form-group">
+    <label class="col-sm-3 control-label">Message :</label>
+    <div class="col-sm-9">
+      <input ng-maxlength="60" type="text" class="form-control form-popup" placeholder="{{item.reltioCode }}" ng-disabled="true" >
+    </div>
+  </div>
+  <div class="form-group" data-ng-repeat="pro in item.customDetails">
+    <label class="col-sm-3 control-label" style="text-transform: lowercase">{{pro.fieldName}} :</label>
+    <div class="col-sm-9">
+      <input ng-maxlength="60" type="text" class="form-control form-popup" placeholder="{{pro.fieldValue}}" ng-disabled="true" >
+    </div>
+  </div> 
+  
   </form>
 </div>
 
