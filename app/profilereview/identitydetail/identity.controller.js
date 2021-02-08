@@ -50,6 +50,19 @@
       	     });
 		   };
 	  $scope.submit = function(item){
+		  
+		  if(item.specialityDetail !== undefined){
+			  for(var i in item.specialityDetail){
+				  if(item.specialityDetail[i] == "-"){
+					  $scope.profilelength = i;
+				  }
+			  }
+			  
+			  item.speciality = item.specialityDetail.substring(0, $scope.profilelength);
+			  item.specialityCode = item.specialityDetail.substring(Number($scope.profilelength) + 1, item.specialityDetail.length);  
+		  }		  
+		  
+
 		  item.profileTypeId = $scope.profile_val.item;
 		  item.country = $scope.loggedInUserCountryName;
 		  item.countryCode = $scope.loggedInUserCountryCode;
@@ -70,7 +83,10 @@
 					item.organizationType = '';
 					item.city = '';
 					item.country = '';
+					item.countryCode = '';
+					item.specialityDetail = '';
 					item.speciality = '';
+					item.specialityCode = '';
 					item.gender = '';
 					item.state = '';
 					item.addr1 = '';
@@ -78,6 +94,8 @@
 					item.addr3 = '';
 					item.region = '';
 					item.poCode = '';
+					item.customDetails = '';
+					$scope.customDetails = '';
 					success();
 				}
 
@@ -205,8 +223,17 @@
 		};
 		
 		$scope.compare = function(item){
+			for(var i in item.specialityDetail){
+				  if(item.specialityDetail[i] == "-"){
+					  $scope.profilelength = i;
+				  }
+			  }
+			  
+			  item.speciality = item.specialityDetail.substring(0, $scope.profilelength);
+			  item.specialityCode = item.specialityDetail.substring(Number($scope.profilelength) + 1, item.specialityDetail.length);
+			  
 			for(var i in $scope.specialty){
-				if( $scope.specialty[i].spclCode == item.speciality && $scope.specialty[i].countryId == $scope.loggedInUserCountry){
+				if( $scope.specialty[i].spclCode == item.specialityCode && $scope.specialty[i].countryId == $scope.loggedInUserCountry){
 					$scope.specId = $scope.specialty[i].id;
 				}
 			}

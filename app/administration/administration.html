@@ -9,15 +9,16 @@
 			<thead>
 				<tr style="color: white; background-color: #337ab7;">
 					<th class="pro-rev"> </th>					
-					<th class="pro-rev" style="width:7%;" st-sort="profileTypeId">Party Type</th>
-					<th class="pro-rev" style="width: 8%;" st-sort="uniqueIdentifier" >Identifier</th>
-					<th class="pro-rev" style="width: 9%;" st-sort="organizationName">Organization</th>
-					<th class="pro-rev" style="width: 6%;" st-sort="firstName" >First Name</th>
-					<th class="pro-rev" style="width: 6%;" st-sort="lastName">Last Name</th>
-					<th class="pro-rev" style="width: 8%;" st-sort="city" >City</th>
-					<th class="pro-rev" style="width: 8%;" st-sort="speciality" >Specialty</th>
-					<th class="pro-rev" style="width: 7%;" st-sort="createdBy" >Submitted By</th>
-					<th class="pro-rev" style="width: 7%;" st-sort="createdDate" >Submitted On</th>
+					<th class="pro-rev" style="width:3%;" st-sort="profileTypeId">Party Type</th>
+					<th class="pro-rev" style="width: 3%;" st-sort="uniqueIdentifier" >Identifier</th>
+					<th class="pro-rev" style="width: 2%;" st-sort="reltioId" >Reltio Id</th>
+					<th class="pro-rev" style="width: 7%;" st-sort="organizationName">Organization</th>
+					<th class="pro-rev" style="width: 4%;" st-sort="firstName" >First Name</th>
+					<th class="pro-rev" style="width: 4%;" st-sort="lastName">Last Name</th>
+					<th class="pro-rev" style="width: 2%;" st-sort="city" >City</th>
+					<th class="pro-rev" style="width: 2%;" st-sort="speciality" >Specialty</th>
+					<th class="pro-rev" style="width: 4%;" st-sort="createdBy" >Submitted By</th>
+					<th class="pro-rev" style="width: 3%;" st-sort="createdDate" >Submitted On</th>
 					<th class="pro-rev" style="width: 1%;" st-sort="reltioMsg" >Status</th>
 				</tr>
 			 	<tr>
@@ -25,6 +26,7 @@
 				<th style="width: 4%;"></th>
 				<th><input st-search="profileTypeId" placeholder=" " class="form-control" type="search" /></th>
 				<th><input st-search="uniqueIdentifier" placeholder=" " class="form-control" type="search" /></th>
+				<th><input st-search="reltioId" placeholder=" " class="form-control" type="search" /></th>
 				<th><input st-search="organizationName" placeholder=" " class="form-control" type="search" /></th>
 				<th><input st-search="firstName" placeholder=" " class="form-control" type="search" /></th>
 				<th><input st-search="lastName" placeholder=" " class="form-control" type="search" /></th>
@@ -47,6 +49,7 @@
 										style="color: #337ab7;margin-left: 3px;" title="Identity View"> View</span> </gcms-modal></td>
 						<td class="tasktd" >{{ identity.profileTypeId }}</td>
 						<td class="tasktd" >{{ identity.uniqueIdentifier}}</td>
+						<td class="tasktd" >{{ identity.reltioId}}</td>
 						<td  class="tasktd">{{ identity.organizationName}}</td>
 						<td class="tasktd" >{{ identity.firstName }}</td>
 						<td class="tasktd" >{{ identity.lastName }}</td> 
@@ -68,12 +71,12 @@
 					</tr>					
 					<tr>
 
-						<td colspan="10" class="text-center" ng-hide="recordlength <'10' " >
+						<td colspan="30" class="text-center" ng-hide="recordlength <'10' " >
 							<div  st-items-by-page="10" st-pagination=""
 								st-template="app/profile/list/pagination.custom.html"></div>
 							
 						</td>
-						<td  colspan="10" class="text-center" ng-show="recordlength =='0'">
+						<td  colspan="30" class="text-center" ng-show="recordlength =='0'">
 						<div>{{records}}</div>
 						</td>
 					</tr>

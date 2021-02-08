@@ -50,7 +50,7 @@
 										(input[i].attributes.Address !== '' && city.exec(input[i].attributes.Address[0].value.City[0].value) != null) &&
 										(input[i].attributes.Address !== '' && address.exec(input[i].attributes.Address[0].value.AddressLine1[0].value) != null) &&
 										(input[i].attributes.Address !== '' && poCode.exec(input[i].attributes.Address[0].value.Zip[0].value.Zip5[0].value) != null)) &&
-										(input[i].attributes.Identifiers !== null && input[i].attributes.Identifiers !== undefined && input[i].attributes.Identifiers !== '' && identifier.exec(input[i].attributes.Identifiers[0].value.ID[0].value) != null) &&
+										(input[i].uri !== null && input[i].uri !== undefined && input[i].uri !== '' && identifier.exec(input[i].uri) != null) &&
 										(input[i].attributes.Specialities !== null && input[i].attributes.Specialities !== undefined && input[i].attributes.Specialities !== '' && speciality.exec(input[i].attributes.Specialities[0].value.Specialty[0].value) != null)){
 									lastName.lastIndex = 0;
 									firstName.lastIndex = 0;
@@ -93,9 +93,9 @@
 		})
 	.controller('ProfileListCtrl', ProfileSearch);
 
-	ProfileSearch.$inject = ['ProfileSearch','$scope','UIConfig','$rootScope','Specialty','Credential','State','OrganizationType','UniqueType'];
+	ProfileSearch.$inject = ['ProfileSearch','$scope','UIConfig','$rootScope','Specialty','Credential','State','OrganizationType','UniqueType','Territory'];
 
-	function ProfileSearch(ProfileSearch,$scope,UIConfig,$rootScope,Specialty,Credential,State,OrganizationType,UniqueType) {
+	function ProfileSearch(ProfileSearch,$scope,UIConfig,$rootScope,Specialty,Credential,State,OrganizationType,UniqueType,Territory) {
 
 		var params = {};
 		console.log("Inside Profile.list.controller");	
@@ -262,6 +262,22 @@
 
   		loadOrgType();
   		$scope.$on('$localeChangeSuccess', loadOrgType);
+  		
+  	//Loads all Territory Type
+  		var updateTerritory = function(result){
+  			$scope.territory = result;             
+
+  		};
+
+  		
+  	  var loadTerritory = function(){		  
+  		  $scope.territory = [];
+  		  Territory.query().$promise.then(updateTerritory);
+  			
+  		};
+
+  		loadTerritory();
+  		$scope.$on('$localeChangeSuccess', loadTerritory);
   		
   		//Loads all unique type 
   		var updateUniqueType = function(result){

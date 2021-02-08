@@ -1,9 +1,7 @@
 <div class=".container-search-panel" style="width: 100%;">
 	<div class="panel panel-primary">
 		<div class="panel-heading ">Profile Details</div>
-			<div class="panel-body">
-			<form name="requestProfileReviewForm" novalidate>
-			
+			<div class="panel-body">			
 				<div class="row">
 					<div class="col-sm-4"></div>
 					<div class="col-sm-4">
@@ -15,6 +13,8 @@
 				</div>
 
 				<hr>
+				
+			<form name="requestProfileReviewForm" novalidate>
 
 				<div ng-hide="profile_val.item=='PERSON'" class="row">
 					<div class="col-sm-3">
@@ -97,10 +97,10 @@
 					<div class="col-sm-3" ng-hide="profile_val.item=='ORGANIZATION'">
 						<!-- <label class="control-label">Specialty</label> -->
 						<!-- ng-options="item.id as item.name for item in items | unique:'name'" -->
-						<select class="form-control" ng-model="item.speciality" ng-change="compare(item)" ng-required="profile_val.item == 'PERSON'">
+						<select class="form-control" ng-model="item.specialityDetail" ng-change="compare(item)" ng-required="profile_val.item == 'PERSON'">
 							<option value ng-show="true" class="ng-binding">Select
 								Specialty</option>
-							<option ng-repeat="rep in specialty" value="{{rep.spclCode}}">{{rep.spclDesc}} - {{rep.spclCode}}</option>
+							<option ng-repeat="rep in specialty" value="{{rep.spclDesc}}-{{rep.spclCode}}">{{rep.spclDesc}} - {{rep.spclCode}}</option>
 						</select>
 					</div>
 					
@@ -189,42 +189,42 @@
 				<div class="column" data-ng-repeat="pro in customDetails">
 					<div class="col-sm-3" ng-hide="pro.partyType=='ORGANIZATION'">
 						<label class="control-label">{{pro.fieldName}}</label>
-						<div ng-if="pro.fieldValue!=null">
+						<div ng-if="pro.textEnabled=='Y'">
 						<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched"
 						placeholder="{{pro.fieldValue}}" readonly>
 						</div>
 						
-						<div ng-if="pro.fieldValue==null">
+						<div ng-if="pro.textEnabled=='N'">
 						<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched"
-						placeholder="{{pro.fieldName}}" ng-model="item.data">
+						placeholder="{{pro.fieldName}}" ng-model="pro.fieldValue">
 						</div>
 						<!-- <input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="BENEF_QUALITE"> -->
 					</div>
-					<div class="col-sm-3" ng-hide="pro.partyType=='PERSON'">
-						<div ng-if="pro.fieldName!='BENEF_OBJECTSOCIAL'">
+					<div ng-hide="pro.partyType=='PERSON'">
+						<div class="col-sm-3" ng-if="pro.fieldName!='BENEF_OBJECTSOCIAL'">
 							<label class="control-label">{{pro.fieldName}}</label>
-								<div ng-if="pro.fieldValue!=null">
+								<div ng-if="pro.textEnabled=='Y'">
 								<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched"
 								placeholder="{{pro.fieldValue}}" readonly>
 								</div>								
 						</div>
 						
 						<!-- <br><br><br><br> -->
-						<div ng-if="pro.fieldName=='BENEF_OBJECTSOCIAL'">
+						<div class="col-sm-11" ng-if="pro.fieldName=='BENEF_OBJECTSOCIAL'">
 							<label class="control-label">{{pro.fieldName}}</label>
-								<div ng-if="pro.fieldValue==null">
+								<div ng-if="pro.textEnabled=='N'">
 								<input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched"
-								placeholder="{{pro.fieldName}}" ng-model="item.data">
+								placeholder="{{pro.fieldName}}" ng-model="pro.fieldValue">
 								</div>
 						</div>
 						<!-- <input type="text" class="form-control search-criteria ng-pristine ng-valid ng-not-modified ng-touched" placeholder="BENEF_QUALITE"> -->
-					</div>
+				  </div>
 				</div>
 				<br>
 				
 				<span style="float: right;margin-top: 18px;margin-right: 14px;">
 					<button type="submit" class="btn btn-primary" ng-click="submit(item)" ng-disabled="requestProfileReviewForm.$invalid">Submit</button>
-					<button type="reset" class="btn btn-warning" ng-click="cancel()" ng-disabled="requestProfileReviewForm.$invalid">Clear</button>				
+					<button type="reset" class="btn btn-warning" ng-click="cancel()">Clear</button>				
 				</span>
 			  </form>
 			</div>

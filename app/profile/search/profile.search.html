@@ -95,9 +95,12 @@
 									<input type="text" class="form-control search-criteria"
 										placeholder="Postal Code" ng-model="itemDetails.poCode">
 								</div>
-								<div class="input-group">
-									<input type="text" class="form-control search-criteria"
-										placeholder="Territory" ng-model="itemDetails.territory">
+								<div class="input-group">										
+									<select class="form-control input-sm td-search-panel-text"
+										ng-model="itemDetails.territory">
+										<option value="">Select Territory</option>
+										<option ng-repeat="rep in territory" value="{{rep.territoryCode}}">{{rep.territoryName}}</option>
+									</select>
 								</div>
 							</div>
 						</div>
