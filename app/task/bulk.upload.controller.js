@@ -58,26 +58,82 @@
  	   $scope.error='';
        	   return FileMonitor.query({userid:$scope.userID}).$promise.then(function(result){
    		       $scope.Result = result;
+   		       
+   		       /**
+				 *  Reltio Message and Reltio Code are overloaded with overall stat msg and error code
+				 *  0 - No record to process [error]
+				 *  1 - No error [success]
+				 *  2 - Some record failed [warning]
+				 *  3 - Bad/Malformed Template 
+				 */
+   		       $scope.processCode = result[0].reltioCode;
+   		       $scope.message = result[0].reltioMsg;
    		       $scope.a=result.$resolved
-   		    toasty.success({
-    	        title: 'Success',
-    	        msg: 'File Processed ! See Report for more details',
-    	        showClose: true,
-    	        clickToClose: true,
-    	        timeout: 20000,
-    	        sound: false,
-    	        html: false,
-    	        shake: false,
-    	        theme: 'bootstrap'
-    	      });
-   		    $scope.callServer($scope.tableState);
+   		       
+   		       if($scope.processCode == 3) {
+   		    	toasty.error({
+					title: 'Error: ',
+					msg: 'No valid records found! Please fill the template correctly and try again.',
+					showClose: true,
+					clickToClose: true,
+					timeout: 20000,
+					sound: false,
+					html: false,
+					shake: false,
+					theme: 'bootstrap'
+				});
+   		       }
+   		       
+   		    if($scope.processCode == 0) {
+   		    	toasty.error({
+					title: 'Error: ',
+					msg: $scope.message,
+					showClose: true,
+					clickToClose: true,
+					timeout: 20000,
+					sound: false,
+					html: false,
+					shake: false,
+					theme: 'bootstrap'
+				});
+   		       }
+   		       
+   		       
+   		    if($scope.processCode == 2) {
+   		    	toasty.warning({
+					title: 'Action Required: ',
+					msg: ''+$scope.message+'. Please refer Report screen for more detail.',
+					showClose: true,
+					clickToClose: true,
+					timeout: 20000,
+					sound: false,
+					html: false,
+					shake: false,
+					theme: 'bootstrap'
+				});
+   		    }
+   		    
+   		    if($scope.processCode == 1) {   
+			   toasty.success({
+					title: 'Success: ',
+					msg: 'All records processed successfully: '+$scope.message+'. Please check report for Reltio status',
+					showClose: true,
+					clickToClose: true,
+					timeout: 20000,
+					sound: false,
+					html: false,
+					shake: false,
+					theme: 'bootstrap'
+				});
+   		    }
+   		    	$scope.callServer($scope.tableState);
    		      // $scope.alerts.push({type:'success', msg: $scope.uploader.queue.length + 'File(s) Processing Successful'});
    		       $scope.uploader.clearQueue();       
    		      }).catch(function(){
      		    	$scope.uploader.clearQueue(); 
-     		    	
+     		    	console.log("error occured in file upload")
        		    	//$scope.error="File(s) not able to process ";
-       		      });
+       		});
    		  };
             
           }
