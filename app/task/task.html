@@ -27,20 +27,18 @@
 							uploader="uploader" multiple="false" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
 							</label>
 						 	<a href="" ng-if="uploader.getNotUploadedItems().length"  ng-init="uploader.uploadAll()" ></a>						 							 
-						  	<a href="" ng-if="uploader.progress==100 && !uploader.isUploading"  ng-init="upload()"><span class="fa fa-spin fa-spinner "></span>
-						 	 Validating...</a>			  						  	
-							<!--<gcms-modal template="bulk.upload.html"
-							controller="ModalDefaultCtrl" ok="" content="Result"
-							alt="Upload images"> 
-							<button ng-show="a == true" class="btn btn-default2" style="margin-top:1px;">View Upload Status</button></gcms-modal>-->
-
-						   
+						  			
                         </td>
-                    
-                    
+                    </tr>
+                    <tr>
+                    	<td>
+                    		<a href="" ng-if="uploader.progress==100 && uploader.isUploading"  ng-init="upload()"><span class="fa fa-spin fa-spinner "></span>
+						 	 Validating and Processing...</a>	
+                    	</td>
                     </tr>
                     
                 </table>
+
 					
 					<a class="pull-right" style="margin-right: 10px" data-toggle="tooltip" title="Download the data standard required for Bulk profile creation." target="_blank" href="https://pfizer.sharepoint.com/:x:/s/PTRS-RELTIO-MDMTool/EVeMT0UneL5Cu__kOohDhC8B-u3MrrC4GoZax6KG0aNIjA?e=sB81bN">
                     <i class="fa fa-lg fa-question-circle" aria-hidden="true"></i></a>
