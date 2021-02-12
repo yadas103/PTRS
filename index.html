@@ -111,8 +111,8 @@
               <ul class="nav navbar-nav"> 
                 <li  ng-class="{active:$state.includes('landing')}" gcms-secure section-name="Home" action-name="browse" ><a ui-sref="landing"><h6 class="nav-details"><b>Home</b></h6></a></li>
                 <li ng-class="{active:$state.includes('profilereview')}" gcms-secure section-name="Profile Review" action-name="browse"><a ui-sref="profilereview"><h6 class="nav-details"><b>Profile Request</b></h6></a></li>
-                <li ng-class="{active:$state.includes('task')}" gcms-secure section-name="Manage Consent"  action-name="browse"><a ui-sref="task"><h6 class="nav-details"><b>Bulk Upload</b></h6></a></li>                
-                 <li ng-class="{active:$state.includes('admin')}" gcms-secure section-name="Administration" action-name="browse"><a ui-sref="admin"><h6 class="nav-details"><b>Report</b></h6></a></li>
+                <li ng-class="{active:$state.includes('task')}" gcms-secure section-name="Bulk Upload"  action-name="browse"><a ui-sref="task"><h6 class="nav-details"><b>Bulk Upload</b></h6></a></li>                
+                 <li ng-class="{active:$state.includes('admin')}" gcms-secure section-name="Report" action-name="browse"><a ui-sref="admin"><h6 class="nav-details"><b>Report</b></h6></a></li>
               </ul>
 
               <!-- This is the start of the Navigation Right -->
@@ -391,12 +391,29 @@
 
     // Handle Single Sign on action
     const singleSignOn = () => {
-  	  	const OAUTH_URL = 'https://devfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+    	const origin = window.location.origin;
+  	  	let OAUTH_URL = '';
+  	  	
+  	  	if(origin === "http://localhost:8082") {
+	  		OAUTH_URL = 'https://devfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+	  	}
+  	  	
+  	  	if(origin === "https://ptrs-reltio-dev.pfizer.com") {
+  	  		OAUTH_URL = 'https://devfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+  	  	}
+  	  	
+  	  	if(origin === "https://ptrs-reltio-stg.pfizer.com") {
+	  		OAUTH_URL = 'https://stgfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+	  	}
+  	  	
+  	  	if(origin === "https://ptrs-reltio.pfizer.com") {
+	  		OAUTH_URL = 'https://prodfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+	  	}
       
-        if(window.location.origin !== 'http://localhost:8082/') {
-          location.href = OAUTH_URL+window.location.origin+'/ptrs-reltio-tool';
+        if(origin !== 'http://localhost:8082') {
+          location.href = OAUTH_URL+origin+'/ptrs-reltio-tool';
         } else {
-          location.href = OAUTH_URL+window.location.origin;
+          location.href = OAUTH_URL+origin;
         }
   			
     }
