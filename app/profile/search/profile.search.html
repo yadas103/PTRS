@@ -99,6 +99,7 @@
 									<select class="form-control input-sm td-search-panel-text"
 										ng-model="itemDetails.territory">
 										<option value="">Select Territory</option>
+										<option value="FR">France</option>
 										<option ng-repeat="rep in territory" value="{{rep.territoryCode}}">{{rep.territoryName}}</option>
 									</select>
 								</div>
@@ -110,15 +111,21 @@
 						<div class="col-lg-3">
 							<div class="form-group row">
 								<label class="control-label">Unique ID</label>
-								<div class="input-group">
+								
+								<div class="input-group" ng-hide="profile_val.item=='ORGANIZATION' ">
 									<select class="form-control input-sm td-search-panel-text"
 										ng-model="itemDetails.uniqueType">
 										<option value="">Select Unique ID Type</option>
-										<option ng-repeat="rep in uniqueType" value="{{rep.unqCode}}">{{rep.unqDesc}}</option>
-									</select>
-									<!-- <trs-lov class="search-criteria" placeholdervalue="Select Unique ID Type"> -->
-									<!-- <select class="form-control ><option value = "">Select Unique ID Type</option></select> -->
-									<!-- </trs-lov> -->
+										<option ng-repeat="rep in uniqueProfile" value="{{rep.value}}">{{rep.name}}</option>
+									</select>									
+								</div>
+								
+								<div class="input-group" ng-hide="profile_val.item=='PERSON' ">
+									<select class="form-control input-sm td-search-panel-text"
+										ng-model="itemDetails.uniqueType">
+										<option value="">Select Unique ID Type</option>
+										<option ng-repeat="rep in uniqueOrg" value="{{rep.value}}">{{rep.name}}</option>
+									</select>									
 								</div>
 								<div class="input-group">
 									<input type="text" class="form-control search-criteria"
@@ -239,7 +246,7 @@
 						<td class="tasktd td-search-panel-text" title="{{pro.lastName}}" ng-hide = "profile_val.item=='ORGANIZATION'">{{pro.attributes.LastName[0].value}}</td>
 						<td class="tasktd td-search-panel-text" title="{{pro.firstName}}" ng-hide = "profile_val.item=='ORGANIZATION'">{{pro.attributes.FirstName[0].value}}</td>
 						<td class="tasktd td-search-panel-text" title="{{pro.organisationName}}" ng-hide = "profile_val.item=='PERSON'">{{pro.attributes.Name[0].value}}</td>
-						<td class="tasktd td-search-panel-text" title="{{pro.organisationType}}" ng-hide = "profile_val.item=='PERSON'">{{pro.attributes.Identifiers[0].value.Type[0].value}}</td>
+						<td class="tasktd td-search-panel-text" title="{{pro.organisationType}}" ng-hide = "profile_val.item=='PERSON'">{{pro.attributes.ClassofTradeN[0].value.FacilityType[0].value}}</td>
 						
 						<td class="tasktd td-search-panel-text" title="{{pro.address}}">{{pro.attributes.Address[0].value.AddressLine1[0].value}}</td>
 						<td class="tasktd td-search-panel-text" title="{{pro.city}}">{{pro.attributes.Address[0].value.City[0].value}}</td>

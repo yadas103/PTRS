@@ -47,11 +47,11 @@
 						for(var i in input){								
 								if (lastName.exec(input[i].attributes.LastName[0].value) != null && firstName.exec(input[i].attributes.FirstName[0].value) != null &&
 										input[i].attributes.Address !== undefined && (
-										(input[i].attributes.Address !== '' && city.exec(input[i].attributes.Address[0].value.City[0].value) != null) &&
-										(input[i].attributes.Address !== '' && address.exec(input[i].attributes.Address[0].value.AddressLine1[0].value) != null) &&
-										(input[i].attributes.Address !== '' && poCode.exec(input[i].attributes.Address[0].value.Zip[0].value.Zip5[0].value) != null)) &&
+										(input[i].attributes.Address !== '' && input[i].attributes.Address[0].value.City !== undefined && input[i].attributes.Address[0].value.City !== '' && city.exec(input[i].attributes.Address[0].value.City[0].value) != null) &&
+										(input[i].attributes.Address !== '' && input[i].attributes.Address[0].value.AddressLine1 !== undefined && input[i].attributes.Address[0].value.AddressLine1 !== '' && address.exec(input[i].attributes.Address[0].value.AddressLine1[0].value) != null) &&
+										(input[i].attributes.Address !== '' && input[i].attributes.Address[0].value.Zip !== undefined && input[i].attributes.Address[0].value.Zip !== '' && poCode.exec(input[i].attributes.Address[0].value.Zip[0].value.Zip5[0].value) != null)) &&
 										(input[i].uri !== null && input[i].uri !== undefined && input[i].uri !== '' && identifier.exec(input[i].uri) != null) &&
-										(input[i].attributes.Specialities !== null && input[i].attributes.Specialities !== undefined && input[i].attributes.Specialities !== '' && speciality.exec(input[i].attributes.Specialities[0].value.Specialty[0].value) != null)){
+										(input[i].attributes.Specialities !== null && input[i].attributes.Specialities !== undefined && input[i].attributes.Specialities !== '' && input[i].attributes.Specialities[0].value.Specialty !== null && input[i].attributes.Specialities[0].value.Specialty !== undefined && input[i].attributes.Specialities[0].value.Specialty !== '' && speciality.exec(input[i].attributes.Specialities[0].value.Specialty[0].value) != null)){
 									lastName.lastIndex = 0;
 									firstName.lastIndex = 0;
 									city.lastIndex = 0;
@@ -68,7 +68,7 @@
 		    		
 		    		if(input[0].type=='configuration/entityTypes/HCO'){			
 						for(var i in input){							
-							if (organisationName.exec(input[i].attributes.Name[0].value) != null && city.exec(input[i].attributes.Address[0].value.City[0].value) != null 
+							if (organisationName.exec(input[i].attributes.Name[0].value) != undefined && organisationName.exec(input[i].attributes.Name[0].value) != '' && organisationName.exec(input[i].attributes.Name[0].value) != null && city.exec(input[i].attributes.Address[0].value.City[0].value) != null 
 									&& poCode.exec(input[i].attributes.Address[0].value.Zip[0].value.Zip5[0].value) != null
 									&& address.exec(input[i].attributes.Address[0].value.AddressLine1[0].value) != null 
 									&& identifier.exec(input[i].attributes.Identifiers[0].value.ID[0].value) != null){
@@ -100,6 +100,52 @@
 		var params = {};
 		console.log("Inside Profile.list.controller");	
 		$scope.profile_val ={item:'PERSON'};
+
+		
+		$scope.uniqueProfile = [{
+			name: 'RPPS',
+			value: 'WFR.REX.I8,WPF.REX.I8'
+		},   {
+			name: 'ONEKEY',
+			value: 'WFR.REX.I0'
+		},	{
+			name: 'GCP',
+			value: 'GCP ID'
+		},	{
+			name: 'RELTIOID',
+			value: 'RELTIOID'
+		},	{
+			name: 'GRV',
+			value: 'GRV ID'
+		},	{
+			name: 'ADELI',
+			value: 'WFR.REX.I1'
+		},	{
+			name: 'ORDRE',
+			value: 'WFR.REX.I2,WPF.REX.I2'
+		}];
+		
+		$scope.uniqueOrg = [{
+			name: 'ONEKEY',
+			value: 'WFR.REX.E0'
+		},	{
+			name: 'RELTIOID',
+			value: 'RELTIOID'
+		}, 	{
+			name: 'SIRET',
+			value: 'WFR.REX.E1'
+		},	{
+			name: 'FINESS',
+			value: 'WFR.REX.EF,WFR.REX.E4'
+		},	{
+			name: 'SIREN',
+			value: 'SIREN'
+		},	{
+			name: 'CIP',
+			value: 'WFR.REX.E3,WFR.REX.E2'
+		}];
+		       	
+
 		       	
 		UIConfig.query().$promise.then(function(result){
 		        	$scope.configFile = result;
@@ -131,7 +177,7 @@
 			$scope.responseOnSearch = '';
 			params =  itemDetails;
 			var data = {"country":"","profileType":"","lastName":"","city":"","firstName":"","middleName":"",
-					"speciality":"","organizationName":"","organisationType":"","credential":"","state":"","poCode":"","uniqueType":"","identificationNumber":"","territory":"",
+					"speciality":"","organizationName":"","organizationType":"","credential":"","state":"","poCode":"","uniqueType":"","identificationNumber":"","territory":"",
 					"max":"","offset":""};
 			
 			data.country = $rootScope.currentProfile.countryISOCode;
@@ -143,7 +189,7 @@
 			data.speciality = (params.speciality !== undefined && params.speciality !== "") ? params.speciality : 'speciality';
 			data.credential = (params.credential !== undefined && params.credential !== "") ? params.credential : 'credential';
 			data.organizationName = (params.organizationName !== undefined && params.organizationName !== "" ) ? params.organizationName : 'organizationName';
-			data.organisationType = (params.organisationType !== undefined && params.organisationType !== "" ) ? params.organisationType : 'organisationType';
+			data.organizationType = (params.organizationType !== undefined && params.organizationType !== "" ) ? params.organizationType : 'organizationType';
 			data.state = (params.state !== undefined && params.state !== "") ? params.state : 'state';
 			data.poCode = (params.poCode !== undefined && params.poCode !== "") ? params.poCode : 'poCode';
 			data.uniqueType = (params.uniqueType !== undefined && params.uniqueType !== "") ? params.uniqueType : 'uniqueType';
@@ -160,7 +206,7 @@
 				city : data.city,
 				credential : data.credential,
 				organizationName : data.organizationName,
-				organisationType : data.organisationType,
+				organizationType : data.organizationType,
 				state : data.state,
 				firstName : data.firstName,
 				uniqueType : data.uniqueType,
@@ -173,20 +219,34 @@
 			}).$promise
 			.then(function(profileSearch) {
 				$scope.profileSearch= JSON.parse(profileSearch.string);	
-
+				
 				for(var i in $scope.profileSearch){
 					$scope.profileSearch[i].uri = $scope.profileSearch[i].uri.substring(9, $scope.profileSearch[i].uri.length);
-					if($scope.profileSearch[i].attributes.Specialities !== undefined){
-						var profileSpecialty = $scope.profileSearch[i].attributes.Specialities[0].value.Specialty[0].value;					
-						for(var j in $rootScope.specialty){
-							if(profileSpecialty == $rootScope.specialty[j].spclCode){
-								$scope.profileSearch[i].attributes.Specialities[0].value.Specialty[0].value = $rootScope.specialty[j].spclDesc;
+					if($scope.profileSearch[i].attributes.Address != undefined){
+						for(var j in $scope.profileSearch[i].attributes.Address){
+							if($scope.profileSearch[i].attributes.Address[j].value.AddressRank != undefined){
+								if($scope.profileSearch[i].attributes.Address[j].value.AddressRank[0].value == '1'){
+									$scope.profileSearch[i].attributes.Address[0] = $scope.profileSearch[i].attributes.Address[j];
+								}
 							}
 						}
 					}
+					if($scope.profileSearch[0].type=='configuration/entityTypes/HCP'){
+						if($scope.profileSearch[i].attributes.Specialities != undefined){
+							for(var j in $scope.profileSearch[i].attributes.Specialities){
+								if($scope.profileSearch[i].attributes.Specialities[j].value.Rank != undefined){
+									if($scope.profileSearch[i].attributes.Specialities[j].value.Rank[0].value == '1'){
+										$scope.profileSearch[i].attributes.Specialities[0] = $scope.profileSearch[i].attributes.Specialities[j];
+									}
+								}
+							}
+						}
+					}
+					
 				}
+				
 				if($scope.profileSearch.length == 0){
-					$scope.responseOnSearch = "No records to show";
+					$scope.responseOnSearch = "No records to show (If you are searching for Territory specific profile other than France, Please use Territory filter dropdown)";
 					$scope.buttondisableNext = "true";
 				}
 				else{
@@ -194,7 +254,7 @@
 				}
 				$scope.isReset = true;
 			}).catch(function(){
-				$scope.responseOnSearch = "No records to show"; 
+				$scope.responseOnSearch = "No records to show (If you are searching for Territory specific profile other than France, Please use Territory filter dropdown)"; 
 				$scope.profileSearch.length = 0;
 				$scope.profileSearchCopy.length = 0; 
 			});                       
@@ -239,6 +299,7 @@
   			$scope.buttondisableNext = "true";
   			$scope.profileSearchCopy = [];
   			$scope.itemDetails = {};
+  			$scope.responseOnSearch = "";
   			$scope.credential = [];
   			  Credential.query({id : $scope.loggedInUserCountry,partyType : $scope.profile_val.item}).$promise.then(updateCredential);
   		};
