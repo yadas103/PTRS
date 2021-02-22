@@ -95,6 +95,32 @@
           window.location.assign('/');
           window.location.reload(true);
         }
+        if(error.status === 500 && error.statusText === ''){
+        	const origin = window.location.origin;
+      	  	let OAUTH_URL = '';
+      	  	
+      	  	if(origin === "http://localhost:8082") {
+    	  		OAUTH_URL = 'https://devfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+    	  	}
+      	  	
+      	  	if(origin === "https://ptrs-reltio-dev.pfizer.com") {
+      	  		OAUTH_URL = 'https://devfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+      	  	}
+      	  	
+      	  	if(origin === "https://ptrs-reltio-stg.pfizer.com") {
+    	  		OAUTH_URL = 'https://stgfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+    	  	}
+      	  	
+      	  	if(origin === "https://ptrs-reltio.pfizer.com") {
+    	  		OAUTH_URL = 'https://prodfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+    	  	}
+          
+            if(origin !== 'http://localhost:8082') {
+              location.href = OAUTH_URL+origin+'/ptrs-reltio-tool';
+            } else {
+              location.href = OAUTH_URL+origin;
+            }
+          }
       });
     };
 
