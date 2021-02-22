@@ -89,7 +89,7 @@
         return result;
       })
       .catch(function(error){
-		  console.log('Here in user-detail***getCurrentUser....ERROR');
+		  console.log('Here in user-detail***getCurrentUser....ERROR, error.status-',error.status);
         //console.log('Current User ID Error', error);
         if(error.status === 0 && error.statusText === ''){
           window.location.assign('/');
@@ -116,8 +116,10 @@
     	  	}
           
             if(origin !== 'http://localhost:8082') {
+              console.log('Here in user-detail***getCurrentUser....Redirect to devfederate url: ', OAUTH_URL+origin+'/ptrs-reltio-tool');
               location.href = OAUTH_URL+origin+'/ptrs-reltio-tool';
             } else {
+            	console.log('Here in user-detail***getCurrentUser....Redirect to devfederate url: ', OAUTH_URL+origin)
               location.href = OAUTH_URL+origin;
             }
           }
