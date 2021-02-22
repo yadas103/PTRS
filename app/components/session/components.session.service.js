@@ -96,7 +96,10 @@
           window.location.reload(true);
         }
         if(error.status === 500 && error.statusText === ''){
+        	console.log('Here in user-detail***getCurrentUser....ERROR Catching and @@redirection');
         	const origin = window.location.origin;
+        	
+        	console.log('Here in user-detail***getCurrentUser....ERROR Catching -ORIGIN: ', origin);
       	  	let OAUTH_URL = '';
       	  	
       	  	if(origin === "http://localhost:8082") {
@@ -117,10 +120,10 @@
           
             if(origin !== 'http://localhost:8082') {
               console.log('Here in user-detail***getCurrentUser....Redirect to devfederate url: ', OAUTH_URL+origin+'/ptrs-reltio-tool');
-              location.href = OAUTH_URL+origin+'/ptrs-reltio-tool';
+              window.location.href = OAUTH_URL+origin+'/ptrs-reltio-tool';
             } else {
             	console.log('Here in user-detail***getCurrentUser....Redirect to devfederate url: ', OAUTH_URL+origin)
-              location.href = OAUTH_URL+origin;
+            	window.location.href = OAUTH_URL+origin;
             }
           }
       });
