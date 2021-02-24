@@ -97,10 +97,10 @@
         }
         if(error.status === 500 && error.statusText === ''){
         	console.log('Here in user-detail***getCurrentUser....ERROR Catching and @@redirection');
-        	const origin = window.location.origin;
+        	var origin = window.location.origin;
         	
         	console.log('Here in user-detail***getCurrentUser....ERROR Catching -ORIGIN: ', origin);
-      	  	let OAUTH_URL = '';
+      	  	var OAUTH_URL = '';
       	  	
       	  	if(origin === "http://localhost:8082") {
     	  		OAUTH_URL = 'https://devfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
@@ -173,6 +173,39 @@
       return getCurrentUser().then(function(user){
 		  console.log('Here in user-detail***UP5....'+user);
         var primaryProfile = null;
+        if(user.userProfiles == undefined) {
+
+        	console.log('Here in user-detail***getCurrentUser....ERROR Catching and @@redirection');
+        	var origin = window.location.origin;
+        	
+        	console.log('Here in user-detail***getCurrentUser....ERROR Catching -ORIGIN: ', origin);
+      	  	var OAUTH_URL = '';
+      	  	
+      	  	if(origin === "http://localhost:8082") {
+    	  		OAUTH_URL = 'https://devfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+    	  	}
+      	  	
+      	  	if(origin === "https://ptrs-reltio-dev.pfizer.com") {
+      	  		OAUTH_URL = 'https://devfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+      	  	}
+      	  	
+      	  	if(origin === "https://ptrs-reltio-stg.pfizer.com") {
+    	  		OAUTH_URL = 'https://stgfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+    	  	}
+      	  	
+      	  	if(origin === "https://ptrs-reltio.pfizer.com") {
+    	  		OAUTH_URL = 'https://prodfederate.pfizer.com/as/authorization.oauth2?client_id=PTRS_RELTIO_Client&response_type=code&scope=internal&redirect_uri=';
+    	  	}
+          
+            if(origin !== 'http://localhost:8082') {
+              console.log('Here in user-detail***getCurrentUser....Redirect to devfederate url: ', OAUTH_URL+origin+'/ptrs-reltio-tool');
+              window.location.href = OAUTH_URL+origin+'/ptrs-reltio-tool';
+            } else {
+            	console.log('Here in user-detail***getCurrentUser....Redirect to devfederate url: ', OAUTH_URL+origin)
+            	window.location.href = OAUTH_URL+origin;
+            }
+          
+        }
         angular.forEach(user.userProfiles, function(profile){
           if (profile.defaultProfileIndicator === true){
             primaryProfile = profile;
