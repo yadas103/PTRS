@@ -45,22 +45,25 @@
 								</div>
 
 								<div class="input-group">
-									<select class="form-control input-sm td-search-panel-text"
-										ng-model="itemDetails.organizationType">
-										<option value="">Select Organization Type</option>
-										<option ng-repeat="rep in orgType" value="{{rep.subCode}}">{{rep.subDesc}} - {{rep.subCode}}</option>
-									</select>
-								</div>
+				                                    <input type="search" autocomplete="none" class="form-control search-criteria" ng-model="itemDetails.organizationType" list="orgData" placeholder="Select Organization Type" onfocus="this.value=''" onchange="this.blur();">
+				                                      <datalist style="opacity:0" id="orgData" name="orgData">
+				                                        <option value="">Select Organization Type</option>
+				                                        <option ng-repeat="rep in orgType | filter:search" value="{{rep.subDesc}}@{{rep.subCode}}"></option>
+                                       
+				                                      </datalist>
+				                                </div>
 
 							</div>
 
 							<div ng-hide="profile_val.item=='ORGANIZATION'" class="form-group row">
 								<label class="control-label">Specialty</label>
 								<div class="input-group">
-									<select class="form-control input-sm td-search-panel-text" ng-model="itemDetails.speciality">
-										<option value="">Select Specialty</option>
-										<option ng-repeat="rep in specialty" value="{{rep.spclCode}}">{{rep.spclDesc}} - {{rep.spclCode}}</option>
-									</select>
+				                                    <input type="search" autocomplete="none" class="form-control search-criteria" ng-model="itemDetails.speciality" list="specData" placeholder="Select Specialty" onfocus="this.value=''" onchange="this.blur();">
+				                                      <datalist style="opacity:0" id="specData" name="specData">
+				                                        <option value="">Select Specialty</option>
+				                                        <option ng-repeat="rep in specialty | filter:search" value="{{rep.spclDesc}}@{{rep.spclCode}}"></option>
+                                       
+				                                      </datalist>
 								</div>
 								<!-- <div class="input-group">
 									<select class="form-control input-sm td-search-panel-text" ng-model="itemDetails.credential">
@@ -82,10 +85,12 @@
 										placeholder="City" ng-model="itemDetails.city">
 								</div>
 								<div class="input-group">
-									<select class="form-control input-sm td-search-panel-text" placeholder="State" ng-model="itemDetails.state">
-										<option value="">Select State</option>
-										<option ng-repeat="rep in state" value="{{rep.stateDesc}}">{{rep.stateDesc}}</option>
-									</select>
+				                                    <input type="search" autocomplete="none" class="form-control search-criteria" ng-model="itemDetails.state" list="stateData" placeholder="Select State" onfocus="this.value=''" onchange="this.blur();">
+				                                      <datalist style="opacity:0" id="stateData" name="stateData">
+  					                               <option value="">Select State</option>
+				                                        <option ng-repeat="rep in state | filter:search" value={{rep.stateDesc}}></option>
+                                       
+				                                      </datalist>
 								</div>
 								<!-- <div class="input-group">
 									<input type="text" class="form-control search-criteria"

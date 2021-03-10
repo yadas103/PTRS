@@ -62,13 +62,15 @@
 							'Party Type':($scope.data[i].profileTypeId == null || $scope.data[i].profileTypeId == undefined ) ? '' : $scope.data[i].profileTypeId,
 							'Organization':($scope.data[i].organizationName == null || $scope.data[i].organizationName == undefined ) ? '' : $scope.data[i].organizationName,
 							'Party Last Name':($scope.data[i].lastName == null || $scope.data[i].lastName == undefined ) ? '' : $scope.data[i].lastName,
-							'Party First Name':($scope.data[i].firstName == null || $scope.data[i].firstName == undefined ) ? '' : $scope.data[i].firstName, 
+							'Party First Name':($scope.data[i].firstName == null || $scope.data[i].firstName == undefined ) ? '' : $scope.data[i].firstName,
+							'Organization Type':($scope.data[i].organizationType == null || $scope.data[i].organizationType == undefined ) ? '' : $scope.data[i].organizationType,
 							'Identifier':($scope.data[i].uniqueIdentifier == null || $scope.data[i].uniqueIdentifier == undefined ) ? '' : $scope.data[i].uniqueIdentifier,
 							'City':($scope.data[i].city == null || $scope.data[i].city == undefined ) ? '' : $scope.data[i].city,
 							'Speciality':($scope.data[i].speciality == null || $scope.data[i].speciality == undefined ) ? '' : $scope.data[i].speciality,
 						    'Status':($scope.data[i].reltioMsg == null || $scope.data[i].reltioMsg == undefined ) ? '' : $scope.data[i].reltioMsg,
 							'Submitted By':($scope.data[i].createdBy == null || $scope.data[i].createdBy == undefined ) ? '' : $scope.data[i].createdBy,
-							'Submitted On':($scope.data[i].createdDate == null || $scope.data[i].createdDate == undefined ) ? '' : $scope.data[i].createdDate						
+							'Submitted On':($scope.data[i].createdDate == null || $scope.data[i].createdDate == undefined ) ? '' : $scope.data[i].createdDate,
+							'Reltio Id':($scope.data[i].reltioId == null || $scope.data[i].reltioId == undefined ) ? '' : $scope.data[i].reltioId										
 							} ;	
 																				
 					}

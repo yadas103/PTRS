@@ -95,7 +95,7 @@
           window.location.assign('/');
           window.location.reload(true);
         }
-        if(error.status === 500 && error.statusText === ''){
+        if(error.status === 500){
         	console.log('Here in user-detail***getCurrentUser....ERROR Catching and @@redirection');
         	var origin = window.location.origin;
         	

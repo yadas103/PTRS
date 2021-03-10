@@ -53,7 +53,7 @@
 		  
 		  if(item.specialityDetail !== undefined){
 			  for(var i in item.specialityDetail){
-				  if(item.specialityDetail[i] == "-"){
+				  if(item.specialityDetail[i] == "@"){
 					  $scope.profilelength = i;
 				  }
 			  }
@@ -64,7 +64,7 @@
 		  
 		  if(item.orgDetails != null || item.orgDetails != undefined){
 			  for(var i in item.orgDetails){
-				  if(item.orgDetails[i] == "-"){
+				  if(item.orgDetails[i] == "@"){
 					  $scope.profilelength = i;
 				  }
 			 }
@@ -107,16 +107,15 @@
 					item.customDetails = '';
 					$scope.customDetails = '';
 					
-					if(result.reltioMsg == 'Profile Created without Organization Type in Reltio ! Reason - This Organization Type is not available in Reltio.' 
-						|| result.reltioMsg == 'Error Creating Profile !' 
-							|| result.reltioMsg == 'Profile Created without Specialty in Reltio ! Reason - This Specialty is not available in Reltio.'){
-						var message = result.reltioMsg;
-						toasty.warning({
+					if(result.reltioMsg == 'Profile already exist! We have similar profile matching all mandatory fields in our system!' ||
+							result.reltioMsg == 'Error Creating Profile !'){
+						 var messageDetails = result.reltioMsg;
+						toasty.error({
 					          title: 'Error',
-					          msg: message,
+					          msg: messageDetails,
 					          showClose: true,
 					          clickToClose: true,
-					          timeout: 5000,
+					          timeout: 60000,
 					          sound: false,
 					          html: false,
 					          shake: false,
@@ -269,7 +268,7 @@
 		
 		$scope.compare = function(item){
 			for(var i in item.specialityDetail){
-				  if(item.specialityDetail[i] == "-"){
+				  if(item.specialityDetail[i] == "@"){
 					  $scope.profilelength = i;
 				  }
 			  }
@@ -290,7 +289,7 @@
 			
 			if(item.orgDetails !== undefined){
 				  for(var i in item.orgDetails){
-					  if(item.orgDetails[i] == "-"){
+					  if(item.orgDetails[i] == "@"){
 						  $scope.profilelength = i;
 					  }
 				  }

@@ -31,12 +31,12 @@
 					<div class="col-sm-3">
 						<!-- <label class="control-label">Name</label> -->
 						<!-- ng-options="item.id as item.name for item in items | unique:'name'" -->
-						<select class="form-control" ng-model="item.orgDetails" ng-change="compareSubType(item)">
-							<option value ng-show="true" class="ng-binding">Select
-								Organization Type</option>								
-							<!-- <option value="WFR.REX.E0-OneKey Workplace ID" ng-show="true" class="ng-binding">WFR.REX.E0-OneKey Workplace ID</option> -->
-							<option ng-repeat="rep in orgType" value="{{rep.subDesc}}-{{rep.subCode}}">{{rep.subDesc}} - {{rep.subCode}}</option>
-						</select>
+						<input type="search" autocomplete="none" class="form-control" ng-model="item.orgDetails" list="orgData" placeholder="Select Organization Type" ng-change="compareSubType(item)" onfocus="this.value=''" onchange="this.blur();">
+	 			                         <datalist style="opacity:0" id="orgData" name="orgData">
+				                           <option value="">Select Organization Type</option>
+				                           <option ng-repeat="rep in orgType | filter:search" value="{{rep.subDesc}}@{{rep.subCode}}"></option>
+                          
+				                         </datalist>
 					</div>
 
 				</div>
@@ -95,13 +95,13 @@
 
 
 					<div class="col-sm-3" ng-hide="profile_val.item=='ORGANIZATION'">
-						<!-- <label class="control-label">Specialty</label> -->
-						<!-- ng-options="item.id as item.name for item in items | unique:'name'" -->
-						<select class="form-control" ng-model="item.specialityDetail" ng-change="compare(item)" ng-required="profile_val.item == 'PERSON'">
-							<option value ng-show="true" class="ng-binding">Select
-								Specialty</option>
-							<option ng-repeat="rep in specialty" value="{{rep.spclDesc}}-{{rep.spclCode}}">{{rep.spclDesc}} - {{rep.spclCode}}</option>
-						</select>
+						<!-- <label class="control-label">Specialty</label> -->						
+						<input type="search" autocomplete="none" class="form-control search-criteria" ng-model="item.specialityDetail" ng-change="compare(item)" list="specData" placeholder="Select Specialty"  onfocus="this.value=''" onchange="this.blur();" ng-required="profile_val.item == 'PERSON'">
+		                                      <datalist style="opacity:0" id="specData" name="specData">
+		                                        <option value="">Select Specialty</option>
+				                        <option ng-repeat="rep in specialty | filter:search" value="{{rep.spclDesc}}@{{rep.spclCode}}"></option>
+                                       
+   		                                     </datalist>
 					</div>
 					
 					<div class="col-sm-3" ng-hide="profile_val.item=='ORGANIZATION'">
@@ -156,10 +156,12 @@
 
 					<div class="col-sm-3">
 						<!-- <label class="control-label">County/Province/Region/State</label> -->
-								<select class="form-control" placeholder="State" ng-model="item.state" required>
-										<option value="">Select State</option>
-										<option ng-repeat="rep in state">{{rep.stateDesc}}</option>
-								</select>
+						<input type="search" autocomplete="none" class="form-control search-criteria" ng-model="item.state" list="stateData" placeholder="Select State" onfocus="this.value=''" onchange="this.blur();" required>
+		                                      <datalist style="opacity:0" id="stateData" name="stateData">
+		                                        <option value="">Select State</option>
+		                                        <option ng-repeat="rep in state | filter:search" value={{rep.stateDesc}}></option>
+                                       
+			                              </datalist>
 					</div>
 
 					<div class="col-sm-3">										
