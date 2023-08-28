@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - app/profile/list/profile.list.controller.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>app/profile/list/profile.list.controller.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">61.38</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">501</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">67.00</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">6.99</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * @ngdoc overview
+ * @name gcms.profile.ProfileListCtrl
+ *
+ * @requires gcms.profile
+ *
+ * @description Controller: Handles Home, Creates Missing Profile , Generate Consent Annex modules.
+ * 
+ * @param ProfileSearch,$scope,$http,$stateParams,$state,myService,Templates,Country,IdentityRequest,Review,EmailGeneration,UserProfile,LoggedUserDetail,ConsentAnnex,ctrl,ConsentAnnexPdf
+ */
+
+(function () {
+
+	&#039;use strict&#039;;
+
+	angular
+	.module(&#039;gcms.profile&#039;)
+	.filter(&#039;SearchFilter&#039;, function($filter){
+		    return function(input, predicate){
+		    	var fn=[];		    			    			    			    	   		    		    			    	 		    
+		    	var keys = Object.keys(predicate);
+		    	var y=0;
+		    	var patternStr = &#039;&#039;;		    			    	
+		    	
+		    	var patternlastName = (typeof predicate.lastName == &quot;string&quot;) ? predicate.lastName.replace(&quot;%&quot;,&quot;.*&quot;) : predicate.lastName;
+		    	var patternfirstName = (typeof predicate.firstName == &quot;string&quot;) ? predicate.firstName.replace(&quot;%&quot;,&quot;.*&quot;) : predicate.firstName;
+		    	var patternorganisationName = (typeof predicate.organisationName == &quot;string&quot;) ? predicate.organisationName.replace(&quot;%&quot;,&quot;.*&quot;) : predicate.organisationName;
+		    	var patterncity = (typeof predicate.city == &quot;string&quot;) ? predicate.city.replace(&quot;%&quot;,&quot;.*&quot;) : predicate.city;
+		    	var patternaddress = (typeof predicate.address == &quot;string&quot;) ? predicate.address.replace(&quot;%&quot;,&quot;.*&quot;) : predicate.address;
+		    	var patternspeciality = (typeof predicate.speciality == &quot;string&quot;) ? predicate.speciality.replace(&quot;%&quot;,&quot;.*&quot;) : predicate.speciality;
+		    	var patternidentifier =  (typeof predicate.identifier == &quot;string&quot;) ? predicate.identifier.replace(&quot;%&quot;,&quot;.*&quot;) : predicate.identifier;
+		    	var patternpoCode =  (typeof predicate.poCode == &quot;string&quot;) ? predicate.poCode.replace(&quot;%&quot;,&quot;.*&quot;) : predicate.poCode;
+		    	
+		    	var lastName = new RegExp(patternlastName, &#039;gi&#039;);
+		    	var organisationName = new RegExp(patternorganisationName, &#039;gi&#039;);
+				//var organisationType = new RegExp(patternorganisationType, &#039;gi&#039;);
+				var firstName = new RegExp(patternfirstName, &#039;gi&#039;);
+				var city = new RegExp(patterncity, &#039;gi&#039;);
+				var address = new RegExp(patternaddress, &#039;gi&#039;);
+				var speciality = new RegExp(patternspeciality, &#039;gi&#039;);
+				var identifier = new RegExp(patternidentifier, &#039;gi&#039;);
+				var poCode = new RegExp(patternpoCode, &#039;gi&#039;);			
+		    	
+		    	if(keys.length != 0){
+		    		
+		    		if(input[0].type==&#039;configuration/entityTypes/HCP&#039;){    			
+						for(var i in input){								
+								if (lastName.exec(input[i].attributes.LastName[0].value) != null &amp;&amp; firstName.exec(input[i].attributes.FirstName[0].value) != null &amp;&amp;
+										input[i].attributes.Address !== undefined &amp;&amp; (
+										(input[i].attributes.Address !== &#039;&#039; &amp;&amp; input[i].attributes.Address[0].value.City !== undefined &amp;&amp; input[i].attributes.Address[0].value.City !== &#039;&#039; &amp;&amp; city.exec(input[i].attributes.Address[0].value.City[0].value) != null) &amp;&amp;
+										(input[i].attributes.Address !== &#039;&#039; &amp;&amp; input[i].attributes.Address[0].value.AddressLine1 !== undefined &amp;&amp; input[i].attributes.Address[0].value.AddressLine1 !== &#039;&#039; &amp;&amp; address.exec(input[i].attributes.Address[0].value.AddressLine1[0].value) != null) &amp;&amp;
+										(input[i].attributes.Address !== &#039;&#039; &amp;&amp; input[i].attributes.Address[0].value.Zip !== undefined &amp;&amp; input[i].attributes.Address[0].value.Zip !== &#039;&#039; &amp;&amp; poCode.exec(input[i].attributes.Address[0].value.Zip[0].value.Zip5[0].value) != null)) &amp;&amp;
+										(input[i].uri !== null &amp;&amp; input[i].uri !== undefined &amp;&amp; input[i].uri !== &#039;&#039; &amp;&amp; identifier.exec(input[i].uri) != null) &amp;&amp;
+										(input[i].attributes.Specialities !== null &amp;&amp; input[i].attributes.Specialities !== undefined &amp;&amp; input[i].attributes.Specialities !== &#039;&#039; &amp;&amp; input[i].attributes.Specialities[0].value.Specialty !== null &amp;&amp; input[i].attributes.Specialities[0].value.Specialty !== undefined &amp;&amp; input[i].attributes.Specialities[0].value.Specialty !== &#039;&#039; &amp;&amp; speciality.exec(input[i].attributes.Specialities[0].value.Specialty[0].value) != null)){
+									lastName.lastIndex = 0;
+									firstName.lastIndex = 0;
+									city.lastIndex = 0;
+									address.lastIndex = 0;
+									speciality.lastIndex = 0;
+									identifier.lastIndex = 0;
+									poCode.lastIndex = 0;
+									fn.push(input[i]);																	
+								}
+						}
+						
+						return fn;
+		    		}
+		    		
+		    		if(input[0].type==&#039;configuration/entityTypes/HCO&#039;){			
+						for(var i in input){							
+							if (organisationName.exec(input[i].attributes.Name[0].value) != undefined &amp;&amp; organisationName.exec(input[i].attributes.Name[0].value) != &#039;&#039; &amp;&amp; organisationName.exec(input[i].attributes.Name[0].value) != null &amp;&amp; city.exec(input[i].attributes.Address[0].value.City[0].value) != null 
+									&amp;&amp; poCode.exec(input[i].attributes.Address[0].value.Zip[0].value.Zip5[0].value) != null
+									&amp;&amp; address.exec(input[i].attributes.Address[0].value.AddressLine1[0].value) != null 
+									&amp;&amp; identifier.exec(input[i].attributes.Identifiers[0].value.ID[0].value) != null){
+								organisationName.lastIndex = 0;
+								//organisationType.lastIndex = 0;
+								city.lastIndex = 0;
+								poCode.lastIndex = 0;
+								address.lastIndex = 0;
+								identifier.lastIndex = 0;
+								fn.push(input[i]);																	
+							}
+						} 
+						
+						return fn;
+		    		}
+		    	}
+		    		
+		    	else{
+		    		return input;
+		    	}
+		    }
+		})
+	.controller(&#039;ProfileListCtrl&#039;, ProfileSearch);
+
+	ProfileSearch.$inject = [&#039;ProfileSearch&#039;,&#039;$scope&#039;,&#039;UIConfig&#039;,&#039;$rootScope&#039;,&#039;Specialty&#039;,&#039;Credential&#039;,&#039;State&#039;,&#039;OrganizationType&#039;,&#039;UniqueType&#039;,&#039;Territory&#039;];
+
+	function ProfileSearch(ProfileSearch,$scope,UIConfig,$rootScope,Specialty,Credential,State,OrganizationType,UniqueType,Territory) {
+
+		var params = {};
+		console.log(&quot;Inside Profile.list.controller&quot;);
+		$scope.profile_val ={item:&#039;PERSON&#039;};
+		
+		$scope.uniqueProfile = [{
+			name: &#039;RPPS&#039;,
+			value: &#039;WFR.REX.I8,WPF.REX.I8&#039;
+		},   {
+			name: &#039;ONEKEY&#039;,
+			value: &#039;WFR.REX.I0&#039;
+		},	{
+			name: &#039;GCP&#039;,
+			value: &#039;GCP ID&#039;
+		},	{
+			name: &#039;RELTIOID&#039;,
+			value: &#039;RELTIOID&#039;
+		},	{
+			name: &#039;GRV&#039;,
+			value: &#039;GRV ID&#039;
+		},	{
+			name: &#039;ADELI&#039;,
+			value: &#039;WFR.REX.I1&#039;
+		},	{
+			name: &#039;ORDRE&#039;,
+			value: &#039;WFR.REX.I2,WPF.REX.I2&#039;
+		}];
+		
+		$scope.uniqueOrg = [{
+			name: &#039;ONEKEY&#039;,
+			value: &#039;WFR.REX.E0&#039;
+		},	{
+			name: &#039;RELTIOID&#039;,
+			value: &#039;RELTIOID&#039;
+		}, 	{
+			name: &#039;SIRET&#039;,
+			value: &#039;WFR.REX.E1&#039;
+		},	{
+			name: &#039;FINESS&#039;,
+			value: &#039;WFR.REX.EF,WFR.REX.E4&#039;
+		},	{
+			name: &#039;SIREN&#039;,
+			value: &#039;SIREN&#039;
+		},	{
+			name: &#039;CIP&#039;,
+			value: &#039;WFR.REX.E3,WFR.REX.E2&#039;
+		}];
+		       	
+
+		       	
+		UIConfig.query().$promise.then(function(result){
+		        	$scope.configFile = result;
+		});	
+
+		  
+		
+		//Getting Logged in User Profile
+				
+		        $scope.userProfileData = function(){		        	
+					var currentprofile = $rootScope.currentProfile;
+					
+					$scope.loggedInUserCountry = currentprofile.countryId;
+					$scope.loggedInUserCountryName = currentprofile.countryName ;
+					$scope.loggedInUserCountryCode = currentprofile.isoCode ;
+					$scope.loggedInUserRole = currentprofile.roleId;
+					$scope.logged_In_User= currentprofile.userName;
+					$scope.fullName = currentprofile.firstName+&quot; &quot;+currentprofile.lastName;										               
+		};
+		
+		//Calling $scope.userProfileData() to get Logged in User Profile Data
+		$scope.userProfileData();
+		
+		//Function to search for requested profiles			
+		
+		$scope.itemDetails = {};
+		$scope.submit = function(itemDetails) {
+			
+			console.log(&quot;Inside Profile Search Tab&quot;);
+			$scope.responseOnSearch = &#039;&#039;;
+			params =  itemDetails;
+			var data = {&quot;country&quot;:&quot;&quot;,&quot;profileType&quot;:&quot;&quot;,&quot;lastName&quot;:&quot;&quot;,&quot;city&quot;:&quot;&quot;,&quot;firstName&quot;:&quot;&quot;,&quot;middleName&quot;:&quot;&quot;,
+					&quot;speciality&quot;:&quot;&quot;,&quot;organizationName&quot;:&quot;&quot;,&quot;organizationType&quot;:&quot;&quot;,&quot;credential&quot;:&quot;&quot;,&quot;state&quot;:&quot;&quot;,&quot;poCode&quot;:&quot;&quot;,&quot;uniqueType&quot;:&quot;&quot;,&quot;identificationNumber&quot;:&quot;&quot;,&quot;territory&quot;:&quot;&quot;,
+					&quot;max&quot;:&quot;&quot;,&quot;offset&quot;:&quot;&quot;};
+			
+			data.country = $rootScope.currentProfile.countryISOCode;
+			data.profileType = $scope.profile_val.item;
+			data.lastName = (params.lastName !== undefined &amp;&amp; params.lastName !== &quot;&quot; ) ? params.lastName : &#039;lastName&#039;;
+			data.middleName = (params.middleName !== undefined &amp;&amp; params.middleName !== &quot;&quot; ) ? params.middleName : &#039;middleName&#039;;
+			data.city = (params.city !== undefined &amp;&amp; params.city !== &quot;&quot;) ? params.city : &#039;city&#039;;
+			data.firstName = (params.firstName !== undefined &amp;&amp; params.firstName !== &quot;&quot;) ? params.firstName : &#039;firstName&#039;;
+			data.speciality = (params.speciality !== undefined &amp;&amp; params.speciality !== &quot;&quot;) ? params.speciality : &#039;speciality&#039;;
+			data.credential = (params.credential !== undefined &amp;&amp; params.credential !== &quot;&quot;) ? params.credential : &#039;credential&#039;;
+			data.organizationName = (params.organizationName !== undefined &amp;&amp; params.organizationName !== &quot;&quot; ) ? params.organizationName : &#039;organizationName&#039;;
+			data.organizationType = (params.organizationType !== undefined &amp;&amp; params.organizationType !== &quot;&quot; ) ? params.organizationType : &#039;organizationType&#039;;
+			data.state = (params.state !== undefined &amp;&amp; params.state !== &quot;&quot;) ? params.state : &#039;state&#039;;
+			data.poCode = (params.poCode !== undefined &amp;&amp; params.poCode !== &quot;&quot;) ? params.poCode : &#039;poCode&#039;;
+			data.uniqueType = (params.uniqueType !== undefined &amp;&amp; params.uniqueType !== &quot;&quot;) ? params.uniqueType : &#039;uniqueType&#039;;
+			data.territory = (params.territory !== undefined &amp;&amp; params.territory !== &quot;&quot;) ? params.territory : &#039;territory&#039;;
+			
+			data.max = $scope.max;
+			data.offset = $scope.offset;
+			data.identificationNumber = (params.identificationNumber !== undefined &amp;&amp; params.identificationNumber !== &quot;&quot;) ? params.identificationNumber : &#039;identificationNumber&#039;;
+			
+			ProfileSearch.get({
+				country : data.country,
+				profileType : data.profileType,
+				lastName : data.lastName,
+				middleName : data.middleName,
+				city : data.city,
+				credential : data.credential,
+				organizationName : data.organizationName,
+				organizationType : data.organizationType,
+				state : data.state,
+				firstName : data.firstName,
+				uniqueType : data.uniqueType,
+				speciality : data.speciality,
+				poCode : data.poCode,
+				identificationNumber : data.identificationNumber,
+				max : data.max,
+				offset : data.offset,
+				territory : data.territory
+			}).$promise
+			.then(function(profileSearch) {
+				$scope.profileSearch= JSON.parse(profileSearch.string);	
+				
+				for(var i in $scope.profileSearch){
+					$scope.profileSearch[i].uri = $scope.profileSearch[i].uri.substring(9, $scope.profileSearch[i].uri.length);
+					if($scope.profileSearch[i].attributes.Address != undefined){
+						for(var j in $scope.profileSearch[i].attributes.Address){
+							if($scope.profileSearch[i].attributes.Address[j].value.AddressRank != undefined){
+								if($scope.profileSearch[i].attributes.Address[j].value.AddressRank[0].value == &#039;1&#039;){
+									$scope.profileSearch[i].attributes.Address[0] = $scope.profileSearch[i].attributes.Address[j];
+								}
+							}
+						}
+					}
+					if($scope.profileSearch[0].type==&#039;configuration/entityTypes/HCP&#039;){
+						if($scope.profileSearch[i].attributes.Specialities != undefined){
+							for(var j in $scope.profileSearch[i].attributes.Specialities){
+								if($scope.profileSearch[i].attributes.Specialities[j].value.Rank != undefined){
+									if($scope.profileSearch[i].attributes.Specialities[j].value.Rank[0].value == &#039;1&#039;){
+										$scope.profileSearch[i].attributes.Specialities[0] = $scope.profileSearch[i].attributes.Specialities[j];
+									}
+								}
+							}
+						}
+					}
+					
+				}
+				
+				if($scope.profileSearch.length == 0){
+					$scope.responseOnSearch = &quot;No records to show (If you are searching for Territory specific profile other than France, Please use Territory filter dropdown)&quot;;
+					$scope.buttondisableNext = &quot;true&quot;;
+				}
+				else{
+					$scope.buttondisableNext = &quot;false&quot;;
+				}
+				$scope.isReset = true;
+			}).catch(function(){
+				$scope.responseOnSearch = &quot;No records to show (If you are searching for Territory specific profile other than France, Please use Territory filter dropdown)&quot;; 
+				$scope.profileSearch.length = 0;
+				$scope.profileSearchCopy.length = 0; 
+			});                       
+		};
+
+		$scope.profileSearchCopy = [].concat($scope.profileSearch);
+		
+
+		
+		//Loads all speciality 
+		var updateSpecialty = function(result){
+			$scope.specialty = result; 
+			$rootScope.specialty = result;
+
+		};
+		
+        var loadSpecialty = function(){		  
+  		  $scope.specialty = [];
+  		  Specialty.query({id : $scope.loggedInUserCountry}).$promise.then(updateSpecialty);
+  			
+  		};
+
+  	  loadSpecialty();
+  	
+  	  $scope.$on(&#039;$localeChangeSuccess&#039;, loadSpecialty);
+  	  
+  	//Loads all credential 
+  		var updateCredential = function(result){
+  			$scope.credential = result;             
+
+  		};
+
+  		
+  	  var loadCredential = function(){		  
+  		  $scope.credential = [];
+  		  Credential.query({id : $scope.loggedInUserCountry,partyType : $scope.profile_val.item}).$promise.then(updateCredential);
+  			
+  		};
+  		
+  		$scope.getCred = function(){
+  			$scope.max = 20;
+  			$scope.offset = 0;
+  			$scope.buttondisable = &quot;true&quot;;
+  			$scope.buttondisableNext = &quot;true&quot;;
+  			$scope.profileSearchCopy = [];
+  			$scope.itemDetails = {};
+  			$scope.responseOnSearch = &quot;&quot;;
+  			$scope.credential = [];
+  			  Credential.query({id : $scope.loggedInUserCountry,partyType : $scope.profile_val.item}).$promise.then(updateCredential);
+  		};
+
+  	  loadCredential();
+  	
+  	  $scope.$on(&#039;$localeChangeSuccess&#039;, loadCredential);
+  		
+  		//Loads all Organization Type
+  		var updateOrgType = function(result){
+  			$scope.orgType = result;             
+
+  		};
+
+  		
+  	  var loadOrgType = function(){		  
+  		  $scope.orgType = [];
+  		  OrganizationType.query({id : $scope.loggedInUserCountry}).$promise.then(updateOrgType);
+  			
+  		};
+
+  		loadOrgType();
+  		$scope.$on(&#039;$localeChangeSuccess&#039;, loadOrgType);
+  		
+  		//Load country
+  	    var setProfile = function(profile){
+  			console.log(&#039;Here in user-detail***UP4....&#039;+profile);
+  	      setLocale(profile.countryId);
+  	      resetLocalizableCache();
+  	      $rootScope.currentProfile = profile;
+  	      currentProfile = profile;
+  	      return profile;
+  	    };
+  	    
+  		 var setLocale = function(countryId){
+  		      return getCountry(countryId).then(function(country){
+  		        var selectedLocale = CONFIG.locale.find(function(locale){
+  		          return country.isoCode.toUpperCase() === locale.isoCode.toUpperCase();
+  		        });
+  		        if (!selectedLocale){
+  		          selectedLocale = {
+  		            isoCode: country.isoCode.toLowerCase(),
+  		            locale: country.isoCode.toLowerCase()
+  		          };
+  		          CONFIG.locale.push(selectedLocale);
+  		        }
+
+  		        tmhDynamicLocale.set(selectedLocale.locale);
+  		        localizableLovs = [];
+  		        return selectedLocale;
+  		      });
+  		    };
+
+  		    /**
+  		     * @ngdoc method
+  		     * @name getPermissions
+  		     * @methodOf gcms.components.session.service:session
+  		     * @description Gets permissions for the current profile
+  		     * @returns {object} A promise resolving to a permissions array
+  		     */
+  		    var getPermissions = function() {
+  		      return getCurrentProfile().then(function(profile){
+  		        var profileRoleId = profile.roleId;
+  		        return getRoles().then(function(roles){
+  		          var permissions = null;
+  		          angular.forEach(roles, function(role){
+  		            if (role.id === profileRoleId){
+  		              permissions = role.rolePermissions;
+  		            }
+  		          });
+  		          return permissions;
+  		        });
+  		      });
+  		    };
+
+  		    /**
+  		     * @ngdoc method
+  		     * @name getAttributes
+  		     * @methodOf gcms.components.session.service:session
+  		     * @description Gets attributes for the specified country
+  		     * @returns {object} A promise resolving to an attributes array
+  		     */
+  		    var getAttributes = function() {
+  		      return getCountryAttributes();
+  		    };
+
+  		    /**
+  		     * @ngdoc method
+  		     * @name getCountry
+  		     * @methodOf gcms.components.session.service:session
+  		     * @description Gets country
+  		     * @param {Number} id The id of a country
+  		     * @returns {object} A promise resolving to a country object
+  		     */
+  		    var getCountry = function(id){
+  		      return getCountries().then(function(countries) {
+  		        var selectedCountry = null;
+  		        angular.forEach(countries, function(country){
+  		          if(country.id === id) {
+  		            selectedCountry = country;
+  		          }
+  		        });
+  		        return selectedCountry;
+  		      });
+  		    };
+
+  		
+  		
+  	//Loads all Territory Type
+  		var updateTerritory = function(result){
+  		
+  			$scope.territory = result;             
+
+  		};
+
+  		
+  	  var loadTerritory = function(){		  
+  		  $scope.territory = [];
+  		  Territory.query().$promise.then(updateTerritory);
+  			
+  		};
+
+  		loadTerritory();
+  		$scope.$on(&#039;$localeChangeSuccess&#039;, loadTerritory);
+  		
+  		//Loads all unique type 
+  		var updateUniqueType = function(result){
+  			$scope.uniqueType = result;             
+
+  		};
+
+  		
+  	  var loadUniqueType = function(){		  
+  		  $scope.uniqueType = [];
+  		  UniqueType.query({id : $scope.loggedInUserCountry}).$promise.then(updateUniqueType);
+  			
+  		};
+
+  		loadUniqueType();
+  	
+  	  $scope.$on(&#039;$localeChangeSuccess&#039;, loadUniqueType);
+  	  
+  	//Loads all State dropdown
+		var updateState = function(result){
+			$scope.state = result;             
+
+		};
+
+		
+	  var loadState = function(){		  
+		  $scope.state = [];
+		  State.query({id : $scope.loggedInUserCountry}).$promise.then(updateState);
+			
+		};
+
+		loadState();
+		$scope.$on(&#039;$localeChangeSuccess&#039;, loadState);
+		
+		$scope.max = 20;
+		$scope.offset = 0;
+		
+		$scope.setNextPage = function(item){
+			$scope.offset = Number($scope.max) + Number($scope.offset);
+			$scope.buttondisable = &quot;false&quot;;
+			
+			$scope.submit(item);
+		};
+		
+		$scope.buttondisable = &quot;true&quot;;
+		$scope.buttondisableNext = &quot;true&quot;;
+		$scope.setPreviousPage = function(item){
+			if($scope.offset &gt; $scope.max){
+				$scope.offset = Number($scope.offset) - Number($scope.max);
+			}
+			else{
+				$scope.offset = 0;
+				$scope.buttondisable = &quot;true&quot;;
+			}
+			
+			$scope.submit(item);
+		};
+		
+		$scope.cancel = function()
+		{
+			$scope.itemDetails = {};
+		};
+		
+		$scope.setPagination = function(item)
+		{
+			$scope.submit(item);
+		};
+     
+	}
+	
+	
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ cyclomatic }} <br>
+    Length : {{ halstead.length }} <br>
+    Difficulty : {{ halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

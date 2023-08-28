@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<checkstyle version="4.3">
+	<file name="app\FileSaver.js">
+		<error line="121" column="60" severity="warning" message="Missing semicolon." source="jshint.W033" />
+	</file>
+	<file name="app\administration\administration.controller.js">
+		<error line="106" column="30" severity="warning" message="Unnecessary semicolon." source="jshint.W032" />
+	</file>
+	<file name="app\task\bulk.upload.controller.js">
+		<error line="71" column="44" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="134" column="65" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="137" column="15" severity="warning" message="Unnecessary semicolon." source="jshint.W032" />
+		<error line="139" column="12" severity="warning" message="Missing semicolon." source="jshint.W033" />
+	</file>
+	<file name="app\task\task.controller.js">
+		<error line="66" column="4" severity="warning" message="Unnecessary semicolon." source="jshint.W032" />
+	</file>
+	<file name="app\task\task.directive.js">
+		<error line="32" column="16" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="71" column="12" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="93" column="20" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="106" column="13" severity="warning" message="Missing semicolon." source="jshint.W033" />
+	</file>
+	<file name="app\filemanager\controllers\filemanager.controller.js">
+		<error line="333" column="68" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="591" column="16" severity="warning" message="Unreachable &apos;console&apos; after &apos;return&apos;." source="jshint.W027" />
+		<error line="649" column="47" severity="warning" message="Did you mean to return a conditional instead of an assignment?" source="jshint.W093" />
+	</file>
+	<file name="app\filemanager\directives\upload.directive.js">
+		<error line="80" column="44" severity="warning" message="Missing semicolon." source="jshint.W033" />
+	</file>
+	<file name="app\filemanager\providers\client.js">
+		<error line="204" column="20" severity="warning" message="[&apos;transformRequest&apos;] is better written in dot notation." source="jshint.W069" />
+		<error line="436" column="96" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="456" column="91" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="480" column="34" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="547" column="17" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="572" column="19" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="756" column="137" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="770" column="7" severity="warning" message="Missing semicolon." source="jshint.W033" />
+	</file>
+	<file name="app\filemanager\providers\config.js">
+		<error line="51" column="8" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="52" column="7" severity="warning" message="Missing semicolon." source="jshint.W033" />
+	</file>
+	<file name="app\filemanager\services\filemanager.middleware.js">
+		<error line="270" column="27" severity="warning" message="[&apos;properties&apos;] is better written in dot notation." source="jshint.W069" />
+		<error line="276" column="27" severity="warning" message="[&apos;href&apos;] is better written in dot notation." source="jshint.W069" />
+		<error line="282" column="29" severity="warning" message="[&apos;properties&apos;] is better written in dot notation." source="jshint.W069" />
+	</file>
+	<file name="app\filemanager\services\filemanager.navigator.js">
+		<error line="87" column="74" severity="warning" message="Expected an assignment or function call and instead saw an expression." source="jshint.W030" />
+		<error line="101" column="21" severity="warning" message="&apos;path&apos; is already defined." source="jshint.W004" />
+		<error line="102" column="72" severity="warning" message="Functions declared within loops referencing an outer scoped variable may lead to confusing semantics. (console, self, Item)" source="jshint.W083" />
+		<error line="113" column="20" severity="warning" message="Functions declared within loops referencing an outer scoped variable may lead to confusing semantics. (self)" source="jshint.W083" />
+		<error line="115" column="19" severity="warning" message="Missing semicolon." source="jshint.W033" />
+	</file>
+	<file name="app\components\modal\components.modal.directive.js">
+		<error line="82" column="44" severity="warning" message="Missing semicolon." source="jshint.W033" />
+	</file>
+	<file name="app\components\session\components.session.service.js">
+		<error line="125" column="119" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="204" column="119" severity="warning" message="Missing semicolon." source="jshint.W033" />
+	</file>
+	<file name="app\profile\list\pageSelect.directive.js">
+		<error line="20" column="8" severity="warning" message="Missing semicolon." source="jshint.W033" />
+	</file>
+	<file name="app\profile\list\profile.list.controller.js">
+		<error line="70" column="33" severity="warning" message="&apos;i&apos; is already defined." source="jshint.W004" />
+		<error line="72" column="37" severity="warning" message="Misleading line break before &apos;&amp;&amp;&apos;; readers may interpret this as an expression boundary." source="jshint.W014" />
+		<error line="73" column="37" severity="warning" message="Misleading line break before &apos;&amp;&amp;&apos;; readers may interpret this as an expression boundary." source="jshint.W014" />
+		<error line="74" column="37" severity="warning" message="Misleading line break before &apos;&amp;&amp;&apos;; readers may interpret this as an expression boundary." source="jshint.W014" />
+		<error line="92" column="14" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="237" column="37" severity="warning" message="&apos;j&apos; is already defined." source="jshint.W004" />
+	</file>
+	<file name="app\profilereview\identitydetail\identity.controller.js">
+		<error line="68" column="23" severity="warning" message="&apos;i&apos; is already defined." source="jshint.W004" />
+		<error line="286" column="21" severity="warning" message="&apos;i&apos; is already defined." source="jshint.W004" />
+		<error line="307" column="21" severity="warning" message="&apos;i&apos; is already defined." source="jshint.W004" />
+	</file>
+	<file name="app\components\controls\textbox\components.decimals.service.js">
+		<error line="46" column="24" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="75" column="10" severity="warning" message="Missing semicolon." source="jshint.W033" />
+	</file>
+	<file name="app\components\modal\controllers\modal.default.controller.js">
+		<error line="72" column="6" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="89" column="6" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="97" column="6" severity="warning" message="Missing semicolon." source="jshint.W033" />
+		<error line="108" column="6" severity="warning" message="Missing semicolon." source="jshint.W033" />
+	</file>
+</checkstyle>

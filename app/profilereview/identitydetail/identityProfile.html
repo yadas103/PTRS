@@ -94,9 +94,9 @@
 					</div> -->
 
 
-					<div class="col-sm-3" ng-hide="profile_val.item=='ORGANIZATION'">
+					<div class="col-sm-3" ng-hide="profile_val.item=='ORGANIZATION' || currentProfile.countryId=='2108'">
 						<!-- <label class="control-label">Specialty</label> -->						
-						<input type="search" autocomplete="none" class="form-control search-criteria" ng-model="item.specialityDetail" ng-change="compare(item)" list="specData" placeholder="Select Specialty"  onfocus="this.value=''" onchange="this.blur();" ng-required="profile_val.item == 'PERSON'">
+						<input type="search" autocomplete="none" class="form-control search-criteria" ng-model="item.specialityDetail" ng-change="compare(item)" list="specData" placeholder="Select Specialty"  onfocus="this.value=''" onchange="this.blur();" ng-required="profile_val.item == 'PERSON' && currentProfile.countryId !='2108'">
 		                                      <datalist style="opacity:0" id="specData" name="specData">
 		                                        <option value="">Select Specialty</option>
 				                        <option ng-repeat="rep in specialty | filter:search" value="{{rep.spclDesc}}@{{rep.spclCode}}"></option>
@@ -104,12 +104,14 @@
    		                                     </datalist>
 					</div>
 					
+					<div ng-show="currentProfile.countryId=='2071'">
 					<div class="col-sm-3" ng-hide="profile_val.item=='ORGANIZATION'">
-						<select class="form-control" ng-model="item.gender" ng-required="profile_val.item == 'PERSON'">
+						<select class="form-control" ng-model="item.gender" ng-required="profile_val.item == 'PERSON' && currentProfile.countryId=='2071'">
 							<option value ng-show="true" class="ng-binding">Select Gender</option>
 							<option value="M">Male</option>
 							<option value="F">Female</option>
 						</select>
+					</div>
 					</div>
 
 				</div>
@@ -156,7 +158,7 @@
 
 					<div class="col-sm-3">
 						<!-- <label class="control-label">County/Province/Region/State</label> -->
-						<input type="search" autocomplete="none" class="form-control search-criteria" ng-model="item.state" list="stateData" placeholder="Select State" onfocus="this.value=''" onchange="this.blur();" required>
+						<input type="search" autocomplete="none" class="form-control search-criteria" ng-model="item.state" list="stateData" placeholder="Select State" onfocus="this.value=''" onchange="this.blur();">
 		                                      <datalist style="opacity:0" id="stateData" name="stateData">
 		                                        <option value="">Select State</option>
 		                                        <option ng-repeat="rep in state | filter:search" value={{rep.stateDesc}}></option>
@@ -164,12 +166,12 @@
 			                              </datalist>
 					</div>
 
-					<div class="col-sm-3">										
+					<div class="col-sm-3" ng-show="currentProfile.countryId=='2071'">										
 									<select class="form-control input-sm td-search-panel-text"
-										ng-model="item.region" required>
+										ng-model="item.region" >
 										<option value="">Select Territory</option>
-										<option value="FR">France</option>
-										<option ng-repeat="rep in territory" value="{{rep.territoryCode}}">{{rep.territoryName}}</option>
+									
+										<option ng-selected={{rep.territoryCode==currentProfile.countryISOCode}} ng-repeat="rep in territory | filter :{countryId:currentProfile.countryId}" value="{{rep.territoryCode}}">{{rep.territoryName}}</option>
 									</select>
 					</div>
 
@@ -184,13 +186,13 @@
 
 				<hr>
 
-				<div class="row">
+				<div class="row" ng-show="currentProfile.countryId=='2071'">
 					<div class="col-sm-3">
 						<label class="control-label">Market Specific Fields</label>
 					</div>
 				</div>
 
-				<div class="column" data-ng-repeat="pro in customDetails">
+				<div class="column" ng-show="currentProfile.countryId=='2071'" data-ng-repeat="pro in customDetails">
 					<div class="col-sm-3" ng-hide="pro.partyType=='ORGANIZATION'">
 						<label class="control-label">{{pro.fieldName}}</label>
 						<div ng-if="pro.textEnabled=='Y'">

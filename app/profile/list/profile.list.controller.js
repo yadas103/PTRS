@@ -98,9 +98,8 @@
 	function ProfileSearch(ProfileSearch,$scope,UIConfig,$rootScope,Specialty,Credential,State,OrganizationType,UniqueType,Territory) {
 
 		var params = {};
-		console.log("Inside Profile.list.controller");	
+		console.log("Inside Profile.list.controller");
 		$scope.profile_val ={item:'PERSON'};
-
 		
 		$scope.uniqueProfile = [{
 			name: 'RPPS',
@@ -151,7 +150,8 @@
 		        	$scope.configFile = result;
 		});	
 
-		        
+		  
+		
 		//Getting Logged in User Profile
 				
 		        $scope.userProfileData = function(){		        	
@@ -194,6 +194,7 @@
 			data.poCode = (params.poCode !== undefined && params.poCode !== "") ? params.poCode : 'poCode';
 			data.uniqueType = (params.uniqueType !== undefined && params.uniqueType !== "") ? params.uniqueType : 'uniqueType';
 			data.territory = (params.territory !== undefined && params.territory !== "") ? params.territory : 'territory';
+			
 			data.max = $scope.max;
 			data.offset = $scope.offset;
 			data.identificationNumber = (params.identificationNumber !== undefined && params.identificationNumber !== "") ? params.identificationNumber : 'identificationNumber';
@@ -262,6 +263,8 @@
 
 		$scope.profileSearchCopy = [].concat($scope.profileSearch);
 		
+
+		
 		//Loads all speciality 
 		var updateSpecialty = function(result){
 			$scope.specialty = result; 
@@ -324,8 +327,93 @@
   		loadOrgType();
   		$scope.$on('$localeChangeSuccess', loadOrgType);
   		
+  		//Load country
+  	    var setProfile = function(profile){
+  			console.log('Here in user-detail***UP4....'+profile);
+  	      setLocale(profile.countryId);
+  	      resetLocalizableCache();
+  	      $rootScope.currentProfile = profile;
+  	      currentProfile = profile;
+  	      return profile;
+  	    };
+  	    
+  		 var setLocale = function(countryId){
+  		      return getCountry(countryId).then(function(country){
+  		        var selectedLocale = CONFIG.locale.find(function(locale){
+  		          return country.isoCode.toUpperCase() === locale.isoCode.toUpperCase();
+  		        });
+  		        if (!selectedLocale){
+  		          selectedLocale = {
+  		            isoCode: country.isoCode.toLowerCase(),
+  		            locale: country.isoCode.toLowerCase()
+  		          };
+  		          CONFIG.locale.push(selectedLocale);
+  		        }
+
+  		        tmhDynamicLocale.set(selectedLocale.locale);
+  		        localizableLovs = [];
+  		        return selectedLocale;
+  		      });
+  		    };
+
+  		    /**
+  		     * @ngdoc method
+  		     * @name getPermissions
+  		     * @methodOf gcms.components.session.service:session
+  		     * @description Gets permissions for the current profile
+  		     * @returns {object} A promise resolving to a permissions array
+  		     */
+  		    var getPermissions = function() {
+  		      return getCurrentProfile().then(function(profile){
+  		        var profileRoleId = profile.roleId;
+  		        return getRoles().then(function(roles){
+  		          var permissions = null;
+  		          angular.forEach(roles, function(role){
+  		            if (role.id === profileRoleId){
+  		              permissions = role.rolePermissions;
+  		            }
+  		          });
+  		          return permissions;
+  		        });
+  		      });
+  		    };
+
+  		    /**
+  		     * @ngdoc method
+  		     * @name getAttributes
+  		     * @methodOf gcms.components.session.service:session
+  		     * @description Gets attributes for the specified country
+  		     * @returns {object} A promise resolving to an attributes array
+  		     */
+  		    var getAttributes = function() {
+  		      return getCountryAttributes();
+  		    };
+
+  		    /**
+  		     * @ngdoc method
+  		     * @name getCountry
+  		     * @methodOf gcms.components.session.service:session
+  		     * @description Gets country
+  		     * @param {Number} id The id of a country
+  		     * @returns {object} A promise resolving to a country object
+  		     */
+  		    var getCountry = function(id){
+  		      return getCountries().then(function(countries) {
+  		        var selectedCountry = null;
+  		        angular.forEach(countries, function(country){
+  		          if(country.id === id) {
+  		            selectedCountry = country;
+  		          }
+  		        });
+  		        return selectedCountry;
+  		      });
+  		    };
+
+  		
+  		
   	//Loads all Territory Type
   		var updateTerritory = function(result){
+  		
   			$scope.territory = result;             
 
   		};
@@ -408,5 +496,6 @@
 		};
      
 	}
+	
 	
 })();

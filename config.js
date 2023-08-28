@@ -1,2 +1,2 @@
 angular.module("gcms.environment", [])
-.constant("ENVIRONMENT", {"SERVICE_URI":"/gcms-service/","SERVICE_EXT":""});
+.constant("ENVIRONMENT", {"SERVICE_URI":"/ptrs-reltio-service/","SERVICE_EXT":""});

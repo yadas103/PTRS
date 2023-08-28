@@ -16,7 +16,7 @@
                   <li ng-repeat="(id,profile) in profiles | offset:limit*column | limitTo : limit">
                     <a ng-click="setProfile(profile)" >
                       <i class="famfamfam-flag-{{profile.countryISOCode.toLowerCase()}}"></i>
-                      {{profile.countryName}} ({{profile.roleName}})
+                     {{profile.countryName}}({{profile.roleName}})
                       <i class="fa fa-check-circle fa-fw" ng-if="profile.countryId == currentProfile.countryId"></i>
                     </a>
                   </li>

@@ -114,7 +114,7 @@
                 <li ng-class="{active:$state.includes('task')}" gcms-secure section-name="Bulk Upload"  action-name="browse"><a ui-sref="task"><h6 class="nav-details"><b>Bulk Upload</b></h6></a></li>                
                  <li ng-class="{active:$state.includes('admin')}" gcms-secure section-name="Report" action-name="browse"><a ui-sref="admin"><h6 class="nav-details"><b>Report</b></h6></a></li>
               </ul>
-
+ 
               <!-- This is the start of the Navigation Right -->
               <gcms-session></gcms-session>
             </div>
@@ -313,6 +313,13 @@
   <script src="app/profile/profile.module.js"></script>
 
   <script src="app/components/data/components.data.service.profile.js"></script>
+  
+  
+ 
+  
+  <script type="app/profile/search/profile.search.directive.js"></script>
+  <script type="app/profile/search/profile.search.service.js"></script>
+  <script type="app/profile/search/profile.search.module.js"></script>
   
   <!-- Profile Review module -->
   <script src="app/profilereview/profilereview.module.js"></script>

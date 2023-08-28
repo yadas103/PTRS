@@ -33,7 +33,10 @@
 	  'gcms.components.idname',
       'gcms.components.uniqueid',
       'gcms.components.uniqueidupload',
-      'gcms.components.validator',	  
+      'gcms.components.validator',	
+      
+      
+      
       'gcms.landing',
 	  'gcms.profile',
 	  'gcms.identity',

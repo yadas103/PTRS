@@ -14,6 +14,7 @@
 					<div class="col-sm-2"></div>
 			</div>
 			<br>
+			
 			<form name="itemSearchForm" novalidate>
 				<div class="row">
 					<div class="col-lg-1"></div>
@@ -55,12 +56,13 @@
 
 							</div>
 
-							<div ng-hide="profile_val.item=='ORGANIZATION'" class="form-group row">
+							<div ng-hide="profile_val.item=='ORGANIZATION' || currentProfile.countryId=='2108'" class="form-group row">
 								<label class="control-label">Specialty</label>
 								<div class="input-group">
 				                                    <input type="search" autocomplete="none" class="form-control search-criteria" ng-model="itemDetails.speciality" list="specData" placeholder="Select Specialty" onfocus="this.value=''" onchange="this.blur();">
 				                                      <datalist style="opacity:0" id="specData" name="specData">
 				                                        <option value="">Select Specialty</option>
+				                        
 				                                        <option ng-repeat="rep in specialty | filter:search" value="{{rep.spclDesc}}@{{rep.spclCode}}"></option>
                                        
 				                                      </datalist>
@@ -99,15 +101,19 @@
 								<div class="input-group">
 									<input type="text" class="form-control search-criteria"
 										placeholder="Postal Code" ng-model="itemDetails.poCode">
-								</div>
-								<div class="input-group">										
-									<select class="form-control input-sm td-search-panel-text"
-										ng-model="itemDetails.territory">
-										<option value="">Select Territory</option>
-										<option value="FR">France</option>
-										<option ng-repeat="rep in territory" value="{{rep.territoryCode}}">{{rep.territoryName}}</option>
+								</div>	
+								<!-- {{currentProfile}} -->
+								<div  class="input-group" ng-show="currentProfile.countryId=='2071'" >									
+									<select class="form-control input-sm td-search-panel-text" ng-model="itemDetails.territory" >
+									<option value="">Select Territory</option>
+										<option ng-selected={{rep.territoryCode==currentProfile.countryISOCode}} ng-repeat="rep in territory | filter :{countryId:currentProfile.countryId}" value="{{rep.territoryCode}}">{{rep.territoryName}}
+										
+										</option>		
 									</select>
 								</div>
+						
+						
+								
 							</div>
 						</div>
 
@@ -121,6 +127,7 @@
 									<select class="form-control input-sm td-search-panel-text"
 										ng-model="itemDetails.uniqueType">
 										<option value="">Select Unique ID Type</option>
+										<option value="MOH ID" ng-show="currentProfile.countryId!='2071'">MOH</option>
 										<option ng-repeat="rep in uniqueProfile" value="{{rep.value}}">{{rep.name}}</option>
 									</select>									
 								</div>
@@ -129,6 +136,7 @@
 									<select class="form-control input-sm td-search-panel-text"
 										ng-model="itemDetails.uniqueType">
 										<option value="">Select Unique ID Type</option>
+										<option value="MOH ID" ng-show="currentProfile.countryId!='2071'">MOH</option>
 										<option ng-repeat="rep in uniqueOrg" value="{{rep.value}}">{{rep.name}}</option>
 									</select>									
 								</div>

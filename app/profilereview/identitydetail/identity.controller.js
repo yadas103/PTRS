@@ -49,6 +49,8 @@
       	        theme: 'bootstrap'
       	     });
 		   };
+		   
+		   
 	  $scope.submit = function(item){
 		  
 		  if(item.specialityDetail !== undefined){
@@ -76,7 +78,8 @@
 		  item.countryCode = $scope.loggedInUserCountryCode;
 		  item.customDetails = $scope.customDetails;
 		  console.log("Inside submit function");
-			IdentityRequest.save(item).$promise
+			IdentityRequest.save(item)
+			.$promise
 			.then(function(result) {
 				if(result.$promise.$$state.status == 1)
 				{
@@ -107,6 +110,7 @@
 					item.customDetails = '';
 					$scope.customDetails = '';
 					
+				
 					if(result.reltioMsg == 'Profile already exist! We have similar profile matching all mandatory fields in our system!' ||
 							result.reltioMsg == 'Error Creating Profile !'){
 						 var messageDetails = result.reltioMsg;
@@ -121,19 +125,22 @@
 					          shake: false,
 					          theme: 'bootstrap'
 					        });
-					}
-					else{
+					}else{
+					
 						success();
 					}
 				}
-
+				
+				
 			}).catch(function(){
 				
 				internalError();
-
+				
 
 			}); 
+			
 	  };
+		  	  
 	  
 	  $scope.cancel = function()
 		{

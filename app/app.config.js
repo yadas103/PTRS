@@ -94,7 +94,7 @@
         controller: 'TaskCtrl',
         templateUrl: 'app/task/task.html',
         data: {
-          section: 'Manage Consent',
+          section: 'Bulk Upload',
           action: 'browse'
         }
       })
@@ -109,7 +109,7 @@
     	controller: 'AdminCtrl',
         templateUrl: 'app/administration/administration.html',
         data: {
-          section: 'Administration',
+          section: 'Report',
           action: 'browse'
         }
       })
@@ -119,7 +119,7 @@
         controller: 'UserRoleCtrl',
         templateUrl: 'app/administration/administration.details.html',
         data: {
-          section: 'Administration',
+          section: 'Report',
           action: 'browse'
         }
 	  });
